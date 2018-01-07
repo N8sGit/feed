@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import axios from 'axios'
 
 /**
  * COMPONENT
@@ -10,7 +11,7 @@ export const UserHome = (props) => {
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      <h3>Eventually posts will go here</h3>
     </div>
   )
 }
