@@ -11,6 +11,8 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
+const {Post} = require('./db/models')
+
 module.exports = app
 
 /**
@@ -55,6 +57,7 @@ const createApp = () => {
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
 
+
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')))
 
@@ -68,12 +71,49 @@ const createApp = () => {
       next()
     }
   })
+  app.use(function(req, res, next){ 
+    console.log(req.path)
+    console.log('index');
+     
+    next()
+  });
 
+  app.post('/post', function(req, res){
+    console.log('route hit!')
+    console.log(req.body)
+    Post.create(req.body)
+    .then(function (created) {
+        created.content = req.body.text
+      res.json({
+        message: 'post created successfully',
+        info: created
+      });
+      created.save()
+    })
+  })
+
+  app.get('/get', function(req, res){
+    console.log('route entered~')
+    let result = Post.findAll()
+    result
+    .then(function(content){
+        res.json({
+            message: 'These are all the posts',
+            info: content
+        })
+    })
+    .catch(error => console.error(error))
+})
+  
   // sends index.html
   app.use('*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public/index.html'))
   })
 
+  
+
+  
+  
   // error handling endware
   app.use((err, req, res, next) => {
     console.error(err)

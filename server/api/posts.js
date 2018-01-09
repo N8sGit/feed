@@ -2,7 +2,13 @@ const router = require('express').Router()
 const {Post} = require('../db/models')
 module.exports = router
 
-router.get('/', function(req, res){
+
+router.all('/', function(req,res){
+    console.log('nasdidsj')
+})
+
+router.get('/get', function(req, res){
+    console.log('route entered~')
     let result = Post.findAll()
     result
     .then(function(content){

@@ -18,14 +18,16 @@ const getPost = post => ({type: GET_POST, selected: post})
 export const add = (post) =>
     dispatch =>
      axios.post('/post', {text: post})
-      .then(res => {          
+      .then(res => {
+          console.log(res)
+          console.log('this was entered!')
           dispatch(addPost(res.data.text))
       })
       .catch(dispatchAddErr => console.error(dispatchAddErr))
 
 export const get = (post) =>
       dispatch =>
-       axios.post('/', {post})
+       axios.get('/get', {post})
         .then(res => {
             dispatch(getPost(res.data))
         })
