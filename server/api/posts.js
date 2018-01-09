@@ -14,3 +14,16 @@ router.get('/', function(req, res){
     .catch(error => console.error(error))
 })
 
+router.post('/post', function(req, res){
+    console.log('route hit!')
+    console.log(req.body)
+    Post.create(req.body)
+    .then(function (created) {
+        created.content = created.text
+      res.json({
+        message: 'post created successfully',
+        info: created
+      });
+      created.save()
+    })
+  })

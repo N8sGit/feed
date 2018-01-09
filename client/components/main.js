@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {Admin} from '../components'
 /**
  * COMPONENT
  *  The Main component is our 'picture frame' - it displays the navbar and anything
@@ -18,7 +17,6 @@ const Main = (props) => {
         {
 
              <div>
-              {/* The navbar will show these links after you log in */}
               <Link to="/home">Home</Link>
               <Link to="/Admin">Admin</Link>
             </div>

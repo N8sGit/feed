@@ -11,22 +11,22 @@ const initialState = {
 }
 //action creator
 
-const addPost = post => ({type: ADD_POST, post})
-const getPost = post => ({type: GET_POST, post})
+const addPost = post => ({type: ADD_POST, text: post})
+const getPost = post => ({type: GET_POST, selected: post})
 
-//thunk crators
+//thunk creators
 export const add = (post) =>
     dispatch =>
-     axios.post('/add', {post})
-      .then(res => {
-          dispatch(addPost(res.data))
+     axios.post('/post', {text: post})
+      .then(res => {          
+          dispatch(addPost(res.data.text))
       })
       .catch(dispatchAddErr => console.error(dispatchAddErr))
 
 export const get = (post) =>
       dispatch =>
-       axios.post('/get', {post})
-        .then(res =>{
+       axios.post('/', {post})
+        .then(res => {
             dispatch(getPost(res.data))
         })
         .catch(err => console.log(err))
@@ -44,6 +44,6 @@ export default function (state = initialState, action){
              break;
         default:
             return state
-    } 
-    return newState   
+    }
+    return newState
 }
