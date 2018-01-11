@@ -1,19 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import {get} from '.././store/post.js'
 
-/**
- * COMPONENT
- */
-export const UserHome = (props) => {
-  const {email} = props
+export class Home extends React.Component{
 
-  return (
+
+  componentDidMount(){
+     get()
+  }
+
+
+  render(){
+     
+    return (
     <div>
       <h3>Eventually posts will go here</h3>
     </div>
   )
+  }
 }
+
 
 /**
  * CONTAINER
@@ -24,11 +31,19 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState)(UserHome)
+const mapDispatch = (dispatch) => {
+  return {
+    get (response){
+      console.log(response, 'resposne')
+      dispatch(get(response))
+    }
+  }
+}
+export default connect(mapState, mapDispatch)(Home)
 
 /**
  * PROP TYPES
  */
-UserHome.propTypes = {
+Home.propTypes = {
   email: PropTypes.string
 }

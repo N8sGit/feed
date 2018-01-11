@@ -2,34 +2,32 @@ import axios from 'axios'
 //action type
 
 const ADD_POST = 'ADD_POST'
-const GET_POST = 'GET_POST'
+const GET_POSTS = 'GET_POSTS'
 //initial state
 
 const initialState = {
     text: '',
-    selected: {}
+    allPosts: []
 }
 //action creator
 
 const addPost = post => ({type: ADD_POST, text: post})
-const getPost = post => ({type: GET_POST, selected: post})
+const getAllPosts = response => ({type: GET_POSTS, allPosts: response})
 
 //thunk creators
 export const add = (post) =>
     dispatch =>
      axios.post('/post', {text: post})
       .then(res => {
-          console.log(res)
-          console.log('this was entered!')
           dispatch(addPost(res.data.text))
       })
       .catch(dispatchAddErr => console.error(dispatchAddErr))
 
-export const get = (post) =>
+export const get = () =>
       dispatch =>
-       axios.get('/get', {post})
+       axios.get('/get')
         .then(res => {
-            dispatch(getPost(res.data))
+            dispatch(getAllPosts(res.data))
         })
         .catch(err => console.log(err))
 
@@ -41,8 +39,8 @@ export default function (state = initialState, action){
         case ADD_POST:
              newState.text = action.text;
              break;
-        case GET_POST:
-             newState.selected = action.selected;
+        case GET_POSTS:
+             newState.allPosts = [...action.allPosts];
              break;
         default:
             return state
