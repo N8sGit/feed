@@ -8,7 +8,6 @@ router.all('/', function(req,res){
 })
 
 router.get('/get', function(req, res){
-    console.log('route entered~')
     let result = Post.findAll()
     result
     .then(function(content){
@@ -21,8 +20,6 @@ router.get('/get', function(req, res){
 })
 
 router.post('/post', function(req, res){
-    console.log('route hit!')
-    console.log(req.body)
     Post.create(req.body)
     .then(function (created) {
         created.content = created.text

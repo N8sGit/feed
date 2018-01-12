@@ -1,49 +1,43 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {get} from '.././store/post.js'
+import {getAllPosts} from '.././store/post.js'
+import axios from 'axios'
+/**
+ * COMPONENT
+ */
+export const Home = (props) => {
+  const {posts} = props
 
-export class Home extends React.Component{
 
-
-  componentDidMount(){
-     get()
-  }
-
-
-  render(){
-     
-    return (
+  console.log(posts, Array.isArray(posts))
+  return (
     <div>
       <h3>Eventually posts will go here</h3>
+      {posts.map(function(value){
+        return <p>{value.content}</p>
+      })}
     </div>
   )
-  }
 }
-
 
 /**
  * CONTAINER
  */
 const mapState = (state) => {
   return {
-    email: state.user.email
+    posts: state.post.allPosts
   }
 }
 
 const mapDispatch = (dispatch) => {
-  return {
-    get (response){
-      console.log(response, 'resposne')
-      dispatch(get(response))
-    }
-  }
-}
+  return ( dispatch =>
+   axios.get('/get')
+    .then(res => {
+        dispatch(getAllPosts(res.data.info))
+    })
+    .catch(err => console.log(err)))
+   }
+
 export default connect(mapState, mapDispatch)(Home)
 
-/**
- * PROP TYPES
- */
-Home.propTypes = {
-  email: PropTypes.string
-}

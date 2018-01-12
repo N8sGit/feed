@@ -12,7 +12,7 @@ const initialState = {
 //action creator
 
 const addPost = post => ({type: ADD_POST, text: post})
-const getAllPosts = response => ({type: GET_POSTS, allPosts: response})
+export const getAllPosts = response => ({type: GET_POSTS, allPosts: response})
 
 //thunk creators
 export const add = (post) =>
@@ -40,7 +40,7 @@ export default function (state = initialState, action){
              newState.text = action.text;
              break;
         case GET_POSTS:
-             newState.allPosts = [...action.allPosts];
+             newState.allPosts = action.allPosts;
              break;
         default:
             return state

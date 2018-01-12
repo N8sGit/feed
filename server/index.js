@@ -79,8 +79,6 @@ const createApp = () => {
   });
 
   app.post('/post', function(req, res){
-    console.log('route hit!')
-    console.log(req.body)
     Post.create(req.body)
     .then(function (created) {
         created.content = req.body.text
@@ -93,7 +91,6 @@ const createApp = () => {
   })
 
   app.get('/get', function(req, res){
-    console.log('route entered~')
     let result = Post.findAll()
     result
     .then(function(content){
@@ -131,7 +128,7 @@ const startListening = () => {
   require('./socket')(io)
 }
 
-const syncDb = () => db.sync({force: true})
+const syncDb = () => db.sync({})
 
 // This evaluates as true when this file is run directly from the command line,
 // i.e. when we say 'node server/index.js' (or 'nodemon server/index.js', or 'nodemon server', etc)
