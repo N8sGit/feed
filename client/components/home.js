@@ -3,16 +3,17 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {getAllPosts} from '.././store/post.js'
 import axios from 'axios'
+import {Sidebar} from '../components'
 /**
  * COMPONENT
  */
 export const Home = (props) => {
   const {posts} = props
 
-
-  console.log(posts, Array.isArray(posts))
+ 
   return (
     <div>
+      <Sidebar />
       <h3>Eventually posts will go here</h3>
       {posts.map(function(value){
         return <p>{value.content}</p>

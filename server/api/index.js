@@ -11,10 +11,9 @@ router.use((req, res, next) => {
 
 router.use('/posts', require('./posts'))
 
-router.use(function(req, res, next){ 
+router.use(function(req, res, next){
   console.log(req.path)
-  console.log('something');
-   
+
   next()
 });
 router.use((req, res, next) => {
