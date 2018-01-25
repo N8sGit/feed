@@ -3,7 +3,7 @@ const db = require('../db')
 
 const Category = db.define('category_entries', {
     postId: {
-        type: Sequelize.UUID,
+        type: Sequelize.STRING,
         allowNull: false
     },
 

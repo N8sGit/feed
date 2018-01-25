@@ -4,12 +4,11 @@ const db = require('../db')
 const Post = db.define('post', {
     content: {
         type: Sequelize.TEXT,
-        allowNull: false
+        defaultValue: ''
     },
 
     date: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.DATE
     },
 
     title: {

@@ -10,13 +10,15 @@ import {Sidebar} from '../components'
 export const Home = (props) => {
   const {posts} = props
 
- 
+
   return (
     <div>
       <Sidebar />
       <h3>Eventually posts will go here</h3>
       {posts.map(function(value){
-        return <p>{value.content}</p>
+        return (<div key={value.id}>
+          <h1 >{value.title}</h1>
+          <p>{value.content}</p> </div>)
       })}
     </div>
   )

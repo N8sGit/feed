@@ -3,9 +3,9 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Home, Admin, Sidebar, singleView } from './components'
+import {Main, Home, Admin, Sidebar} from './components'
 import {me} from './store'
-
+import { CategoryView } from './components/categoryView';
 /**
  * COMPONENT
  */
@@ -23,9 +23,9 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are available to all visitors */}
             <Route path="/home" component={Home} />
-            <Route path="sideBar" component={Sidebar} />
-            <Route path="singleView" component= {singleView} />
-            <Route path="/admin" component={Admin} />
+            <Route path="/sideBar" component={Sidebar} />
+            <Route path="/admin" component= {Admin} />
+            <Route path="/categoryView" component={CategoryView} />
           </Switch>
         </Main>
       </Router>
