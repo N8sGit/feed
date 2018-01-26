@@ -5,10 +5,8 @@ import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Home, Admin, Sidebar} from './components'
 import {me} from './store'
-import { CategoryView } from './components/categoryView';
-/**
- * COMPONENT
- */
+import CategoryView from './components/categoryView';
+
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
@@ -16,7 +14,6 @@ class Routes extends Component {
 
   render () {
     const {isLoggedIn} = this.props
-
     return (
       <Router history={history}>
         <Main>
