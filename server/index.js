@@ -11,6 +11,8 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
+const {Post, Category} = require('./db/models')
+
 module.exports = app
 
 /**
@@ -55,6 +57,7 @@ const createApp = () => {
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
 
+
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')))
 
@@ -68,13 +71,74 @@ const createApp = () => {
       next()
     }
   })
+  app.use(function(req, res, next){
+    console.log(req.path)
+     next()
+  });
+
+  app.post('/post', function(req, res){
+    Post.create(req.body)
+    .then(function (created) {
+        created.content = req.body.text
+        created.title = req.body.title
+      res.json({
+        message: 'post created successfully',
+        info: created
+      });
+      created.save()
+    })
+  })
+
+  app.post('/categories', function(req, res){
+    console.log('route entered')
+    Category.create(req.body)
+    .then(function(created){
+      created.postId = req.body.postId
+      created.category = req.body.category
+      res.json({
+        message: 'category association made',
+        info: created
+      });
+      created.save()
+    })
+  })
+
+app.put('/update/:postId', function(req, res){
+  Post.findById(req.params.postId)
+    .then(post => {
+      post.content = req.body.content
+      post.save()
+      .then(res.json({post: post, message: 'post updated'})
+      )
+    })
+    .catch(error => {
+      console.log(error)
+    })
+
+})
+
+
+  app.get('/get', function(req, res){
+    let result = Post.findAll()
+    result
+    .then(function(content){
+        res.json({
+            message: 'These are all the posts',
+            info: content
+        })
+    })
+    .catch(error => console.error(error))
+})
+
+app.get('/getByCat/:category', function(req, res){
+  console.log(req.params)
+})
 
   // sends index.html
   app.use('*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public/index.html'))
   })
-
-  // error handling endware
+ // error handling endware
   app.use((err, req, res, next) => {
     console.error(err)
     console.error(err.stack)
@@ -91,7 +155,7 @@ const startListening = () => {
   require('./socket')(io)
 }
 
-const syncDb = () => db.sync()
+const syncDb = () => db.sync({})
 
 // This evaluates as true when this file is run directly from the command line,
 // i.e. when we say 'node server/index.js' (or 'nodemon server/index.js', or 'nodemon server', etc)
