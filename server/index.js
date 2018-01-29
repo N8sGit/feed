@@ -117,8 +117,7 @@ app.put('/update/:postId', function(req, res){
 
 })
 
-
-  app.get('/get', function(req, res){
+app.get('/get', function(req, res){
     let result = Post.findAll()
     result
     .then(function(content){
@@ -131,7 +130,17 @@ app.put('/update/:postId', function(req, res){
 })
 
 app.get('/getByCat/:category', function(req, res){
-  console.log(req.params)
+  Category.findAll({where: {category: req.params.category} })
+  .then(function(association){
+    let postData = [];
+    association.map(function(item){
+      postData.push(item.postId)
+    })
+    Post.findAll({where: {id: postData}})
+    .then(function(posts){
+      res.json({message: 'these are all the posts associated with that category', info: posts})
+    })
+  })
 })
 
   // sends index.html
