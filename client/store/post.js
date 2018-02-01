@@ -56,9 +56,7 @@ export default function (state = initialState, action){
             newState.selectedCategory = action.selectedCategory;
              break;
         case GET_POSTS_BY_CAT:
-        console.log(newState.categoryPosts, 'new state');
         newState.categoryPosts = action.categoryPosts;
-
             break;
         default:
             return state

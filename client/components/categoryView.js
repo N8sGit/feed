@@ -19,7 +19,8 @@ class CategoryView extends React.Component{
        let postsDisplay = this.props.posts
     return (
         <div>
-        {postsDisplay.map(function(post){
+        {!postsDisplay.length ? <p>There are no posts here yet, but there will be soon!</p> : 
+            postsDisplay.map(function(post){
                 return(
                     <div key={post.id}>
                         <h1>{post.title}</h1>
@@ -36,7 +37,6 @@ class CategoryView extends React.Component{
 
 const mapStatetoProps = (state, ownProps) => {
     return {
-        category: state.post.selectedCategory,
         posts: state.post.categoryPosts,
         categoryId: ownProps.match.params
     }
