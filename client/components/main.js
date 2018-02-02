@@ -18,7 +18,8 @@ const Main = (props) => {
 
              <div>
               <Link to="/home">Home</Link>
-              <Link to="/Admin">Admin</Link>
+              <Link to="/admin">Admin</Link>
+              <Link to="/about">About </Link>
             </div>
         }
       </nav>

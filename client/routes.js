@@ -3,9 +3,11 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Home, Admin, Sidebar} from './components'
+import {Main, Home, Admin, Sidebar, About} from './components'
 import {me} from './store'
 import CategoryView from './components/categoryView';
+
+console.log(About, 'abou')
 
 class Routes extends Component {
   componentDidMount () {
@@ -21,6 +23,7 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route path="/home" component={Home} />
             <Route path="/sideBar" component={Sidebar} />
+            <Route path="/about" component={About} />
             <Route path="/admin" component= {Admin} />
             <Route path="/categoryView/:name" component={CategoryView} />
           </Switch>
