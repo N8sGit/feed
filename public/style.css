@@ -19,3 +19,10 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+#navlist li
+{
+display: inline-block;
+list-style-type: none;
+padding-right: 20px;
+}

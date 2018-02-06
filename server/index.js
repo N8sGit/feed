@@ -138,10 +138,35 @@ app.get('/getByCat/:category', function(req, res){
     })
     Post.findAll({where: {id: postData}})
     .then(function(posts){
-      res.json({message: 'these are all the posts associated with that category', info: posts})
-    })
+      let data = []
+      for (let i = 0; i < posts.length; i++){
+        data[i] = { id: posts[i].id, tags: []}
+      }
+    Category.findAll({where: {postId: postData}})
+      .then(function(result){
+        result.map(function(value){
+        let index = data.findIndex(i => i.id == value.postId);
+        data[index].tags.push( '#' + value.category)
+        })
+      })
+        .then(function(){
+          res.json({message: 'these are all the posts associated with that category', info: posts, categories: data})
+        })
+          .catch(err => console.error(err))
+      })
   })
 })
+
+// app.get('/getCatsById/:id', function(req,res){
+//     Category.findAll({where: {postId: req.params.id} })
+//     .then(function(association){
+//       let categoryNames = []
+//       association.map(function(item){
+//         categoryNames.push('#' + item.category)
+//         res.json({message: 'these are categories associated with that post', info: categoryNames})
+//       })
+//     })
+// })
 
   // sends index.html
   app.use('*', (req, res) => {

@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom';
 import store from '.././store'
 import {getCategory} from '.././store/post.js'
 import * as data from './checkboxData.js'
-import { technology_and_politics } from './checkboxData.js';
-  
+
+
 export const Sidebar = () => {
   return (
     <div>

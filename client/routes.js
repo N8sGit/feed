@@ -7,8 +7,6 @@ import {Main, Home, Admin, Sidebar, About} from './components'
 import {me} from './store'
 import CategoryView from './components/categoryView';
 
-console.log(About, 'abou')
-
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()

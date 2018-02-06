@@ -14,7 +14,6 @@ export const Home = (props) => {
   return (
     <div>
       <Sidebar />
-      <h3>Eventually posts will go here</h3>
       {posts.map(function(value){
         return (<div key={value.id}>
           <h1 >{value.title}</h1>
