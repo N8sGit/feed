@@ -55,7 +55,7 @@ export const Sidebar = () => {
       </section>
       <section>
         <h4 className="menu-item">
-          <Link to="/categoryView/miscellaneous_musings" onClick ={store.dispatch(getCategory(data.miscellaneous_musings))}>Miscellaneous Musings</Link>
+          <Link to="/categoryView/miscellaneous_musings" onClick ={store.dispatch(getCategory(data.misc))}>Miscellaneous</Link>
         </h4>
       </section>
     </div>

@@ -14,8 +14,17 @@ class CategoryView extends React.Component{
       .catch(err => console.log(err))
     }
 
+    formatDate(time){
+        let yearMonthDate = time.slice(0, time.indexOf('T'))
+        let year = yearMonthDate.slice(0,4)
+        let month = yearMonthDate.slice(5, 7)
+        let date = yearMonthDate.slice(8)
+        let months = { '01': 'Jan', '02': 'Feb', '03': 'Mar', '04' : 'Apr', '05': 'May', '06' :'June', '07': 'July','08': 'Aug', '09': 'Sep', '10': 'Oct', '11': 'Nov', '12': 'Dec'}
+        return `Published on ${months[month]} ${date}, ${year}`
+     }
+
    render(){
-       console.log(this.props)
+       console.log(this.props.posts, 'hello!>!>>!>!>')
        let postsDisplay = this.props.posts
        let categoryDisplay = this.props.categories
     return (
@@ -26,6 +35,7 @@ class CategoryView extends React.Component{
                     <div key={post.id}>
                         <h1>{post.title}</h1>
                         <p>{post.content}</p>
+                        <p>{formatDate(post.createdAt)}</p>
                         <div id="navcontainer">
                             <ul id="navlist">
                             {categoryDisplay[index].tags.map(function(category){

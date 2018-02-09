@@ -23,7 +23,6 @@ const addPost = (post, title) => ({type: ADD_POST, text: post, title: title})
 export const getAllPosts = posts => ({type: GET_POSTS, allPosts: posts})
 export const getCategory = category => ({type: GET_CATEGORY, selectedCategory: category })
 export const getCategoryPosts = (posts, categories) => ({type: GET_POSTS_BY_CAT, categoryPosts: posts, allCategories: categories})
-//export const getAllCategories = categories => ({type: GET_CATS_BY_ID, allCategories: categories})
 
 //thunk creators
 export const add = (post, title) =>

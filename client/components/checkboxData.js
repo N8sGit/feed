@@ -11,5 +11,5 @@ export const cognitive_science = 'cognitive_science'
 export const technical_posts = 'technical_posts'
 export const philosophy = 'philosophy'
 export const software_industry = 'software_industry'
-export const miscellaneous_musings = 'miscellaneous_musings'
+export const misc = 'misc'
 
