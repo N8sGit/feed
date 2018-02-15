@@ -20,7 +20,7 @@ const initialState = {
 //action creator
 
 const addPost = (post, title) => ({type: ADD_POST, text: post, title: title})
-export const getAllPosts = posts => ({type: GET_POSTS, allPosts: posts})
+export const getAllPosts = (posts, categories) => ({type: GET_POSTS, allPosts: posts, allCategories: categories})
 export const getCategory = category => ({type: GET_CATEGORY, selectedCategory: category })
 export const getCategoryPosts = (posts, categories) => ({type: GET_POSTS_BY_CAT, categoryPosts: posts, allCategories: categories})
 
@@ -52,7 +52,8 @@ export default function (state = initialState, action){
              break;
         case GET_POSTS:
              newState.allPosts = action.allPosts;
-             newState.allTitles = action.allTitles
+             newState.allTitles = action.allTitles;
+             newState.allCategories = action.allCategories;
              break;
         case GET_CATEGORY:
             newState.selectedCategory = action.selectedCategory;

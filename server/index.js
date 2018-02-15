@@ -45,7 +45,7 @@ const createApp = () => {
 
   // session middleware with passport
   app.use(session({
-    secret: process.env.SESSION_SECRET || 'my best friend is Cody',
+    secret: process.env.SESSION_SECRET || 'my best friend is Jon',
     store: sessionStore,
     resave: false,
     saveUninitialized: false
@@ -119,15 +119,42 @@ app.put('/update/:postId', function(req, res){
 
 
 app.get('/get', function(req, res){
-   Post.findAll()
-    .then(function(content){
-        res.json({
-            message: 'These are all the posts',
-            info: content
-        })
+  let postIds, categoryData, packet
+  Post.findAll()
+  .then(function(posts){
+    postIds = posts.map((value) => {return value.id.toString()})
+     categoryData = [];
+
+    for (let i = 0; i < posts.length; i++){
+      categoryData[i] = { id: posts[i].id, tags: []}
+    }
+
+     packet = {posts, postIds, categoryData}
+    return packet
+  })
+    .then(function(result){
+      console.log(result, 'well')
+      console.log(packet.postIds)
+      return Category.findAll({where: { postId: packet.postIds}})
     })
-    .catch(error => console.error(error))
+     .then(function(cats){
+          cats.map(function(value){
+            let index = packet.categoryData.findIndex(i => i.id == value.postId);
+            packet.categoryData[index].tags.push( '#' + value.category)
+            })
+        })
+        .then(function(){
+          let posts = packet.posts;
+          let categoryData = packet.categoryData
+          res.json({message: 'here are all posts', info: posts, categories: categoryData })
+        })
+        .catch(error => console.error(error))
 })
+
+
+//Find all posts
+//Then, using the ids of those posts, find the matching post ids for the categories
+//attach those categories to an object
 
 app.get('/getByCat/:category', function(req, res){
   Category.findAll({where: {category: req.params.category} })
@@ -145,7 +172,7 @@ app.get('/getByCat/:category', function(req, res){
     Category.findAll({where: {postId: postData}})
       .then(function(result){
         result.map(function(value){
-        let index = data.findIndex(i => i.id == value.postId);
+        let index = data.findIndex(i => Number(i.id) === Number(value.postId));
         data[index].tags.push( '#' + value.category)
         })
       })
