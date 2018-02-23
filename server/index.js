@@ -133,8 +133,6 @@ app.get('/get', function(req, res){
     return packet
   })
     .then(function(result){
-      console.log(result, 'well')
-      console.log(packet.postIds)
       return Category.findAll({where: { postId: packet.postIds}})
     })
      .then(function(cats){
@@ -151,11 +149,18 @@ app.get('/get', function(req, res){
         .catch(error => console.error(error))
 })
 
-
-//Find all posts
-//Then, using the ids of those posts, find the matching post ids for the categories
-//attach those categories to an object
-
+app.get('/getById/:id', function(req, res){
+  let categories = []
+  Category.findAll({where:{postId: req.params.id}})
+    .then(function(result){
+      result.forEach((value) => categories.push(value.category))
+    })
+      .then(function(){
+        res.json({message:'categories sent', allCategories: categories})
+      })
+    
+})
+//REFACTOR THIS AT SOME POINT, IT DOESN'T UTILIZE PROMISE CHAINING
 app.get('/getByCat/:category', function(req, res){
   Category.findAll({where: {category: req.params.category} })
   .then(function(association){

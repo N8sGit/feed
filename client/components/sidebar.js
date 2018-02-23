@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import store from '.././store'
 import {getCategory} from '.././store/post.js'
-import * as data from './checkboxData.js'
+import * as data from './checkboxConstants.js'
 
 
 export const Sidebar = () => {

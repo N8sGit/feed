@@ -10,8 +10,7 @@ import {Sidebar} from '../components'
 export const Home = (props) => {
   const {posts, categories} = props
   let categoryDisplay = categories
-  console.log(props,'props, categories should be properly')
-  console.log(props.posts, 'hello')
+  
   function formatDate(time){
     let yearMonthDate = time.slice(0, time.indexOf('T'))
     let year = yearMonthDate.slice(0,4)

@@ -1,6 +1,3 @@
-// In the present implementation the position of this data is important and brittle, changing it will alter where data is sent creating issues
-//related to the sidebar!
-
 export const internet_culture = 'internet_culture'
 export const digital_economics = 'digital_economics'
 export const technology_and_politics ='technology_and_politics'

@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
 
 class Checkbox extends Component {
-  state = {
-    isChecked: false,
+  constructor(props){
+  super(props)
+  this.state = {
+    isChecked: false
   }
+}
 
-  toggleCheckboxChange = () => {
+componentWillReceiveProps = (newProps) => {
+ this.setState((isChecked) => (
+    {
+      isChecked: newProps.boxStatus
+    }
+    ));
+  
+}
+
+toggleCheckboxChange = () => {
     const { handleCheckboxChange, label } = this.props;
 
     this.setState(({ isChecked }) => (
@@ -15,12 +27,12 @@ class Checkbox extends Component {
     ));
 
     handleCheckboxChange(label);
-  }
+}
 
   render() {
+    
     const { label } = this.props;
     const { isChecked } = this.state;
-
     return (
       <div className="checkbox">
         <label>
