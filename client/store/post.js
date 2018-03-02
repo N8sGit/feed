@@ -16,7 +16,6 @@ const initialState = {
     categoryPosts: [],
     allTitles: [],
     allCategories: [],
-    boxStatus : false
 }
 //action creator
 
@@ -51,9 +50,10 @@ export default function (state = initialState, action){
              newState.title = action.title;
              break;
         case GET_POSTS:
+             newState.allCategories = action.allCategories;
              newState.allPosts = action.allPosts;
              newState.allTitles = action.allTitles;
-             newState.allCategories = action.allCategories;
+             console.log(newState.allCategories, 'all cats')
              break;
         case GET_CATEGORY:
             newState.selectedCategory = action.selectedCategory;
@@ -64,6 +64,7 @@ export default function (state = initialState, action){
         case GET_POSTS_BY_CAT:
         newState.categoryPosts = action.categoryPosts;
         newState.allCategories = action.allCategories;
+        console.log(newState.allCategories,' all cats')
              break;
         default:
             return state

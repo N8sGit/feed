@@ -156,7 +156,7 @@ app.get('/getById/:id', function(req, res){
       result.forEach((value) => categories.push(value.category))
     })
       .then(function(){
-        res.json({message:'categories sent', allCategories: categories})
+        res.json({message:'categories sent', allCategoriesHome: categories})
       })
     
 })
