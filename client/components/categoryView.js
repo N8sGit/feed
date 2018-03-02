@@ -18,7 +18,6 @@ class CategoryView extends React.Component{
    render(){
        let postsDisplay = this.props.posts
        let categoryDisplay = this.props.categories
-       console.log(categoryDisplay, 'categoryDisplay in catview')
     return (
         <div>
         {!postsDisplay.length ? <p>There are no posts here yet, but there will be soon!</p> :

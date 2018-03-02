@@ -36,7 +36,7 @@ class  Home extends React.Component{
           <p>{formatDate(post.createdAt)}</p>
           <div id="navcontainer">
                             <ul id="navlist">
-                            {categoryDisplay.length !== posts.length ? <p>" "</p> : categoryDisplay[index].tags.map(function(category){
+                            {categoryDisplay.length !== posts.length ? <p>{''}</p> : categoryDisplay[index].tags.map(function(category){
                                 return <li key={post.id}>{category}</li>
                             })}
                             </ul>
