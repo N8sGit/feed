@@ -6,6 +6,7 @@ import store from '.././store'
 import axios from 'axios'
 import {Sidebar} from '../components'
 import {formatDate} from '../helperFunctions'
+import ReadMore from './readMore'
 /**
  * COMPONENT
  */
@@ -32,7 +33,7 @@ class  Home extends React.Component{
       {posts.map(function(post, index){
         return (<div key={post.id}>
           <h1 >{post.title}</h1>
-          <p>{post.content}</p>
+          <ReadMore children={post.content} />
           <p>{formatDate(post.createdAt)}</p>
           <div id="navcontainer">
                             <ul id="navlist">
