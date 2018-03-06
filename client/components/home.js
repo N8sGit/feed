@@ -24,8 +24,6 @@ class  Home extends React.Component{
    render(){
     const {posts, categories} = this.props
     let categoryDisplay = categories
-  console.log(categoryDisplay, 'categoryDisplay')
-  console.log(posts, 'posts')
 
   return (
     <div>
