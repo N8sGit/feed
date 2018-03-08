@@ -1,5 +1,9 @@
 import React from 'react'
 import ReactQuill from 'react-quill'
+import axios from 'axios'
+import store from '.././store'
+import {add} from '.././store/post.js'
+
 /*
  * Simple editor component that takes placeholder text as a prop
  */
@@ -13,12 +17,15 @@ export default class Editor extends React.Component {
     handleChange (html) {
         this.setState({ editorHtml: html });
     }
-
+    
     render () {
         console.log(this.props, 'editor props')
+        console.log(this.state.editorHtml, 'editor html')
       return (
+    <form>
         <div id="editor">
           <ReactQuill
+            ref={(quillNode) => { this.quillNode = quillNode; }}
             theme={this.state.theme}
             onChange={this.handleChange}
             value={this.state.editorHtml}
@@ -28,6 +35,15 @@ export default class Editor extends React.Component {
             placeholder={this.props.placeholder}
            />
         </div>
+        <button
+            className="field adminButton" type="button"  onClick={ () => {
+               let editor = this.quillNode.getEditor()
+               let text = editor.getText()
+               store.dispatch(add(text, this.props.title))
+                }}>
+                    POST
+        </button>
+    </form>
        )
     }
   }
