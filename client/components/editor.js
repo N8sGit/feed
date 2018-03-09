@@ -49,6 +49,15 @@ export default class Editor extends React.Component {
                 }}>
                     POST
         </button>
+        <button
+            className="field adminButton" type="button"  onClick={ () => {
+                let editor = this.quillNode.getEditor()
+                let text = editor.getText()
+                    axios.put(`/update/${this.props.selectedId}`, {content: text})
+                }}>
+                    Edit Text
+        </button>
+
     </form>
        )
     }

@@ -45,10 +45,19 @@ padding-right: 20px;
 }
 
 .adminButton{
-  float: right
+  float: right;
+  margin-top: -8px
+}
+
+#titleInput{
+  position: absolute;
+  left:125px;
+  margin-top: 1pc;
 }
 
 #titleDisplay{
-  top: 10px;
-  float:right; 
+  top: -200px;
+  float:right;
+  position: relative; 
+  margin-left: 25%
 }
