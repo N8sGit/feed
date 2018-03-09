@@ -14,10 +14,16 @@ export default class Editor extends React.Component {
       this.handleChange = this.handleChange.bind(this)
     }
 
+    componentWillReceiveProps (newProps){
+        if (newProps.text !== this.props.text){
+            this.setState({editorHtml: newProps.text})
+        }
+    }
+
     handleChange (html) {
         this.setState({ editorHtml: html });
     }
-    
+
     render () {
         console.log(this.props, 'editor props')
         console.log(this.state.editorHtml, 'editor html')
