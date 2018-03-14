@@ -64,7 +64,7 @@ class ReadMore extends Component {
 }
 
 ReadMore.defaultProps = {
-    lines: 4,
+    lines: 5,
     more: 'Read more',
     less: 'Show less'
 };

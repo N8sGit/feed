@@ -12,37 +12,46 @@ import ReadMore from './readMore'
  */
 
 class  Home extends React.Component{
-  
+
   componentDidMount = () => {
     axios.get('/get')
     .then(res => {
         store.dispatch(getAllPosts(res.data.info, res.data.categories))
     })
     .catch(err => console.log(err))
+
+      //#element          css style property    value
+    //  $('body:before').css({backgroundImage: 'linear-gradient(to top, #a8edea 0%, #fed6e3 100%)'})
    }
-  
+
    render(){
     const {posts, categories} = this.props
     let categoryDisplay = categories
 
   return (
-    <div>
+  <div>
       <Sidebar />
-      {posts.map(function(post, index){
-        return (<div key={post.id}>
-          <h1 >{post.title}</h1>
-          <ReadMore children={post.content} />
-          <p>{formatDate(post.createdAt)}</p>
-          <div id="navcontainer">
-                            <ul id="navlist">
-                            {categoryDisplay.length !== posts.length ? <p>{''}</p> : categoryDisplay[index].tags.map(function(category){
-                                return <li key={post.id}>{category}</li>
-                            })}
-                            </ul>
-                        </div>
-          </div>)
-      })}
+      <div className="posts-container">
+        <div className="posts">
+        {posts.map(function(post, index){
+          return (<div className="post" key={post.id}>
+            <h1 >{post.title}</h1>
+            <ReadMore children={post.content} />
+
+            <div className="post-data">
+            <p>{formatDate(post.createdAt)}</p>
+                              <ul className="post-data-list">
+                              {categoryDisplay.length !== posts.length ? <p>{''}</p> : categoryDisplay[index].tags.map(function(category){
+                                  return <div key={post.id}>{category}</div>
+                              })}
+                              </ul>
+                          </div>
+            </div>)
+
+        })}
+      </div>
     </div>
+  </div>
   )
   }
 }

@@ -19,18 +19,20 @@ class CategoryView extends React.Component{
        let postsDisplay = this.props.posts
        let categoryDisplay = this.props.categories
     return (
-        <div>
+    <div className="posts-container">
+        <div className="posts">
         {!postsDisplay.length ? <p>There are no posts here yet, but there will be soon!</p> :
             postsDisplay.map(function(post, index){
                 return (
-                    <div key={post.id}>
+                    <div className="post" key={post.id}>
                         <h1>{post.title}</h1>
                         <p>{post.content}</p>
+                       
+                        <div className="post-data">
                         <p>{formatDate(post.createdAt)}</p>
-                        <div id="navcontainer">
-                            <ul id="navlist">
+                            <ul className="post-data-list">
                             {categoryDisplay[index].tags.map(function(category){
-                                return <li key={post.id}>{category}</li>
+                                return <div key={post.id}>{category}</div>
                             })}
                             </ul>
                         </div>
@@ -39,6 +41,7 @@ class CategoryView extends React.Component{
             })
         }
         </div>
+    </div>
         )
     }
 

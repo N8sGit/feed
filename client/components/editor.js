@@ -25,8 +25,6 @@ export default class Editor extends React.Component {
     }
 
     render () {
-        console.log(this.props, 'editor props')
-        console.log(this.state.editorHtml, 'editor html')
       return (
     <form>
         <div id="editor">

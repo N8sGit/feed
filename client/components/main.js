@@ -10,25 +10,44 @@ import { loadavg } from 'os';
  *  rendered out by the component's `children`.
  */
 
-const Main = (props) => {
-  const {children, handleClick } = props
-  return (
-    <div>
-      <h1>Nate's Blog</h1>
-      <nav>
-        {
+class Main extends React.Component{
 
-             <div>
+  constructor(props){
+    super(props)
+    this.state = {loaded:false}
+  }
+
+  componentWillMount(){
+
+    $(window).on('load', ()=> {
+      this.setState({loaded: true})
+      console.log('...')
+      // $('#loading').css('background-color', 'rgba(0,0,0,0)');
+    })
+  }
+  render(){
+    let {children, handleClick } = this.props
+
+    console.log(children)
+    return (
+      <div id="top">
+          <div id="loading" style={{opacity: this.state.loaded ? 0 : 1, zIndex: this.state.loaded ? '-100' : '100'}}> 
+            <i className="fa fa-spinner fa-pulse"></i>
+        </div>
+        <div id="root">
+          <h1>Nate's Blog</h1>
+          <nav id="navbar">
+            <div className="nav-links">
               <Link to="/home">Home</Link>
               <Link to="/admin">Admin</Link>
               <Link to="/about">About </Link>
             </div>
-        }
-      </nav>
-      <hr />
-      {children}
-    </div>
-  )
+          </nav>
+          <hr />
+          {children}
+        </div>
+      </div>)
+  }
 }
 
 /**

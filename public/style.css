@@ -1,5 +1,108 @@
-body {
+#top {
   font-family: sans-serif;
+  background-color: whitesmoke;
+  background-image: linear-gradient(to top, #d5dee7 0%, #ffafbd 0%, #c9ffbf 100%);
+  background-size:100%;
+  z-index:100;
+  display:inline-block;
+  position: relative;
+  width:100%;
+}
+
+body{
+  margin:0px;
+}
+
+#top::before{
+  background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+  opacity:0;
+  content:'';
+  height:100%;
+  position: absolute;
+  width:100%;
+  z-index:-100;
+  transition:opacity 20s;
+  top:0;
+  left:0;
+  display: block;
+}
+
+#top:hover::before{
+  opacity:1;
+}
+
+#loading{
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: lightcoral;
+  overflow-x: hidden;
+  transition: opacity 1s, z-index 2s;
+  text-align: center;
+
+}
+.fa.fa-spinner.fa-pulse{
+  font-size: 100px;
+  margin-top:20%;
+  color:black;
+}
+
+#root{
+  padding-left: 15%;
+  padding-right: 15%;
+
+}
+
+#root::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+#sidebar-container{
+  float: left;
+  width: 20%;
+}
+
+.section{
+  padding-top: 8px;
+  font-size: 15px;
+}
+
+a{
+  color: lightcoral;
+}
+
+.posts-container{
+  width: 80%;
+  float:left;
+}
+
+.posts{
+  padding-left: 8%;
+}
+
+.post{
+  padding-bottom: 5%
+}
+
+.post > h1{
+  font-size: 19px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.post-data-list{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.post-data-list > div{
+ font-size: 15px;
+ padding: 5px;
+ margin:3px;
+ background-color: lightcoral;
 }
 
 a {
@@ -12,7 +115,9 @@ label {
 
 nav a {
   display: inline-block;
-  margin: 1em;
+  padding: 30px;
+  padding-left:0px;
+  padding-bottom: 0px;
 }
 
 form div {

@@ -11,7 +11,7 @@ ReactDOM.render(
 <div>
   <Provider store={store}>
     <Routes />
-  </Provider>,
+  </Provider>
 </div>,
   document.getElementById('app')
 )
