@@ -4,6 +4,8 @@ import axios from 'axios'
 import {getCategoryPosts} from '.././store/post.js'
 import store from '.././store'
 import {formatDate} from '../helperFunctions'
+import * as data from './checkboxConstants'
+import {Link} from 'react-router-dom'
 
 class CategoryView extends React.Component{
 
@@ -32,7 +34,8 @@ class CategoryView extends React.Component{
                         <p>{formatDate(post.createdAt)}</p>
                             <ul className="post-data-list">
                             {categoryDisplay[index].tags.map(function(category){
-                                return <div key={post.id}>{category}</div>
+                                let categoryLink = category.slice(1)
+                                return <div key={post.id}> <Link className="linktext" to={`/categoryView/${categoryLink}`}> {category} </Link> </div>
                             })}
                             </ul>
                         </div>

@@ -21,8 +21,6 @@ class Main extends React.Component{
 
     $(window).on('load', ()=> {
       this.setState({loaded: true})
-      console.log('...')
-      // $('#loading').css('background-color', 'rgba(0,0,0,0)');
     })
   }
   render(){
@@ -37,13 +35,13 @@ class Main extends React.Component{
         <div id="root">
           <h1>Nate's Blog</h1>
           <nav id="navbar">
+          <i className="fas fa-gem"></i>
             <div className="nav-links">
               <Link to="/home">Home</Link>
               <Link to="/admin">Admin</Link>
               <Link to="/about">About </Link>
             </div>
           </nav>
-          <hr />
           {children}
         </div>
       </div>)

@@ -7,6 +7,8 @@ import axios from 'axios'
 import {Sidebar} from '../components'
 import {formatDate} from '../helperFunctions'
 import ReadMore from './readMore'
+import {Link} from 'react-router-dom'
+import * as data from './checkboxConstants'
 /**
  * COMPONENT
  */
@@ -19,9 +21,6 @@ class  Home extends React.Component{
         store.dispatch(getAllPosts(res.data.info, res.data.categories))
     })
     .catch(err => console.log(err))
-
-      //#element          css style property    value
-    //  $('body:before').css({backgroundImage: 'linear-gradient(to top, #a8edea 0%, #fed6e3 100%)'})
    }
 
    render(){
@@ -42,8 +41,10 @@ class  Home extends React.Component{
             <p>{formatDate(post.createdAt)}</p>
                               <ul className="post-data-list">
                               {categoryDisplay.length !== posts.length ? <p>{''}</p> : categoryDisplay[index].tags.map(function(category){
-                                  return <div key={post.id}>{category}</div>
-                              })}
+                                console.log(category, 'category')
+                                  let categoryLink = category.slice(1)
+                                  return <div key={post.id}> <Link className="linktext" to={`/categoryView/${categoryLink}`}> {category} </Link> </div>
+                                  })}
                               </ul>
                           </div>
             </div>)

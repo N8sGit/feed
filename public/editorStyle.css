@@ -27,6 +27,7 @@
     padding: 0;
   }
   .ql-editor {
+    background: white;
     box-sizing: border-box;
     cursor: text;
     line-height: 1.42;
@@ -41,6 +42,9 @@
     width: 690px;
     height: 300px;
   }
+
+
+
   .ql-editor p,
   .ql-editor ol,
   .ql-editor ul,
