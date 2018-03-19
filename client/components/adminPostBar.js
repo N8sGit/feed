@@ -1,56 +1,60 @@
 import React from 'react'
+import Truncate from 'react-truncate'
+import * as checkboxData from './checkboxConstants'
+import axios from 'axios'
 
 
-class adminBar extends React.Component{
+export default class adminBar extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-
+            displayData: {}
         }
     }
-    
+
+    componentDidMount = () => {
+        let display = {}
+        for (let prop in checkboxData){
+            if (prop){
+                axios.get(`getByCat/${prop}`)
+                    .then( res => {
+                        console.log(res, 'res')
+                       display[prop] = res.data.info
+                    })
+                    .then(() => {
+                        this.setState({displayData: display})
+                    })
+            }
+        }
+    }
+
     render(){
+        console.log(this.state.displayData, 'displayData')
+        let categoryNames = Object.keys(checkboxData)
+        let display = this.state.displayData
+        console.log(categoryNames, 'cat names')
         return (
-        <div id="adminSidebar"> 
-        <section className="section">
-         <div > Internet Culture </div>
-        </section>
-        <section className="section">
-            <div> Digital Economics </div>
-        </section>
-        <section className="section">
-            <div > Politics and Technology</div>
-        </section>
-        <section className="section">
-            <div> Society and Technology</div>
-        </section>
-        <section className="section">
-            <div>Human Computer Interaction</div>
-        </section>
-        <section className="section">
-            <div >Technical posts</div>
-        </section>
-        <section className="section">
-            <div  >Cognitive Science</div>
-        </section>
-        <section className="section">
-            <div> Philosophy</div>
-        </section>
-        <section className="section">
-            <div>Software Industry</div>
-        </section>
-        <section className="section">
-            <div>Miscellaneous</div>
-        </section>
-     </div>
+    <div>
+    {
+        categoryNames.map((value) => {
+         return (
+            <section className="section">
+                <div>{value}</div>
+            {!display[value] ? null : display[value].map((post) => {
+                return <li> {post.title} </li>
+            })
+        }
+             </section>
+            )
+        }
         )
     }
+</div>)
+}
 
 }
 
 /// basic idea looks like this
 // # CAEGORYNAME: (drop down view)
-            // Posts to click 
-            
-
+            // Posts to click
 

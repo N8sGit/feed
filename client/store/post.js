@@ -53,7 +53,6 @@ export default function (state = initialState, action){
              newState.allCategories = action.allCategories;
              newState.allPosts = action.allPosts;
              newState.allTitles = action.allTitles;
-             console.log(newState.allCategories, 'all cats')
              break;
         case GET_CATEGORY:
             newState.selectedCategory = action.selectedCategory;
