@@ -157,7 +157,7 @@ app.get('/getById/:id', function(req, res){
     })
       .then(function(){
         console.log(categories, 'categories in route ')
-        res.json({message:'categories sent', allCategories: categories})
+        res.json({message: 'categories sent', allCategories: categories})
       })
     
 })
@@ -167,7 +167,7 @@ app.get('/getByCat/:category', function(req, res){
   .then(function(association){
     let postData = [];
     association.map(function(item){
-      postData.push(item.postId)
+      postData.push(item.postId.toString())
     })
     Post.findAll({where: {id: postData}})
     .then(function(posts){

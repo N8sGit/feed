@@ -2,7 +2,8 @@ import React from 'react'
 import Truncate from 'react-truncate'
 import * as checkboxData from './checkboxConstants'
 import axios from 'axios'
-
+import store from '.././store'
+import {getCategories} from '.././store/post.js'
 
 export default class adminBar extends React.Component{
     constructor(props){
@@ -41,7 +42,14 @@ export default class adminBar extends React.Component{
             <section className="section">
                 <div>{value}</div>
             {!display[value] ? null : display[value].map((post) => {
-                return <li> {post.title} </li>
+                return (<li onClick = { () => {
+                    axios.get(`getById/${post.id}`)
+                    .then(function(res){
+                        store.dispatch(getCategories(res.data.allCategories))
+                    })
+                    this.props.setSidebar(post)
+
+                }}> {post.title} </li>)
             })
         }
              </section>
