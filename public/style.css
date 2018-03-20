@@ -1,5 +1,130 @@
-body {
+#top {
   font-family: sans-serif;
+  background-image: linear-gradient(-225deg, #77FFD2 0%, #6297DB 48%, #1EECFF 100%);
+  background-size:100%;
+  z-index:100;
+  display:inline-block;
+  position: absolute;
+  overflow-y: scroll;
+  width:100%;
+  min-height: 100%;
+}
+
+body{
+  margin:0px;
+  min-height:100%;
+}
+
+#top::before{
+  background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+  opacity:0;
+  content:'';
+  height:100%;
+  position: absolute;
+  width:100%;
+  z-index:-100;
+  transition:opacity 20s;
+  top:0;
+  left:0;
+  display: block;
+}
+
+#top:hover::before{
+  opacity:1;
+}
+
+#loading{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: lightcoral;
+  overflow-x: hidden;
+  transition: opacity 1s, z-index 2s;
+  text-align: center;
+}
+.fa.fa-spinner.fa-pulse{
+  font-size: 100px;
+  margin-top:20%;
+  color:black;
+}
+.fas.fa-gem{
+  font-size: 100px;
+  position: fixed;
+}
+#root{
+  padding-left: 15%;
+  padding-right: 15%;
+  min-height: 100%;
+
+}
+
+#root::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+#sidebar-container{
+  float: left;
+  width: 20%;
+}
+
+#titleDisplay{
+  float:right;
+  width: 0%;
+  margin-left: 25%;
+  margin-top:-60%
+}
+
+.section li {
+  list-style: none;
+  margin-left: 1em;
+  font-size: 10pt;
+  padding-left: 1px;
+  padding-bottom: 10px;
+  padding-top: 6px;
+}
+
+.section{
+  padding-top: 8px;
+  font-size: 15px;
+}
+
+
+a{
+  color: lightcoral;
+}
+
+.posts-container{
+  width: 80%;
+  float:left;
+}
+
+.posts{
+  padding-left: 8%;
+}
+
+.post{
+  padding-bottom: 5%
+}
+
+.post > h1{
+  font-size: 19px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.post-data-list{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.post-data-list > div{
+ font-size: 15px;
+ padding: 5px;
+ margin:3px;
+ background-color: lightcoral;
 }
 
 a {
@@ -10,12 +135,63 @@ label {
   display: block;
 }
 
+nav{
+  margin-bottom: 20px;
+}
 nav a {
   display: inline-block;
-  margin: 1em;
+  padding: 30px;
+  padding-left:0px;
+  padding-bottom: 0px;
 }
 
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+#navlist li
+{
+display: inline-block;
+list-style-type: none;
+padding-right: 20px;
+}
+
+.textFields{
+    top: 0;
+    left: 0;
+    height: 200px;
+    width: 200px;
+    z-index: 1;
+}
+
+.child {
+  position: relative;
+  top: 10px;
+  left: 20px;
+  height: 50px;
+  width: 150px;
+  z-index: 2;
+}
+
+.adminButton{
+  float: right;
+  margin-top: -8px
+
+}
+
+#admin-headers{
+  font-size: 17px
+}
+
+#titleInput{
+  position: absolute;
+  left:125px;
+  margin-top: 1pc;
+}
+
+
+
+.linktext{
+  color: black;
 }

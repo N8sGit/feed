@@ -8,7 +8,7 @@ const Post = db.define('post', {
     },
 
     date: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
     },
 
     title: {

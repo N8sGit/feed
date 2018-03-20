@@ -45,7 +45,7 @@ const createApp = () => {
 
   // session middleware with passport
   app.use(session({
-    secret: process.env.SESSION_SECRET || 'my best friend is Cody',
+    secret: process.env.SESSION_SECRET || 'my best friend is Jon',
     store: sessionStore,
     resave: false,
     saveUninitialized: false
@@ -118,20 +118,76 @@ app.put('/update/:postId', function(req, res){
 })
 
 
-  app.get('/get', function(req, res){
-    let result = Post.findAll()
-    result
-    .then(function(content){
-        res.json({
-            message: 'These are all the posts',
-            info: content
-        })
+app.get('/get', function(req, res){
+  let postIds, categoryData, packet
+  Post.findAll()
+  .then(function(posts){
+    postIds = posts.map((value) => {return value.id.toString()})
+     categoryData = [];
+
+    for (let i = 0; i < posts.length; i++){
+      categoryData[i] = { id: posts[i].id, tags: []}
+    }
+
+     packet = {posts, postIds, categoryData}
+    return packet
+  })
+    .then(function(result){
+      return Category.findAll({where: { postId: packet.postIds}})
     })
-    .catch(error => console.error(error))
+     .then(function(cats){
+          cats.map(function(value){
+            let index = packet.categoryData.findIndex(i => i.id == value.postId);
+            packet.categoryData[index].tags.push( '#' + value.category)
+            })
+        })
+        .then(function(){
+          let posts = packet.posts;
+          let categoryData = packet.categoryData
+          res.json({message: 'here are all posts', info: posts, categories: categoryData })
+        })
+        .catch(error => console.error(error))
 })
 
+app.get('/getById/:id', function(req, res){
+  let categories = []
+  Category.findAll({where:{postId: req.params.id}})
+    .then(function(result){
+      result.forEach((value) => categories.push(value.category))
+    })
+      .then(function(){
+        console.log(categories, 'categories in route ')
+        res.json({message: 'categories sent', allCategories: categories})
+      })
+    
+})
+//REFACTOR THIS AT SOME POINT, IT DOESN'T UTILIZE PROMISE CHAINING
 app.get('/getByCat/:category', function(req, res){
-  console.log(req.params)
+  Category.findAll({where: {category: req.params.category} })
+  .then(function(association){
+    let postData = [];
+    association.map(function(item){
+      postData.push(item.postId.toString())
+    })
+    Post.findAll({where: {id: postData}})
+    .then(function(posts){
+      let data = []
+      for (let i = 0; i < posts.length; i++){
+        data[i] = { id: posts[i].id, tags: []}
+      }
+    Category.findAll({where: {postId: postData}})
+      .then(function(result){
+        result.map(function(value){
+        let index = data.findIndex(i => Number(i.id) === Number(value.postId));
+        data[index].tags.push( '#' + value.category)
+        })
+      })
+        .then(function(){
+          res.json({message: 'these are all the posts associated with that category', info: posts, categories: data})
+        })
+          .catch(err => console.error(err))
+      })
+  })
 })
 
   // sends index.html
@@ -155,7 +211,7 @@ const startListening = () => {
   require('./socket')(io)
 }
 
-const syncDb = () => db.sync({})
+const syncDb = () => db.sync()
 
 // This evaluates as true when this file is run directly from the command line,
 // i.e. when we say 'node server/index.js' (or 'nodemon server/index.js', or 'nodemon server', etc)

@@ -2,26 +2,59 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {getAllPosts} from '.././store/post.js'
+import store from '.././store'
 import axios from 'axios'
 import {Sidebar} from '../components'
+import {formatDate} from '../helperFunctions'
+import ReadMore from './readMore'
+import {Link} from 'react-router-dom'
+import * as data from './checkboxConstants'
 /**
  * COMPONENT
  */
-export const Home = (props) => {
-  const {posts} = props
 
+class  Home extends React.Component{
+
+  componentDidMount = () => {
+    axios.get('/get')
+    .then(res => {
+        store.dispatch(getAllPosts(res.data.info, res.data.categories))
+    })
+    .catch(err => console.log(err))
+   }
+
+   render(){
+    const {posts, categories} = this.props
+    let categoryDisplay = categories
 
   return (
-    <div>
+  <div>
       <Sidebar />
-      <h3>Eventually posts will go here</h3>
-      {posts.map(function(value){
-        return (<div key={value.id}>
-          <h1 >{value.title}</h1>
-          <p>{value.content}</p> </div>)
-      })}
+      <div className="posts-container">
+        <div className="posts">
+        {posts.map(function(post, index){
+          return (<div className="post" key={post.id}>
+            <h1 >{post.title}</h1>
+            <ReadMore children={post.content} />
+
+            <div className="post-data">
+            <p>{formatDate(post.createdAt)}</p>
+                              <ul className="post-data-list">
+                              {categoryDisplay.length !== posts.length ? <p>{''}</p> : categoryDisplay[index].tags.map(function(category){
+                                console.log(category, 'category')
+                                  let categoryLink = category.slice(1)
+                                  return <div key={post.id}> <Link className="linktext" to={`/categoryView/${categoryLink}`}> {category} </Link> </div>
+                                  })}
+                              </ul>
+                          </div>
+            </div>)
+
+        })}
+      </div>
     </div>
+  </div>
   )
+  }
 }
 
 /**
@@ -29,18 +62,10 @@ export const Home = (props) => {
  */
 const mapState = (state) => {
   return {
-    posts: state.post.allPosts
+    posts: state.post.allPosts,
+    categories: state.post.allCategories
   }
 }
 
-const mapDispatch = (dispatch) => {
-  return ( dispatch =>
-   axios.get('/get')
-    .then(res => {
-        dispatch(getAllPosts(res.data.info))
-    })
-    .catch(err => console.log(err)))
-   }
-
-export default connect(mapState, mapDispatch)(Home)
+export default connect(mapState)(Home)
 

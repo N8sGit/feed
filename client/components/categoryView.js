@@ -1,30 +1,62 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
+import {getCategoryPosts} from '.././store/post.js'
+import store from '.././store'
+import {formatDate} from '../helperFunctions'
+import * as data from './checkboxConstants'
+import {Link} from 'react-router-dom'
 
-const CategoryView = (props) => {
- console.log(props)
+class CategoryView extends React.Component{
+
+    componentDidMount(){
+        axios.get(`/getByCat/${this.props.categoryId.name}`)
+      .then(res => {
+          store.dispatch(getCategoryPosts(res.data.info, res.data.categories))
+      })
+      .catch(err => console.log(err))
+    }
+      
+   render(){
+       let postsDisplay = this.props.posts
+       let categoryDisplay = this.props.categories
     return (
-        <div>
-            <p> Hello world </p>
+    <div className="posts-container">
+        <div className="posts">
+        {!postsDisplay.length ? <p>There are no posts here yet, but there will be soon!</p> :
+            postsDisplay.map(function(post, index){
+                return (
+                    <div className="post" key={post.id}>
+                        <h1>{post.title}</h1>
+                        <p>{post.content}</p>
+                       
+                        <div className="post-data">
+                        <p>{formatDate(post.createdAt)}</p>
+                            <ul className="post-data-list">
+                            {categoryDisplay[index].tags.map(function(category){
+                                let categoryLink = category.slice(1)
+                                return <div key={post.id}> <Link className="linktext" to={`/categoryView/${categoryLink}`}> {category} </Link> </div>
+                            })}
+                            </ul>
+                        </div>
+                    </div>
+                )
+            })
+        }
         </div>
-    )
+    </div>
+        )
+    }
+
 }
 
-const mapStatetoProps = (state) => {
-    console.log('kasdk')
+const mapStatetoProps = (state, ownProps) => {
     return {
-        category: state.post.selectedCategory
+        posts: state.post.categoryPosts,
+        categoryId: ownProps.match.params,
+        categories: state.post.allCategories
     }
 }
 
-const mapDispatch = (dispatch) => {
-    // return ( dispatch =>
-    //  axios.get(`/getByCat/:${this.props.category}`)
-    //   .then(res => {
-    //       dispatch()
-    //   })
-    //   .catch(err => console.log(err)))
-}
 
-export default connect(mapStatetoProps, mapDispatch)(CategoryView)
+export default connect(mapStatetoProps)(CategoryView)

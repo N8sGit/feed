@@ -22,7 +22,7 @@ class Routes extends Component {
             <Route path="/home" component={Home} />
             <Route path="/sideBar" component={Sidebar} />
             <Route path="/admin" component= {Admin} />
-            <Route path="/categoryView" component={CategoryView} />
+            <Route path="/categoryView/:name" component={CategoryView} />
           </Switch>
         </Main>
       </Router>
