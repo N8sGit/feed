@@ -30,34 +30,36 @@ export default class adminBar extends React.Component{
     }
 
     render(){
-        console.log(this.state.displayData, 'displayData')
         let categoryNames = Object.keys(checkboxData)
         let display = this.state.displayData
-        console.log(categoryNames, 'cat names')
-        return (
-    <div>
+        return  (
+    <div id="admin-sidebar">
+        <p> POSTS </p>
     {
-        categoryNames.map((value) => {
-         return (
-            <section className="section">
-                <div>{value}</div>
-            {!display[value] ? null : display[value].map((post) => {
-                return (<li onClick = { () => {
-                    axios.get(`getById/${post.id}`)
-                    .then(function(res){
-                        store.dispatch(getCategories(res.data.allCategories))
-                    })
-                    this.props.setSidebar(post)
-
-                }}> {post.title} </li>)
-            })
-        }
-             </section>
-            )
-        }
+        categoryNames.map((name) => {
+                    return (
+                <section className="section">
+                        <div id='admin-headers'>{name}</div>
+                {   !display[name] ? null : display[name].map((post) =>
+                        { return (
+                            <li onClick = { () => {
+                                    axios.get(`getById/${post.id}`)
+                                    .then(function(res){
+                                        store.dispatch(getCategories(res.data.allCategories))
+                                    })
+                                    this.props.setSidebar(post)
+                                }}>
+                                    {post.title}
+                            </li>)
+                        })
+                }
+               </section>
+                )
+       }
         )
     }
-</div>)
+    </div>
+    )
 }
 
 }

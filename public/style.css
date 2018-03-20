@@ -71,10 +71,27 @@ body{
   width: 20%;
 }
 
+#titleDisplay{
+  float:right;
+  width: 0%;
+  margin-left: 25%;
+  margin-top:-60%
+}
+
+.section li {
+  list-style: none;
+  margin-left: 1em;
+  font-size: 10pt;
+  padding-left: 1px;
+  padding-bottom: 10px;
+  padding-top: 6px;
+}
+
 .section{
   padding-top: 8px;
   font-size: 15px;
 }
+
 
 a{
   color: lightcoral;
@@ -160,6 +177,11 @@ padding-right: 20px;
 .adminButton{
   float: right;
   margin-top: -8px
+
+}
+
+#admin-headers{
+  font-size: 17px
 }
 
 #titleInput{
@@ -168,12 +190,7 @@ padding-right: 20px;
   margin-top: 1pc;
 }
 
-#titleDisplay{
-  top: -200px;
-  float:right;
-  position: relative; 
-  margin-left: 25%
-}
+
 
 .linktext{
   color: black;
