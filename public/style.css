@@ -15,6 +15,23 @@ body{
   min-height:100%;
 }
 
+.about{
+  float: right;
+}
+
+/* #some-element {
+  border: 1px solid #ccc;
+  display: none;
+  font-size: 10px;
+  margin-top: 10px;
+  padding: 5px;
+  text-transform: uppercase;
+}
+
+.about:hover #some-element {
+  display: block;
+} */
+
 #top::before{
   background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
   opacity:0;
@@ -72,10 +89,11 @@ body{
 }
 
 #titleDisplay{
-  float:right;
-  width: 0%;
-  margin-left: 25%;
-  margin-top:-60%
+  float: right;
+  width: 20%;
+  height: 100%;
+  position: relative;
+  top: -80%;
 }
 
 .section li {
@@ -96,6 +114,20 @@ body{
 a{
   color: lightcoral;
 }
+
+footer{
+  float:right;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 20px;
+  width: 100%;
+  overflow:hidden;
+}
+
+footer p{
+  font-size: 9px
+} 
 
 .posts-container{
   width: 80%;
@@ -178,6 +210,14 @@ padding-right: 20px;
   float: right;
   margin-top: -8px
 
+}
+
+#admin-page{
+  position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
 }
 
 #admin-headers{

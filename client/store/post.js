@@ -63,7 +63,6 @@ export default function (state = initialState, action){
         case GET_POSTS_BY_CAT:
         newState.categoryPosts = action.categoryPosts;
         newState.allCategories = action.allCategories;
-        console.log(newState.allCategories,' all cats')
              break;
         default:
             return state
