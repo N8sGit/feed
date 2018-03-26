@@ -26,7 +26,6 @@ class Main extends React.Component{
   render(){
     let {children, handleClick } = this.props
 
-    console.log(children)
     return (
       <div id="top">
           <div id="loading" style={{opacity: this.state.loaded ? 0 : 1, zIndex: this.state.loaded ? '-100' : '100'}}>

@@ -5,7 +5,6 @@ import {getCategory} from '.././store/post.js'
 import * as checkboxData from './checkboxConstants.js'
 import {cleanUpHeader} from './../helperFunctions'
 
-
 export const Sidebar = () => {
     let display = Object.keys(checkboxData)
     let headers = display.map( header => {
@@ -14,6 +13,7 @@ export const Sidebar = () => {
 
 
   return (
+     
     <div id="sidebar-container">
         <div id="sidebar">
         {

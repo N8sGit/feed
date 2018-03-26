@@ -143,7 +143,7 @@ app.get('/get', function(req, res){
         })
         .then(function(){
           let posts = packet.posts;
-          let categoryData = packet.categoryData
+          categoryData = packet.categoryData
           res.json({message: 'here are all posts', info: posts, categories: categoryData })
         })
         .catch(error => console.error(error))

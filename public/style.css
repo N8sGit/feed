@@ -17,6 +17,7 @@ body{
 
 .about{
   float: right;
+  background-color: lightcoral;
 }
 
 /* #some-element {

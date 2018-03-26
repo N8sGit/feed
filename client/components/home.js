@@ -9,6 +9,7 @@ import {formatDate} from '../helperFunctions'
 import ReadMore from './readMore'
 import {Link} from 'react-router-dom'
 import * as data from './checkboxConstants'
+import About from './about'
 /**
  * COMPONENT
  */
@@ -26,12 +27,14 @@ class  Home extends React.Component{
    render(){
     const {posts, categories} = this.props
     let categoryDisplay = categories
-
   return (
   <div>
-              <h1>Nathan Anecone</h1>
-
-      <Sidebar />
+       <div>
+           <h1>Nathan Anecone</h1>
+          <About />
+      </div>
+    <Sidebar />
+     
      <div className="posts-container">
           <div className="posts">
           {posts.map(function(post, index){

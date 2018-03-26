@@ -6,7 +6,7 @@ import history from './history'
 import {Main, Home, Admin, Sidebar} from './components'
 import {me} from './store'
 import CategoryView from './components/categoryView';
-
+let adminRoute = "q41artc"
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
@@ -21,7 +21,7 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route path="/home" component={Home} />
             <Route path="/sideBar" component={Sidebar} />
-            <Route path="/admin" component= {Admin} />
+            <Route path={`/${adminRoute}`} component= {Admin} />
             <Route path="/categoryView/:name" component={CategoryView} />
           </Switch>
         </Main>
