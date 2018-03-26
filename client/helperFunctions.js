@@ -1,3 +1,4 @@
+import axios from 'axios'
 export function formatDate(time){
     let yearMonthDate = time.slice(0, time.indexOf('T'))
     let year = yearMonthDate.slice(0, 4)

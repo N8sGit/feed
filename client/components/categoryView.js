@@ -22,6 +22,11 @@ class CategoryView extends React.Component{
        let categoryDisplay = this.props.categories
     return (
     <div className="posts-container">
+        <nav id="navbar">
+            <div className="nav-links">
+              <Link to="/home">Home</Link>
+               </div>
+        </nav>
         <div className="posts">
         {!postsDisplay.length ? <p>There are no posts here yet, but there will be soon!</p> :
             postsDisplay.map(function(post, index){

@@ -9,6 +9,7 @@ import {formatDate} from '../helperFunctions'
 import ReadMore from './readMore'
 import {Link} from 'react-router-dom'
 import * as data from './checkboxConstants'
+import About from './about'
 /**
  * COMPONENT
  */
@@ -26,32 +27,38 @@ class  Home extends React.Component{
    render(){
     const {posts, categories} = this.props
     let categoryDisplay = categories
-
   return (
   <div>
-      <Sidebar />
-      <div className="posts-container">
-        <div className="posts">
-        {posts.map(function(post, index){
-          return (<div className="post" key={post.id}>
-            <h1 >{post.title}</h1>
-            <ReadMore children={post.content} />
-
-            <div className="post-data">
-            <p>{formatDate(post.createdAt)}</p>
-                              <ul className="post-data-list">
-                              {categoryDisplay.length !== posts.length ? <p>{''}</p> : categoryDisplay[index].tags.map(function(category){
-                                console.log(category, 'category')
-                                  let categoryLink = category.slice(1)
-                                  return <div key={post.id}> <Link className="linktext" to={`/categoryView/${categoryLink}`}> {category} </Link> </div>
-                                  })}
-                              </ul>
-                          </div>
-            </div>)
-
-        })}
+       <div>
+           <h1>Nathan Anecone</h1>
+          <About />
       </div>
+    <Sidebar />
+     
+     <div className="posts-container">
+          <div className="posts">
+          {posts.map(function(post, index){
+            return (<div className="post" key={post.id}>
+              <h1 >{post.title}</h1>
+              <ReadMore children={post.content} />
+
+              <div className="post-data">
+              <p>{formatDate(post.createdAt)}</p>
+                        <ul className="post-data-list">
+                          {categoryDisplay.length !== posts.length ? <p>{''}</p> : categoryDisplay[index].tags.map(function(category){
+                                    let categoryLink = category.slice(1)
+                                    return <div key={post.id}> <Link className="linktext" to={`/categoryView/${categoryLink}`}> {category} </Link> </div>
+                                    })}
+                                </ul>
+                        </div>
+              </div>)
+
+          })}
+        </div>
     </div>
+    <footer>
+          <p>Site by Nathan Anecone </p>
+    </footer>
   </div>
   )
   }
