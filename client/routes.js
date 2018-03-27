@@ -19,7 +19,7 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route path="/home" component={Home} />
+            <Route path="/" component={Home} />
             <Route path="/sideBar" component={Sidebar} />
             <Route path={`/${adminRoute}`} component= {Admin} />
             <Route path="/categoryView/:name" component={CategoryView} />
