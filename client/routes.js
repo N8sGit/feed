@@ -3,12 +3,10 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome} from './components'
+import {Main, Home, Admin, Sidebar} from './components'
 import {me} from './store'
-
-/**
- * COMPONENT
- */
+import CategoryView from './components/categoryView';
+let adminRoute = "q41artc"
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
@@ -16,23 +14,15 @@ class Routes extends Component {
 
   render () {
     const {isLoggedIn} = this.props
-
     return (
       <Router history={history}>
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            {
-              isLoggedIn &&
-                <Switch>
-                  {/* Routes placed here are only available after logging in */}
-                  <Route path="/home" component={UserHome} />
-                </Switch>
-            }
-            {/* Displays our Login component as a fallback */}
-            <Route component={Login} />
+            <Route path="/home" component={Home} />
+            <Route path="/sideBar" component={Sidebar} />
+            <Route path={`/${adminRoute}`} component= {Admin} />
+            <Route path="/categoryView/:name" component={CategoryView} />
           </Switch>
         </Main>
       </Router>
