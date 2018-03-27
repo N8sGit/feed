@@ -109,7 +109,8 @@ class Admin extends React.Component{
     render(){
 
         return (
-    <div id="admin-page">
+<div id="admin-page">
+    <div id='admin-large'>
             <p> The currently selected post is: {this.state.title} </p>
         <form onSubmit={this.handleFormSubmit}>
               {this.createCheckboxes()}
@@ -125,30 +126,29 @@ class Admin extends React.Component{
 
         <div className ="textFields">
             <form>
-             <textarea
-                id="titleInput" className="field" onChange={this.onChangeTitle.bind(this)}
-                value={this.state.title} rows="1" cols="100" placeholder="title" 
-            />
+                <textarea
+                    id="titleInput" className="field" onChange={this.onChangeTitle.bind(this)}
+                    value={this.state.title} rows="1" cols="100" placeholder="title" 
+                />
 
-            <Editor
-                className="field" placeholder={'Write here'} selectedId={this.state.selectedId}
-                title={this.state.title} text={this.state.text} 
-            />
-
-
-        <button
-        className="field adminButton" type="button" onClick={ () => {this.reset()}
-        }>
-                Clear
-        </button>
-        </form>
-        </div>
+                <Editor
+                    className="field" placeholder={'Write here'} selectedId={this.state.selectedId}
+                    title={this.state.title} text={this.state.text} 
+                />
+                <button
+                    className="field adminButton" type="button" onClick={ () => {this.reset()}
+                    }>
+                        Clear
+                </button>
+            </form>
+       </div>
+    </div>
+    <div id="admin-small"> 
             <div id="titleDisplay">
-            { <AdminPostBar setSidebar = {this.setSidebar.bind(this)} />}
+        { <AdminPostBar setSidebar = {this.setSidebar.bind(this)} />}
         </div>
-
-
-        </div>
+    </div>
+</div>
         )
     }
 }

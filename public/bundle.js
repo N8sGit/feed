@@ -23486,58 +23486,66 @@ var Admin = function (_React$Component) {
                 'div',
                 { id: 'admin-page' },
                 _react2.default.createElement(
-                    'p',
-                    null,
-                    ' The currently selected post is: ',
-                    this.state.title,
-                    ' '
-                ),
-                _react2.default.createElement(
-                    'form',
-                    { onSubmit: this.handleFormSubmit },
-                    this.createCheckboxes(),
+                    'div',
+                    { id: 'admin-large' },
                     _react2.default.createElement(
-                        'button',
-                        { className: 'btn btn-default', type: 'submit' },
-                        'Save'
+                        'p',
+                        null,
+                        ' The currently selected post is: ',
+                        this.state.title,
+                        ' '
                     ),
                     _react2.default.createElement(
-                        'button',
-                        {
-                            className: 'btn btn-default', type: 'submit', onClick: function onClick() {
-                                window.location.reload();
-                            } },
-                        ' Clear'
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'textFields' },
-                    _react2.default.createElement(
                         'form',
-                        null,
-                        _react2.default.createElement('textarea', {
-                            id: 'titleInput', className: 'field', onChange: this.onChangeTitle.bind(this),
-                            value: this.state.title, rows: '1', cols: '100', placeholder: 'title'
-                        }),
-                        _react2.default.createElement(_editor2.default, {
-                            className: 'field', placeholder: 'Write here', selectedId: this.state.selectedId,
-                            title: this.state.title, text: this.state.text
-                        }),
+                        { onSubmit: this.handleFormSubmit },
+                        this.createCheckboxes(),
+                        _react2.default.createElement(
+                            'button',
+                            { className: 'btn btn-default', type: 'submit' },
+                            'Save'
+                        ),
                         _react2.default.createElement(
                             'button',
                             {
-                                className: 'field adminButton', type: 'button', onClick: function onClick() {
-                                    _this2.reset();
+                                className: 'btn btn-default', type: 'submit', onClick: function onClick() {
+                                    window.location.reload();
                                 } },
-                            'Clear'
+                            ' Clear'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'textFields' },
+                        _react2.default.createElement(
+                            'form',
+                            null,
+                            _react2.default.createElement('textarea', {
+                                id: 'titleInput', className: 'field', onChange: this.onChangeTitle.bind(this),
+                                value: this.state.title, rows: '1', cols: '100', placeholder: 'title'
+                            }),
+                            _react2.default.createElement(_editor2.default, {
+                                className: 'field', placeholder: 'Write here', selectedId: this.state.selectedId,
+                                title: this.state.title, text: this.state.text
+                            }),
+                            _react2.default.createElement(
+                                'button',
+                                {
+                                    className: 'field adminButton', type: 'button', onClick: function onClick() {
+                                        _this2.reset();
+                                    } },
+                                'Clear'
+                            )
                         )
                     )
                 ),
                 _react2.default.createElement(
                     'div',
-                    { id: 'titleDisplay' },
-                    _react2.default.createElement(_adminPostBar2.default, { setSidebar: this.setSidebar.bind(this) })
+                    { id: 'admin-small' },
+                    _react2.default.createElement(
+                        'div',
+                        { id: 'titleDisplay' },
+                        _react2.default.createElement(_adminPostBar2.default, { setSidebar: this.setSidebar.bind(this) })
+                    )
                 )
             );
         }
