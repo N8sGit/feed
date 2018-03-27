@@ -22244,7 +22244,7 @@ var Routes = function (_Component) {
           _react2.default.createElement(
             _reactRouterDom.Switch,
             null,
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _components.Home }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _components.Home }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/sideBar', component: _components.Sidebar }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/' + adminRoute, component: _components.Admin }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/categoryView/:name', component: _categoryView2.default })

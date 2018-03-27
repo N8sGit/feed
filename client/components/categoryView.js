@@ -25,7 +25,7 @@ class CategoryView extends React.Component{
         <nav id="navbar">
             <div className="nav-links">
               <Link to="/">Home</Link>
-               </div>
+            </div>
         </nav>
         <div className="posts">
         {!postsDisplay.length ? <p>There are no posts here yet, but there will be soon!</p> :
