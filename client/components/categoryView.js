@@ -24,7 +24,7 @@ class CategoryView extends React.Component{
     <div className="posts-container">
         <nav id="navbar">
             <div className="nav-links">
-              <Link to="/home">Home</Link>
+              <Link to="/">Home</Link>
                </div>
         </nav>
         <div className="posts">

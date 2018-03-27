@@ -53,9 +53,4 @@ export default withRouter(connect()(Main))
  * PROP TYPES
  */
 
-{/* <nav id="navbar">
-            <div className="nav-links">
-              <Link to="/home">Home</Link>
-              <Link to="/admin">Admin</Link>
-            </div>
-</nav> */}
+
