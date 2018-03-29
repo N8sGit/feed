@@ -39,6 +39,7 @@ export default class Editor extends React.Component {
             placeholder={this.props.placeholder}
            />
         </div>
+      <div id="button-parent">
         <button
             className="field adminButton" type="button"  onClick={ () => {
                let editor = this.quillNode.getEditor()
@@ -55,6 +56,7 @@ export default class Editor extends React.Component {
                 }}>
                     Edit Text
         </button>
+      </div>
 
     </form>
        )

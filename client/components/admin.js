@@ -141,7 +141,7 @@ class Admin extends React.Component{
                         Clear
                 </button>
             </form>
-       </div>
+        </div>
     </div>
     <div id="admin-small"> 
             <div id="titleDisplay">

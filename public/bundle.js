@@ -4849,7 +4849,7 @@ function error() {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -4884,79 +4884,83 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * Simple editor component that takes placeholder text as a prop
  */
 var Editor = function (_React$Component) {
-    _inherits(Editor, _React$Component);
+  _inherits(Editor, _React$Component);
 
-    function Editor(props) {
-        _classCallCheck(this, Editor);
+  function Editor(props) {
+    _classCallCheck(this, Editor);
 
-        var _this = _possibleConstructorReturn(this, (Editor.__proto__ || Object.getPrototypeOf(Editor)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Editor.__proto__ || Object.getPrototypeOf(Editor)).call(this, props));
 
-        _this.state = { editorHtml: '', theme: 'snow' };
-        _this.handleChange = _this.handleChange.bind(_this);
-        return _this;
+    _this.state = { editorHtml: '', theme: 'snow' };
+    _this.handleChange = _this.handleChange.bind(_this);
+    return _this;
+  }
+
+  _createClass(Editor, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(newProps) {
+      if (newProps.text !== this.props.text) {
+        this.setState({ editorHtml: newProps.text });
+      }
     }
+  }, {
+    key: 'handleChange',
+    value: function handleChange(html) {
+      this.setState({ editorHtml: html });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
 
-    _createClass(Editor, [{
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(newProps) {
-            if (newProps.text !== this.props.text) {
-                this.setState({ editorHtml: newProps.text });
-            }
-        }
-    }, {
-        key: 'handleChange',
-        value: function handleChange(html) {
-            this.setState({ editorHtml: html });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
+      return _react2.default.createElement(
+        'form',
+        null,
+        _react2.default.createElement(
+          'div',
+          { id: 'editor' },
+          _react2.default.createElement(_reactQuill2.default, {
+            ref: function ref(quillNode) {
+              _this2.quillNode = quillNode;
+            },
+            theme: this.state.theme,
+            onChange: this.handleChange,
+            value: this.state.editorHtml,
+            modules: Editor.modules,
+            formats: Editor.formats,
+            bounds: '.app',
+            placeholder: this.props.placeholder
+          })
+        ),
+        _react2.default.createElement(
+          'div',
+          { id: 'button-parent' },
+          _react2.default.createElement(
+            'button',
+            {
+              className: 'field adminButton', type: 'button', onClick: function onClick() {
+                var editor = _this2.quillNode.getEditor();
+                var text = editor.getText();
+                _store2.default.dispatch((0, _post.add)(text, _this2.props.title));
+              } },
+            'POST'
+          ),
+          _react2.default.createElement(
+            'button',
+            {
+              className: 'field adminButton', type: 'button', onClick: function onClick() {
+                var editor = _this2.quillNode.getEditor();
+                var text = editor.getText();
+                _axios2.default.put('/update/' + _this2.props.selectedId, { content: text });
+              } },
+            'Edit Text'
+          )
+        )
+      );
+    }
+  }]);
 
-            return _react2.default.createElement(
-                'form',
-                null,
-                _react2.default.createElement(
-                    'div',
-                    { id: 'editor' },
-                    _react2.default.createElement(_reactQuill2.default, {
-                        ref: function ref(quillNode) {
-                            _this2.quillNode = quillNode;
-                        },
-                        theme: this.state.theme,
-                        onChange: this.handleChange,
-                        value: this.state.editorHtml,
-                        modules: Editor.modules,
-                        formats: Editor.formats,
-                        bounds: '.app',
-                        placeholder: this.props.placeholder
-                    })
-                ),
-                _react2.default.createElement(
-                    'button',
-                    {
-                        className: 'field adminButton', type: 'button', onClick: function onClick() {
-                            var editor = _this2.quillNode.getEditor();
-                            var text = editor.getText();
-                            _store2.default.dispatch((0, _post.add)(text, _this2.props.title));
-                        } },
-                    'POST'
-                ),
-                _react2.default.createElement(
-                    'button',
-                    {
-                        className: 'field adminButton', type: 'button', onClick: function onClick() {
-                            var editor = _this2.quillNode.getEditor();
-                            var text = editor.getText();
-                            _axios2.default.put('/update/' + _this2.props.selectedId, { content: text });
-                        } },
-                    'Edit Text'
-                )
-            );
-        }
-    }]);
-
-    return Editor;
+  return Editor;
 }(_react2.default.Component);
 
 /*
@@ -4967,15 +4971,15 @@ var Editor = function (_React$Component) {
 
 exports.default = Editor;
 Editor.modules = {
-    toolbar: [[{ header: '1' }, { header: '2' }, { font: [] }], [{ size: [] }], ['bold', 'italic', 'underline', 'strike', 'blockquote'], [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }], ['link', 'image', 'video'], ['clean']],
-    clipboard: {
-        // toggle to add extra line breaks when pasting HTML:
-        matchVisual: false
-    }
-    /*
-     * Quill editor formats
-     * See https://quilljs.com/docs/formats/
-     */
+  toolbar: [[{ header: '1' }, { header: '2' }, { font: [] }], [{ size: [] }], ['bold', 'italic', 'underline', 'strike', 'blockquote'], [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }], ['link', 'image', 'video'], ['clean']],
+  clipboard: {
+    // toggle to add extra line breaks when pasting HTML:
+    matchVisual: false
+  }
+  /*
+   * Quill editor formats
+   * See https://quilljs.com/docs/formats/
+   */
 };Editor.formats = ['header', 'font', 'size', 'bold', 'italic', 'underline', 'strike', 'blockquote', 'list', 'bullet', 'indent', 'link', 'image', 'video'];
 
 /***/ }),
@@ -5330,6 +5334,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -5358,7 +5364,10 @@ var CategoryView = function (_React$Component) {
         key: 'render',
         value: function render() {
             var postsDisplay = this.props.posts;
-            var categoryDisplay = this.props.categories;
+            var categoryDisplay = this.props.categories.map(function (item) {
+                item.tags = [].concat(_toConsumableArray(new Set(item.tags)));
+                return item;
+            });
             return _react2.default.createElement(
                 'div',
                 { className: 'posts-container' },
@@ -23632,7 +23641,6 @@ var adminBar = function (_React$Component) {
             var _loop = function _loop(prop) {
                 if (prop) {
                     _axios2.default.get('getByCat/' + prop).then(function (res) {
-                        console.log(res, 'res');
                         display[prop] = res.data.info;
                     }).then(function () {
                         _this.setState({ displayData: display });
@@ -23643,10 +23651,23 @@ var adminBar = function (_React$Component) {
             for (var prop in checkboxData) {
                 _loop(prop);
             }
+            var uncategorized = [];
+            _axios2.default.get('/get').then(function (res) {
+                uncategorized = res.data.categories.reduce(function (acc, element) {
+                    if (element && !element.tags.length) {
+                        acc.push({ title: element.title, id: element.id, content: element.content, selected: element });
+                    }
+                    return acc;
+                }, []);
+            }).then(function () {
+                console.log(uncategorized, 'hello?');
+                _this.setState({ uncategorized: uncategorized });
+            });
         };
 
         _this.state = {
-            displayData: {}
+            displayData: {},
+            uncategorized: []
         };
         return _this;
     }
@@ -23658,6 +23679,8 @@ var adminBar = function (_React$Component) {
 
             var categoryNames = Object.keys(checkboxData);
             var display = this.state.displayData;
+            var uncategorized = this.state.uncategorized;
+            console.log(uncategorized, 'uncategorized');
             return _react2.default.createElement(
                 'div',
                 { id: 'admin-sidebar' },
@@ -23665,6 +23688,27 @@ var adminBar = function (_React$Component) {
                     'p',
                     null,
                     ' POSTS '
+                ),
+                _react2.default.createElement(
+                    'section',
+                    { className: 'section' },
+                    _react2.default.createElement(
+                        'div',
+                        { id: 'admin-headers' },
+                        ' Uncategorized '
+                    ),
+                    !uncategorized.length ? null : uncategorized.map(function (post) {
+                        return _react2.default.createElement(
+                            'li',
+                            { onClick: function onClick() {
+                                    _axios2.default.get('getById/' + post.id).then(function (res) {
+                                        _store2.default.dispatch((0, _post.getCategories)(res.data.allCategories));
+                                    });
+                                    _this2.props.setSidebar(post);
+                                } },
+                            post.title || ''
+                        );
+                    })
                 ),
                 categoryNames.map(function (name) {
                     return _react2.default.createElement(
@@ -23695,11 +23739,6 @@ var adminBar = function (_React$Component) {
 
     return adminBar;
 }(_react2.default.Component);
-
-/// basic idea looks like this
-// # CAEGORYNAME: (drop down view)
-// Posts to click
-
 
 exports.default = adminBar;
 
@@ -23994,6 +24033,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -24034,7 +24075,11 @@ var Home = function (_React$Component) {
           posts = _props.posts,
           categories = _props.categories;
 
-      var categoryDisplay = categories;
+      var categoryDisplay = categories.map(function (item) {
+        item.tags = [].concat(_toConsumableArray(new Set(item.tags)));
+        return item;
+      });
+      console.log(categoryDisplay, 'hey');
       return _react2.default.createElement(
         'div',
         null,

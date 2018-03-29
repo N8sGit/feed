@@ -20,6 +20,11 @@ body{
   background-color: lightcoral;
 }
 
+div{
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 
 #top::before{
   background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
@@ -190,11 +195,6 @@ padding-right: 20px;
   z-index: 2;
 }
 
-.adminButton{
-  float: right;
-  margin-top: -8px
-
-}
 
 #admin-page{
   display: flex;
