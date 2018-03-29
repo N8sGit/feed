@@ -36,7 +36,6 @@ export default class adminBar extends React.Component{
               }, [])
         })
             .then(() => {
-                console.log(uncategorized, 'hello?')
                 this.setState({uncategorized: uncategorized})
             })
     }
@@ -45,7 +44,6 @@ export default class adminBar extends React.Component{
         let categoryNames = Object.keys(checkboxData)
         let display = this.state.displayData
         let uncategorized = this.state.uncategorized
-        console.log(uncategorized, 'uncategorized')
         return  (
     <div id="admin-sidebar">
         <p> POSTS </p>

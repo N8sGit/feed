@@ -30,7 +30,6 @@ class  Home extends React.Component{
      item.tags = [...new Set(item.tags)];
       return item
     })
-    console.log(categoryDisplay, 'hey')
   return (
   <div>
        <div>
