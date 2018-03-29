@@ -1,5 +1,4 @@
 import React from 'react'
-import Truncate from 'react-truncate'
 import * as checkboxData from './checkboxConstants'
 import axios from 'axios'
 import store from '.././store'
