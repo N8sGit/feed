@@ -26,7 +26,10 @@ class  Home extends React.Component{
 
    render(){
     const {posts, categories} = this.props
-    let categoryDisplay = categories
+    let categoryDisplay = categories.map((item) => {
+     item.tags = [...new Set(item.tags)];
+      return item
+    })
   return (
   <div>
        <div>

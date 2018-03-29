@@ -19,13 +19,16 @@ class CategoryView extends React.Component{
       
    render(){
        let postsDisplay = this.props.posts
-       let categoryDisplay = this.props.categories
-    return (
+       let categoryDisplay = this.props.categories.map((item) => {
+        item.tags = [...new Set(item.tags)];
+         return item
+       })
+       return (
     <div className="posts-container">
         <nav id="navbar">
             <div className="nav-links">
-              <Link to="/home">Home</Link>
-               </div>
+              <Link to="/">Home</Link>
+            </div>
         </nav>
         <div className="posts">
         {!postsDisplay.length ? <p>There are no posts here yet, but there will be soon!</p> :

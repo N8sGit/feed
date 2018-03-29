@@ -4,7 +4,6 @@ module.exports = router
 
 
 router.all('/', function(req,res){
-    console.log('nasdidsj')
 })
 
 router.get('/get', function(req, res){

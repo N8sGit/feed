@@ -126,7 +126,7 @@ app.get('/get', function(req, res){
      categoryData = [];
 
     for (let i = 0; i < posts.length; i++){
-      categoryData[i] = { id: posts[i].id, tags: []}
+      categoryData[i] = { id: posts[i].id, tags: [], title: posts[i].title, content: posts[i].content}
     }
 
      packet = {posts, postIds, categoryData}
