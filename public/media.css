@@ -1,0 +1,18 @@
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    .post-data-list{
+        display:flex;
+        flex-direction: none;
+        flex-wrap: none;
+    }
+    #sidebar-container{
+        display: inline;
+        float: none;
+        padding-right:10%
+      }
+    .post{
+        word-wrap: break-word;
+    }
+    .linkText{
+        font-size: 15px;
+    }
+}

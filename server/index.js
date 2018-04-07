@@ -90,7 +90,6 @@ const createApp = () => {
   })
 
   app.post('/categories', function(req, res){
-    console.log('route entered')
     Category.create(req.body)
     .then(function(created){
       created.postId = req.body.postId

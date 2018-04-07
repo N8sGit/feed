@@ -30,6 +30,7 @@ class  Home extends React.Component{
      item.tags = [...new Set(item.tags)];
       return item
     })
+    console.log(categoryDisplay, 'dispaly')
   return (
   <div>
        <div>
@@ -43,7 +44,7 @@ class  Home extends React.Component{
           {posts.map(function(post, index){
             return (<div className="post" key={post.id}>
               <h1 >{post.title}</h1>
-              <ReadMore children={post.content} />
+              <ReadMore children = {post.content} />
 
               <div className="post-data">
               <p>{formatDate(post.createdAt)}</p>

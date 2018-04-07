@@ -2316,13 +2316,12 @@ var internet_culture = exports.internet_culture = 'internet_culture';
 var digital_economics = exports.digital_economics = 'digital_economics';
 var technology_and_politics = exports.technology_and_politics = 'technology_and_politics';
 var technology_and_society = exports.technology_and_society = 'technology_and_society';
-var futurism = exports.futurism = 'futurism';
 var human_computer_interaction = exports.human_computer_interaction = 'human_computer_interaction';
 var cognitive_science = exports.cognitive_science = 'cognitive_science';
 var technical_posts = exports.technical_posts = 'technical_posts';
 var philosophy = exports.philosophy = 'philosophy';
 var software_industry = exports.software_industry = 'software_industry';
-var misc = exports.misc = 'misc';
+var general = exports.general = 'general';
 
 /***/ }),
 /* 23 */
@@ -22879,12 +22878,12 @@ var FadeExample = function (_React$Component) {
         _react2.default.createElement(
           _Fade2.default,
           { duration: 1750, onReveal: function onReveal() {
-              (0, _timers.setTimeout)(_this2.handleClick, 15000);
+              (0, _timers.setTimeout)(_this2.handleClick, 17500);
             }, left: true, when: this.state.show },
           _react2.default.createElement(
             'p',
             null,
-            'I\'m a software developer and writer. This blog houses my thoughts on various attributes of the software industry, internet studies, technical matters, technological trends, neuroscience, and other interests. It also serves as a portfolio for my programming projects. '
+            'I\'m a software developer and writer. I\'m interested in the software industry, programming best practices, web technologies, internet studies, digital trends, neuroscience, and related interests. '
           )
         )
       );
@@ -23658,6 +23657,7 @@ var Home = function (_React$Component) {
         item.tags = [].concat(_toConsumableArray(new Set(item.tags)));
         return item;
       });
+      console.log(categoryDisplay, 'dispaly');
       return _react2.default.createElement(
         'div',
         null,
@@ -23853,10 +23853,6 @@ var Main = function (_React$Component) {
 
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)()(Main));
-
-/**
- * PROP TYPES
- */
 
 /***/ }),
 /* 163 */

@@ -49,8 +49,3 @@ class Main extends React.Component{
 // when the url changes
 export default withRouter(connect()(Main))
 
-/**
- * PROP TYPES
- */
-
-
