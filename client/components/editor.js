@@ -41,7 +41,7 @@ export default class Editor extends React.Component {
         </div>
       <div id="button-parent">
         <button
-            className="field adminButton" type="button"  onClick={ () => {
+            className="btn btn-default" id='post-button' type="button"  onClick={ () => {
                let editor = this.quillNode.getEditor()
                let text = editor.getText()
                store.dispatch(add(text, this.props.title))
@@ -49,7 +49,7 @@ export default class Editor extends React.Component {
                     POST
         </button>
         <button
-            className="field adminButton" type="button"  onClick={ () => {
+            className="btn btn-default" id="edit-button" type="button"  onClick={ () => {
                 let editor = this.quillNode.getEditor()
                 let text = editor.getText()
                     axios.put(`/update/${this.props.selectedId}`, {content: text})

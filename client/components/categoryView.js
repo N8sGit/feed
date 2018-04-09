@@ -18,7 +18,7 @@ class CategoryView extends React.Component{
     }
       
    render(){
-       let postsDisplay = this.props.posts
+       let postsDisplay = this.props.posts.reverse()
        let categoryDisplay = this.props.categories.map((item) => {
         item.tags = [...new Set(item.tags)];
          return item
@@ -35,7 +35,7 @@ class CategoryView extends React.Component{
             postsDisplay.map(function(post, index){
                 return (
                     <div className="post" key={post.id}>
-                        <h1>{post.title}</h1>
+                        <div> <Link className="title-link" to={`/postView/${post.id}`}>{<h1>{post.title}</h1>}</Link> </div>
                         <p>{post.content}</p>
                        
                         <div className="post-data">

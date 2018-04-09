@@ -1309,7 +1309,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.get = exports.add = exports.getCategoryPosts = exports.getCategories = exports.getCategory = exports.getAllPosts = undefined;
+exports.get = exports.add = exports.getCategoryPosts = exports.getCategories = exports.getCategory = exports.getAllPosts = exports.getOnePost = undefined;
 
 exports.default = function () {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -1336,6 +1336,9 @@ exports.default = function () {
             newState.categoryPosts = action.categoryPosts;
             newState.allCategories = action.allCategories;
             break;
+        case GET_ONE_POST:
+            newState.onePost = action.onePost;
+            break;
         default:
             return state;
     }
@@ -1355,6 +1358,7 @@ var GET_POSTS = 'GET_POSTS';
 var GET_CATEGORY = 'GET_CATEGORY';
 var GET_CATEGORIES = 'GET_CATEGORIES';
 var GET_POSTS_BY_CAT = 'GET_POSTS_BY_CAT';
+var GET_ONE_POST = 'GET_ONE_POST';
 //initial state
 
 var initialState = {
@@ -1364,11 +1368,15 @@ var initialState = {
     allPosts: [],
     categoryPosts: [],
     allTitles: [],
-    allCategories: []
+    allCategories: [],
+    onePost: {}
     //action creator
 
 };var addPost = function addPost(post, title) {
     return { type: ADD_POST, text: post, title: title };
+};
+var getOnePost = exports.getOnePost = function getOnePost(post) {
+    return { type: GET_ONE_POST, onePost: post };
 };
 var getAllPosts = exports.getAllPosts = function getAllPosts(posts, categories) {
     return { type: GET_POSTS, allPosts: posts, allCategories: categories };
@@ -1382,6 +1390,7 @@ var getCategories = exports.getCategories = function getCategories(categories) {
 var getCategoryPosts = exports.getCategoryPosts = function getCategoryPosts(posts, categories) {
     return { type: GET_POSTS_BY_CAT, categoryPosts: posts, allCategories: categories };
 };
+
 //thunk creators
 var add = exports.add = function add(post, title) {
     return function (dispatch) {
@@ -1402,6 +1411,7 @@ var get = exports.get = function get() {
         });
     };
 };
+
 //reducer
 
 /***/ }),
@@ -4937,7 +4947,7 @@ var Editor = function (_React$Component) {
           _react2.default.createElement(
             'button',
             {
-              className: 'field adminButton', type: 'button', onClick: function onClick() {
+              className: 'btn btn-default', id: 'post-button', type: 'button', onClick: function onClick() {
                 var editor = _this2.quillNode.getEditor();
                 var text = editor.getText();
                 _store2.default.dispatch((0, _post.add)(text, _this2.props.title));
@@ -4947,7 +4957,7 @@ var Editor = function (_React$Component) {
           _react2.default.createElement(
             'button',
             {
-              className: 'field adminButton', type: 'button', onClick: function onClick() {
+              className: 'btn btn-default', id: 'edit-button', type: 'button', onClick: function onClick() {
                 var editor = _this2.quillNode.getEditor();
                 var text = editor.getText();
                 _axios2.default.put('/update/' + _this2.props.selectedId, { content: text });
@@ -5362,7 +5372,7 @@ var CategoryView = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var postsDisplay = this.props.posts;
+            var postsDisplay = this.props.posts.reverse();
             var categoryDisplay = this.props.categories.map(function (item) {
                 item.tags = [].concat(_toConsumableArray(new Set(item.tags)));
                 return item;
@@ -5395,9 +5405,19 @@ var CategoryView = function (_React$Component) {
                             'div',
                             { className: 'post', key: post.id },
                             _react2.default.createElement(
-                                'h1',
+                                'div',
                                 null,
-                                post.title
+                                ' ',
+                                _react2.default.createElement(
+                                    _reactRouterDom.Link,
+                                    { className: 'title-link', to: '/postView/' + post.id },
+                                    _react2.default.createElement(
+                                        'h1',
+                                        null,
+                                        post.title
+                                    )
+                                ),
+                                ' '
                             ),
                             _react2.default.createElement(
                                 'p',
@@ -5521,6 +5541,15 @@ Object.defineProperty(exports, 'CategoryView', {
   enumerable: true,
   get: function get() {
     return _categoryView.CategoryView;
+  }
+});
+
+var _postView = __webpack_require__(366);
+
+Object.defineProperty(exports, 'PostView', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_postView).default;
   }
 });
 
@@ -21808,6 +21837,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var adminRoute = "q41artc";
+console.log(_components.PostView);
 
 var Routes = function (_Component) {
   _inherits(Routes, _Component);
@@ -21840,7 +21870,8 @@ var Routes = function (_Component) {
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _components.Home }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/sideBar', component: _components.Sidebar }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/' + adminRoute, component: _components.Admin }),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/categoryView/:name', component: _categoryView2.default })
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/categoryView/:name', component: _categoryView2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/postView/:id', component: _components.PostView })
           )
         )
       );
@@ -23121,12 +23152,16 @@ var Admin = function (_React$Component) {
                                 title: this.state.title, text: this.state.text
                             }),
                             _react2.default.createElement(
-                                'button',
-                                {
-                                    className: 'field adminButton', type: 'button', onClick: function onClick() {
-                                        _this2.reset();
-                                    } },
-                                'Clear'
+                                'div',
+                                { className: 'button-parent' },
+                                _react2.default.createElement(
+                                    'button',
+                                    {
+                                        className: 'btn btn-default', type: 'button', onClick: function onClick() {
+                                            _this2.reset();
+                                        } },
+                                    'Clear'
+                                )
                             )
                         )
                     )
@@ -23678,14 +23713,24 @@ var Home = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'posts' },
-            posts.map(function (post, index) {
+            posts.reverse().map(function (post, index) {
               return _react2.default.createElement(
                 'div',
                 { className: 'post', key: post.id },
                 _react2.default.createElement(
-                  'h1',
+                  'div',
                   null,
-                  post.title
+                  ' ',
+                  _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { className: 'title-link', to: '/postView/' + post.id },
+                    _react2.default.createElement(
+                      'h1',
+                      null,
+                      post.title
+                    )
+                  ),
+                  ' '
                 ),
                 _react2.default.createElement(_readMore2.default, { children: post.content }),
                 _react2.default.createElement(
@@ -63098,6 +63143,128 @@ function hasOwnProperty(obj, prop) {
 /***/ (function(module, exports) {
 
 /* (ignored) */
+
+/***/ }),
+/* 366 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(28);
+
+var _reactRedux = __webpack_require__(15);
+
+var _post = __webpack_require__(16);
+
+var _helperFunctions = __webpack_require__(44);
+
+var _axios = __webpack_require__(13);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PostView = function (_React$Component) {
+    _inherits(PostView, _React$Component);
+
+    function PostView() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
+        _classCallCheck(this, PostView);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = PostView.__proto__ || Object.getPrototypeOf(PostView)).call.apply(_ref, [this].concat(args))), _this), _this.componentDidMount = function () {
+            var id = _this.props.match.params.id;
+            _this.props.getOne(id);
+        }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(PostView, [{
+        key: 'render',
+        value: function render() {
+            console.log(this.props, 'props');
+            var post = this.props.post;
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'nav',
+                    { id: 'navbar' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'nav-links' },
+                        _react2.default.createElement(
+                            _reactRouterDom.Link,
+                            { to: '/' },
+                            'Home'
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        post.title
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'posts' },
+                        post.content
+                    )
+                ),
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    (0, _helperFunctions.formatDate)(post.createdAt)
+                )
+            );
+        }
+    }]);
+
+    return PostView;
+}(_react2.default.Component);
+
+var mapState = function mapState(state) {
+    return {
+        post: state.post.onePost
+    };
+};
+
+var mapDispatch = function mapDispatch(dispatch) {
+    return {
+        getOne: function getOne(id) {
+            _axios2.default.get('/getPostById/' + id).then(function (res) {
+                dispatch((0, _post.getOnePost)(res.data.info));
+            });
+        }
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapState, mapDispatch)(PostView);
 
 /***/ })
 /******/ ]);

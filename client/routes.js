@@ -3,10 +3,11 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Home, Admin, Sidebar} from './components'
+import {Main, Home, Admin, Sidebar, PostView} from './components'
 import {me} from './store'
 import CategoryView from './components/categoryView';
 let adminRoute = "q41artc"
+console.log(PostView)
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
@@ -23,6 +24,7 @@ class Routes extends Component {
             <Route path="/sideBar" component={Sidebar} />
             <Route path={`/${adminRoute}`} component= {Admin} />
             <Route path="/categoryView/:name" component={CategoryView} />
+            <Route path="/postView/:id" component={PostView} />
           </Switch>
         </Main>
       </Router>

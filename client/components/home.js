@@ -38,12 +38,12 @@ class  Home extends React.Component{
           <About />
       </div>
     <Sidebar />
-     
+
      <div className="posts-container">
           <div className="posts">
-          {posts.map(function(post, index){
+          {posts.reverse().map(function(post, index){
             return (<div className="post" key={post.id}>
-              <h1 >{post.title}</h1>
+             <div> <Link className="title-link" to={`/postView/${post.id}`}>{<h1>{post.title}</h1>}</Link> </div>
               <ReadMore children = {post.content} />
 
               <div className="post-data">

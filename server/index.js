@@ -148,6 +148,14 @@ app.get('/get', function(req, res){
         .catch(error => console.error(error))
 })
 
+app.get('/getPostById/:id', function(req, res){
+  console.log('rotue???')
+  Post.findById(req.params.id)
+    .then(post => {
+      res.json({message: 'here is the post associated with that id', info: post})
+    })
+})
+
 app.get('/getById/:id', function(req, res){
   let categories = []
   Category.findAll({where:{postId: req.params.id}})
