@@ -103,12 +103,15 @@ const createApp = () => {
   })
 
 app.put('/update/:postId', function(req, res){
+  console.log('route hit')
   Post.findById(req.params.postId)
     .then(post => {
       post.content = req.body.content
       post.save()
-      .then(res.json({post: post, message: 'post updated'})
-      )
+      return post
+    })
+    .then(post => {
+      res.json({post: post, message: 'post updated'})
     })
     .catch(error => {
       console.log(error)

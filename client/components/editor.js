@@ -21,7 +21,9 @@ export default class Editor extends React.Component {
     }
 
     handleChange (html) {
-        this.setState({ editorHtml: html });
+      console.log(html, 'quill thml')
+      console.log(typeof html,'typeof');
+      this.setState({ editorHtml: html });
     }
 
     render () {
@@ -42,19 +44,16 @@ export default class Editor extends React.Component {
       <div id="button-parent">
         <button
             className="btn btn-default" id='post-button' type="button"  onClick={ () => {
-               let editor = this.quillNode.getEditor()
-               let text = editor.getText()
-               store.dispatch(add(text, this.props.title))
+               store.dispatch(add(this.state.editorHtml, this.props.title))
                 }}>
                     POST
         </button>
         <button
             className="btn btn-default" id="edit-button" type="button"  onClick={ () => {
-                let editor = this.quillNode.getEditor()
-                let text = editor.getText()
-                    axios.put(`/update/${this.props.selectedId}`, {content: text})
+             
+                    axios.put(`/update/${this.props.selectedId}`, {content: this.state.editorHtml})
                 }}>
-                    Edit Text
+                    Update Text
         </button>
       </div>
 

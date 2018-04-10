@@ -7,7 +7,6 @@ import {Main, Home, Admin, Sidebar, PostView} from './components'
 import {me} from './store'
 import CategoryView from './components/categoryView';
 let adminRoute = "q41artc"
-console.log(PostView)
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()

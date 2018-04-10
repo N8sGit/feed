@@ -11,8 +11,9 @@ class PostView extends React.Component {
         this.props.getOne(id)
    }
   render(){
-    console.log(this.props, 'props')
     let post = this.props.post
+    let htmlText = {__html: post.content}
+    console.log(post, 'post')
     return (
          <div>
         <nav id="navbar">
@@ -23,7 +24,7 @@ class PostView extends React.Component {
 
         <div>
             <h1>{post.title}</h1>
-            <div className="posts">{post.content}</div>
+            <div className="post-text" dangerouslySetInnerHTML={htmlText} />
         </div>
         <p>{formatDate(post.createdAt)}</p>
         </div>

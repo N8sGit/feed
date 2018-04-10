@@ -6,6 +6,7 @@ import store from '.././store'
 import {formatDate} from '../helperFunctions'
 import * as data from './checkboxConstants'
 import {Link} from 'react-router-dom'
+import ReadMore from './readMore'
 
 class CategoryView extends React.Component{
 
@@ -16,9 +17,10 @@ class CategoryView extends React.Component{
       })
       .catch(err => console.log(err))
     }
-      
+
    render(){
        let postsDisplay = this.props.posts.reverse()
+       let htmlText = postsDisplay.map(post => { return {__html: post.content}})
        let categoryDisplay = this.props.categories.map((item) => {
         item.tags = [...new Set(item.tags)];
          return item
@@ -36,8 +38,8 @@ class CategoryView extends React.Component{
                 return (
                     <div className="post" key={post.id}>
                         <div> <Link className="title-link" to={`/postView/${post.id}`}>{<h1>{post.title}</h1>}</Link> </div>
-                        <p>{post.content}</p>
-                       
+                        <ReadMore className="post-text" children = {<div dangerouslySetInnerHTML={htmlText[index]} />} />
+
                         <div className="post-data">
                         <p>{formatDate(post.createdAt)}</p>
                             <ul className="post-data-list">

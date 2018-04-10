@@ -3232,14 +3232,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.formatDate = formatDate;
 exports.cleanUpHeader = cleanUpHeader;
-
-var _axios = __webpack_require__(13);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function formatDate(time) {
+    if (!time) return;
     var yearMonthDate = time.slice(0, time.indexOf('T'));
     var year = yearMonthDate.slice(0, 4);
     var month = yearMonthDate.slice(5, 7);
@@ -4861,6 +4855,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -4915,6 +4911,8 @@ var Editor = function (_React$Component) {
   }, {
     key: 'handleChange',
     value: function handleChange(html) {
+      console.log(html, 'quill thml');
+      console.log(typeof html === 'undefined' ? 'undefined' : _typeof(html), 'typeof');
       this.setState({ editorHtml: html });
     }
   }, {
@@ -4948,9 +4946,7 @@ var Editor = function (_React$Component) {
             'button',
             {
               className: 'btn btn-default', id: 'post-button', type: 'button', onClick: function onClick() {
-                var editor = _this2.quillNode.getEditor();
-                var text = editor.getText();
-                _store2.default.dispatch((0, _post.add)(text, _this2.props.title));
+                _store2.default.dispatch((0, _post.add)(_this2.state.editorHtml, _this2.props.title));
               } },
             'POST'
           ),
@@ -4958,11 +4954,10 @@ var Editor = function (_React$Component) {
             'button',
             {
               className: 'btn btn-default', id: 'edit-button', type: 'button', onClick: function onClick() {
-                var editor = _this2.quillNode.getEditor();
-                var text = editor.getText();
-                _axios2.default.put('/update/' + _this2.props.selectedId, { content: text });
+
+                _axios2.default.put('/update/' + _this2.props.selectedId, { content: _this2.state.editorHtml });
               } },
-            'Edit Text'
+            'Update Text'
           )
         )
       );
@@ -5339,6 +5334,10 @@ var data = _interopRequireWildcard(_checkboxConstants);
 
 var _reactRouterDom = __webpack_require__(28);
 
+var _readMore = __webpack_require__(163);
+
+var _readMore2 = _interopRequireDefault(_readMore);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -5373,6 +5372,9 @@ var CategoryView = function (_React$Component) {
         key: 'render',
         value: function render() {
             var postsDisplay = this.props.posts.reverse();
+            var htmlText = postsDisplay.map(function (post) {
+                return { __html: post.content };
+            });
             var categoryDisplay = this.props.categories.map(function (item) {
                 item.tags = [].concat(_toConsumableArray(new Set(item.tags)));
                 return item;
@@ -5419,11 +5421,7 @@ var CategoryView = function (_React$Component) {
                                 ),
                                 ' '
                             ),
-                            _react2.default.createElement(
-                                'p',
-                                null,
-                                post.content
-                            ),
+                            _react2.default.createElement(_readMore2.default, { className: 'post-text', children: _react2.default.createElement('div', { dangerouslySetInnerHTML: htmlText[index] }) }),
                             _react2.default.createElement(
                                 'div',
                                 { className: 'post-data' },
@@ -21837,7 +21835,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var adminRoute = "q41artc";
-console.log(_components.PostView);
 
 var Routes = function (_Component) {
   _inherits(Routes, _Component);
@@ -23692,7 +23689,10 @@ var Home = function (_React$Component) {
         item.tags = [].concat(_toConsumableArray(new Set(item.tags)));
         return item;
       });
-      console.log(categoryDisplay, 'dispaly');
+      var htmlText = posts.map(function (post) {
+        return { __html: post.content };
+      }).reverse();
+      console.log(htmlText);
       return _react2.default.createElement(
         'div',
         null,
@@ -23732,7 +23732,7 @@ var Home = function (_React$Component) {
                   ),
                   ' '
                 ),
-                _react2.default.createElement(_readMore2.default, { children: post.content }),
+                _react2.default.createElement(_readMore2.default, { children: _react2.default.createElement('div', { className: 'post-text', dangerouslySetInnerHTML: htmlText[index] }) }),
                 _react2.default.createElement(
                   'div',
                   { className: 'post-data' },
@@ -63204,8 +63204,9 @@ var PostView = function (_React$Component) {
     _createClass(PostView, [{
         key: 'render',
         value: function render() {
-            console.log(this.props, 'props');
             var post = this.props.post;
+            var htmlText = { __html: post.content };
+            console.log(post, 'post');
             return _react2.default.createElement(
                 'div',
                 null,
@@ -63230,11 +63231,7 @@ var PostView = function (_React$Component) {
                         null,
                         post.title
                     ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'posts' },
-                        post.content
-                    )
+                    _react2.default.createElement('div', { className: 'post-text', dangerouslySetInnerHTML: htmlText })
                 ),
                 _react2.default.createElement(
                     'p',

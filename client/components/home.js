@@ -30,8 +30,9 @@ class  Home extends React.Component{
      item.tags = [...new Set(item.tags)];
       return item
     })
-    console.log(categoryDisplay, 'dispaly')
-  return (
+    let htmlText = posts.map(post => { return {__html: post.content}}).reverse()
+    console.log(htmlText);
+    return (
   <div>
        <div>
            <h1>Nathan Anecone</h1>
@@ -44,7 +45,7 @@ class  Home extends React.Component{
           {posts.reverse().map(function(post, index){
             return (<div className="post" key={post.id}>
              <div> <Link className="title-link" to={`/postView/${post.id}`}>{<h1>{post.title}</h1>}</Link> </div>
-              <ReadMore children = {post.content} />
+              <ReadMore  children = {<div className="post-text" dangerouslySetInnerHTML={htmlText[index]} />} />
 
               <div className="post-data">
               <p>{formatDate(post.createdAt)}</p>
