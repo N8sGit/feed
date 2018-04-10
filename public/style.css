@@ -243,14 +243,6 @@ padding-right: 20px;
   top: 30%;
 }
 
-/* .adminButton{
-  
-}
-
-.adminButton > button{
- 
-} */
-
 #titleInput{
   position: absolute;
   left:125px;
@@ -259,5 +251,18 @@ padding-right: 20px;
 
 .linktext{
   color: black;
+}
+
+#single-text{
+  margin-left:10%
+}
+
+#single-title{
+  margin-left: 10%
+}
+
+.title{
+  overflow-wrap: break-word;
+  font-size: 30px;
 }
 

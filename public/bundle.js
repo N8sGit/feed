@@ -5415,7 +5415,7 @@ var CategoryView = function (_React$Component) {
                                     { className: 'title-link', to: '/postView/' + post.id },
                                     _react2.default.createElement(
                                         'h1',
-                                        null,
+                                        { className: 'title' },
                                         post.title
                                     )
                                 ),
@@ -23692,7 +23692,6 @@ var Home = function (_React$Component) {
       var htmlText = posts.map(function (post) {
         return { __html: post.content };
       }).reverse();
-      console.log(htmlText);
       return _react2.default.createElement(
         'div',
         null,
@@ -23726,7 +23725,7 @@ var Home = function (_React$Component) {
                     { className: 'title-link', to: '/postView/' + post.id },
                     _react2.default.createElement(
                       'h1',
-                      null,
+                      { className: 'title' },
                       post.title
                     )
                   ),
@@ -63206,10 +63205,9 @@ var PostView = function (_React$Component) {
         value: function render() {
             var post = this.props.post;
             var htmlText = { __html: post.content };
-            console.log(post, 'post');
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'posts-container' },
                 _react2.default.createElement(
                     'nav',
                     { id: 'navbar' },
@@ -63225,17 +63223,17 @@ var PostView = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    null,
+                    { className: 'post' },
                     _react2.default.createElement(
                         'h1',
-                        null,
+                        { id: 'single-title', className: 'title' },
                         post.title
                     ),
-                    _react2.default.createElement('div', { className: 'post-text', dangerouslySetInnerHTML: htmlText })
+                    _react2.default.createElement('div', { className: 'post-text', id: 'single-text', dangerouslySetInnerHTML: htmlText })
                 ),
                 _react2.default.createElement(
-                    'p',
-                    null,
+                    'div',
+                    { className: 'post-data' },
                     (0, _helperFunctions.formatDate)(post.createdAt)
                 )
             );
