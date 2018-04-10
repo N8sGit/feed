@@ -63233,7 +63233,7 @@ var PostView = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'post-data' },
+                    { className: 'post-data', id: 'single-date' },
                     (0, _helperFunctions.formatDate)(post.createdAt)
                 )
             );

@@ -261,6 +261,10 @@ padding-right: 20px;
   margin-left: 10%
 }
 
+#single-date{
+  padding-left: 10%
+}
+
 .title{
   overflow-wrap: break-word;
   font-size: 30px;

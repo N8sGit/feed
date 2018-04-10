@@ -26,7 +26,7 @@ class PostView extends React.Component {
             <div className="post-text" id="single-text" dangerouslySetInnerHTML={htmlText} />
         </div>
 
-        <div className="post-data">{formatDate(post.createdAt)}</div>
+        <div className="post-data" id="single-date">{formatDate(post.createdAt)}</div>
         </div>
         )
     }
