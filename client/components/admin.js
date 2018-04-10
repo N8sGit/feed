@@ -135,11 +135,13 @@ class Admin extends React.Component{
                     className="field" placeholder={'Write here'} selectedId={this.state.selectedId}
                     title={this.state.title} text={this.state.text} 
                 />
+            <div className="button-parent">
                 <button
-                    className="field adminButton" type="button" onClick={ () => {this.reset()}
+                    className="btn btn-default" type="button" onClick={ () => {this.reset()}
                     }>
                         Clear
                 </button>
+            </div>
             </form>
         </div>
     </div>

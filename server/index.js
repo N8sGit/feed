@@ -90,7 +90,6 @@ const createApp = () => {
   })
 
   app.post('/categories', function(req, res){
-    console.log('route entered')
     Category.create(req.body)
     .then(function(created){
       created.postId = req.body.postId
@@ -104,12 +103,15 @@ const createApp = () => {
   })
 
 app.put('/update/:postId', function(req, res){
+  console.log('route hit')
   Post.findById(req.params.postId)
     .then(post => {
       post.content = req.body.content
       post.save()
-      .then(res.json({post: post, message: 'post updated'})
-      )
+      return post
+    })
+    .then(post => {
+      res.json({post: post, message: 'post updated'})
     })
     .catch(error => {
       console.log(error)
@@ -147,6 +149,14 @@ app.get('/get', function(req, res){
           res.json({message: 'here are all posts', info: posts, categories: categoryData })
         })
         .catch(error => console.error(error))
+})
+
+app.get('/getPostById/:id', function(req, res){
+  console.log('rotue???')
+  Post.findById(req.params.id)
+    .then(post => {
+      res.json({message: 'here is the post associated with that id', info: post})
+    })
 })
 
 app.get('/getById/:id', function(req, res){

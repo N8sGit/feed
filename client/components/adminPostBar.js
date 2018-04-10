@@ -45,6 +45,7 @@ export default class adminBar extends React.Component{
         let display = this.state.displayData
         let uncategorized = this.state.uncategorized
         return  (
+
     <div id="admin-sidebar">
         <p> POSTS </p>
         <section className="section">

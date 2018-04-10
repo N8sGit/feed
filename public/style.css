@@ -214,10 +214,33 @@ padding-right: 20px;
   flex:1;
 }
 
+#admin-sidebar{
+  overflow-y: auto;
+  height: 100vh;
+}
+
 
 
 #admin-headers{
   font-size: 17px
+}
+
+.button-parent{
+  display: flex;
+  position: absolute;
+  top: 32%;
+}
+
+#post-button{
+  flex:1;
+  position: absolute;
+  top:39%
+}
+
+#edit-button{
+  flex:1;
+  position: absolute;
+  top: 30%;
 }
 
 #titleInput{
@@ -228,5 +251,18 @@ padding-right: 20px;
 
 .linktext{
   color: black;
+}
+
+#single-text{
+  margin-left:10%
+}
+
+#single-title{
+  margin-left: 10%
+}
+
+.title{
+  overflow-wrap: break-word;
+  font-size: 30px;
 }
 

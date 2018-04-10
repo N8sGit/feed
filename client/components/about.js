@@ -19,9 +19,8 @@ class FadeExample extends React.Component {
         >
            About
         </div>
-        <Fade duration={1750} onReveal={ () => { setTimeout(this.handleClick, 15000)}} left when={this.state.show}>
-          <p>I'm a software developer and writer. This blog houses my thoughts on various attributes of the software industry, internet studies,
-              technical matters, technological trends, neuroscience, and other interests. It also serves as a portfolio for my programming projects. </p>
+        <Fade duration={1750} onReveal={ () => { setTimeout(this.handleClick, 17500)}} left when={this.state.show}>
+          <p>I'm a software developer and writer. I'm interested in the software industry, programming best practices, web technologies, internet studies, digital trends, neuroscience, and related interests. </p>
         </Fade>
        
       </div>

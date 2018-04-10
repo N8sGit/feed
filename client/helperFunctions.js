@@ -1,5 +1,5 @@
-import axios from 'axios'
 export function formatDate(time){
+    if (!time) return
     let yearMonthDate = time.slice(0, time.indexOf('T'))
     let year = yearMonthDate.slice(0, 4)
     let month = yearMonthDate.slice(5, 7)
