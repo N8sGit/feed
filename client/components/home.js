@@ -29,7 +29,7 @@ class  Home extends React.Component{
     let categoryDisplay = categories.map((item) => {
      item.tags = [...new Set(item.tags)];
       return item
-    })
+    }).reverse()
     let htmlText = posts.map(post => { return {__html: post.content}}).reverse()
     return (
   <div>

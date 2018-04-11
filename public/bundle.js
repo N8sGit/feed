@@ -23688,7 +23688,7 @@ var Home = function (_React$Component) {
       var categoryDisplay = categories.map(function (item) {
         item.tags = [].concat(_toConsumableArray(new Set(item.tags)));
         return item;
-      });
+      }).reverse();
       var htmlText = posts.map(function (post) {
         return { __html: post.content };
       }).reverse();
