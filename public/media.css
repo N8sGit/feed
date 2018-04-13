@@ -15,4 +15,7 @@
     .linkText{
         font-size: 15px;
     }
+    #root{
+        width: 115%
+    }
 }

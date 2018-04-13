@@ -14,7 +14,7 @@ export const Sidebar = () => {
 
   return (
      
-    <div id="sidebar-container">
+    <div>
         <div id="sidebar">
         {
             display.map((catergoryName, index) => {
