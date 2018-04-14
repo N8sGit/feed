@@ -23,6 +23,14 @@ class Main extends React.Component{
       this.setState({loaded: true})
     })
   }
+
+  componentDidMount(){
+    $(window).on('load', () => {
+      console.log('did this shit loaded?')
+      this.setState({loaded: true})
+    })
+  }
+
   render(){
     console.log(this.state.loaded);
     let {children, handleClick } = this.props

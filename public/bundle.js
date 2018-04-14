@@ -5381,7 +5381,7 @@ var CategoryView = function (_React$Component) {
             });
             return _react2.default.createElement(
                 'div',
-                { className: 'posts-container' },
+                null,
                 _react2.default.createElement(
                     'nav',
                     { id: 'navbar' },
@@ -5397,62 +5397,66 @@ var CategoryView = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'posts' },
-                    !postsDisplay.length ? _react2.default.createElement(
-                        'p',
-                        null,
-                        'There are no posts here yet, but there will be soon!'
-                    ) : postsDisplay.map(function (post, index) {
-                        return _react2.default.createElement(
-                            'div',
-                            { className: 'post', key: post.id },
-                            _react2.default.createElement(
+                    { className: 'posts-container' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'posts' },
+                        !postsDisplay.length ? _react2.default.createElement(
+                            'p',
+                            null,
+                            'There are no posts here yet, but there will be soon!'
+                        ) : postsDisplay.map(function (post, index) {
+                            return _react2.default.createElement(
                                 'div',
-                                null,
-                                ' ',
+                                { className: 'post', key: post.id },
                                 _react2.default.createElement(
-                                    _reactRouterDom.Link,
-                                    { className: 'title-link', to: '/postView/' + post.id },
-                                    _react2.default.createElement(
-                                        'h1',
-                                        { className: 'title' },
-                                        post.title
-                                    )
-                                ),
-                                ' '
-                            ),
-                            _react2.default.createElement(_readMore2.default, { className: 'post-text', children: _react2.default.createElement('div', { dangerouslySetInnerHTML: htmlText[index] }) }),
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'post-data' },
-                                _react2.default.createElement(
-                                    'p',
+                                    'div',
                                     null,
-                                    (0, _helperFunctions.formatDate)(post.createdAt)
+                                    ' ',
+                                    _react2.default.createElement(
+                                        _reactRouterDom.Link,
+                                        { className: 'title-link', to: '/postView/' + post.id },
+                                        _react2.default.createElement(
+                                            'h1',
+                                            { className: 'title' },
+                                            post.title
+                                        )
+                                    ),
+                                    ' '
                                 ),
+                                _react2.default.createElement(_readMore2.default, { className: 'post-text', children: _react2.default.createElement('div', { dangerouslySetInnerHTML: htmlText[index] }) }),
                                 _react2.default.createElement(
-                                    'ul',
-                                    { className: 'post-data-list' },
-                                    categoryDisplay[index].tags.map(function (category) {
-                                        var categoryLink = category.slice(1);
-                                        return _react2.default.createElement(
-                                            'div',
-                                            { key: post.id },
-                                            ' ',
-                                            _react2.default.createElement(
-                                                _reactRouterDom.Link,
-                                                { className: 'linktext', to: '/categoryView/' + categoryLink },
+                                    'div',
+                                    { className: 'post-data' },
+                                    _react2.default.createElement(
+                                        'p',
+                                        null,
+                                        (0, _helperFunctions.formatDate)(post.createdAt)
+                                    ),
+                                    _react2.default.createElement(
+                                        'ul',
+                                        { className: 'post-data-list' },
+                                        categoryDisplay[index].tags.map(function (category) {
+                                            var categoryLink = category.slice(1);
+                                            return _react2.default.createElement(
+                                                'div',
+                                                { key: post.id },
                                                 ' ',
-                                                category,
+                                                _react2.default.createElement(
+                                                    _reactRouterDom.Link,
+                                                    { className: 'linktext', to: '/categoryView/' + categoryLink },
+                                                    ' ',
+                                                    category,
+                                                    ' '
+                                                ),
                                                 ' '
-                                            ),
-                                            ' '
-                                        );
-                                    })
+                                            );
+                                        })
+                                    )
                                 )
-                            )
-                        );
-                    })
+                            );
+                        })
+                    )
                 )
             );
         }
@@ -23723,7 +23727,6 @@ var Home = function (_React$Component) {
                 _react2.default.createElement(
                   'div',
                   null,
-                  ' ',
                   _react2.default.createElement(
                     _reactRouterDom.Link,
                     { className: 'title-link', to: '/postView/' + post.id },
@@ -23863,6 +23866,16 @@ var Main = function (_React$Component) {
       $(window).on('load', function () {
         console.log('did this shit loaded?');
         _this2.setState({ loaded: true });
+      });
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this3 = this;
+
+      $(window).on('load', function () {
+        console.log('did this shit loaded?');
+        _this3.setState({ loaded: true });
       });
     }
   }, {
@@ -63213,7 +63226,7 @@ var PostView = function (_React$Component) {
             var htmlText = { __html: post.content };
             return _react2.default.createElement(
                 'div',
-                { className: 'posts-container' },
+                null,
                 _react2.default.createElement(
                     'nav',
                     { id: 'navbar' },
@@ -63229,18 +63242,22 @@ var PostView = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'post' },
+                    { className: 'posts-container' },
                     _react2.default.createElement(
-                        'h1',
-                        { id: 'single-title', className: 'title' },
-                        post.title
+                        'div',
+                        { className: 'post' },
+                        _react2.default.createElement(
+                            'h1',
+                            { id: 'single-title', className: 'title' },
+                            post.title
+                        ),
+                        _react2.default.createElement('div', { className: 'post-text', id: 'single-text', dangerouslySetInnerHTML: htmlText })
                     ),
-                    _react2.default.createElement('div', { className: 'post-text', id: 'single-text', dangerouslySetInnerHTML: htmlText })
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'post-data', id: 'single-date' },
-                    (0, _helperFunctions.formatDate)(post.createdAt)
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'post-data', id: 'single-date' },
+                        (0, _helperFunctions.formatDate)(post.createdAt)
+                    )
                 )
             );
         }
