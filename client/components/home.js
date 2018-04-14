@@ -43,21 +43,25 @@ class  Home extends React.Component{
 
           <div className="posts">
           {posts.reverse().map(function(post, index){
-            return (<div className="post" key={post.id}>
-             <div> <Link className="title-link" to={`/postView/${post.id}`}>{<h1 className="title">{post.title}</h1>}</Link> </div>
-              <ReadMore  children = {<div className="post-text" dangerouslySetInnerHTML={htmlText[index]} />} />
+            return (
+          <div className="post" key={post.id}>
+              <div>
+                <Link className="title-link" to={`/postView/${post.id}`}>{<h1 className="title">{post.title}</h1>}</Link> </div>
+                <ReadMore  children = {<div className="post-text" dangerouslySetInnerHTML={htmlText[index]} />} />
 
-              <div className="post-data">
-              <p>{formatDate(post.createdAt)}</p>
-                        <ul className="post-data-list">
-                          {categoryDisplay.length !== posts.length ? <p>{''}</p> : categoryDisplay[index].tags.map(function(category){
-                                    let categoryLink = category.slice(1)
-                                    return <div key={post.id}> <Link className="linktext" to={`/categoryView/${categoryLink}`}> {category} </Link> </div>
-                                    })
-                          }
-                                </ul>
-                        </div>
-              </div>)
+                <div className="post-data">
+                <p>{formatDate(post.createdAt)}</p>
+                          <ul className="post-data-list">
+                            {
+                              categoryDisplay.length !== posts.length ? <p>{''}</p> : categoryDisplay[index].tags.map(function(category){
+                                      let categoryLink = category.slice(1)
+                                      return <div key={post.id}> <Link className="linktext" to={`/categoryView/${categoryLink}`}> {category} </Link> </div>
+                              })
+                            }
+                          </ul>
+                          
+              </div>
+          </div>)
 
           })}
         </div>

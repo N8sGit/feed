@@ -185,6 +185,10 @@ list-style-type: none;
 padding-right: 20px;
 }
 
+#navbar {
+  float:left;
+}
+
 .textFields{
     top: 0;
     left: 0;
