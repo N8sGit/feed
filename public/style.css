@@ -10,14 +10,17 @@
   min-height: 100%;
 }
 
+.react-reveal{
+  background: white;
+ }
+
 body{
   margin:0px;
   min-height:100%;
 }
 
-.about{
-  float: right;
-  background-color: lightcoral;
+#about-me{
+ padding-left:3%;
 }
 
 div{
@@ -65,8 +68,8 @@ div{
   position: fixed;
 }
 #root{
-  padding-left: 15%;
-  padding-right: 15%;
+  padding-left: 5%;
+  padding-right: 3%;
   min-height: 100%;
 
 }
@@ -120,10 +123,12 @@ footer p{
 .posts-container{
   width: 80%;
   float:left;
+  background-color: mintcream;
+  
 }
 
 .posts{
-  padding-left: 8%;
+  padding-left: 3%;
 }
 
 .post{
@@ -136,15 +141,17 @@ footer p{
 }
 
 .post-data-list{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  
 }
+
+ul.post-data-list{
+  padding: 0px;
+  display: inline;
+}
+
 .post-data-list > div{
  font-size: 15px;
- padding: 5px;
  margin:3px;
- background-color: lightcoral;
 }
 
 a {
@@ -251,6 +258,7 @@ padding-right: 20px;
 
 .linktext{
   color: black;
+  background-color: lightcoral;
 }
 
 #single-text{

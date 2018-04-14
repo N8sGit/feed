@@ -18,12 +18,13 @@ class Main extends React.Component{
   }
 
   componentWillMount(){
-
     $(window).on('load', () => {
+      console.log('did this shit loaded?')
       this.setState({loaded: true})
     })
   }
   render(){
+    console.log(this.state.loaded);
     let {children, handleClick } = this.props
 
     return (
@@ -32,9 +33,7 @@ class Main extends React.Component{
             <i className="fa fa-spinner fa-pulse" />
         </div>
         <div id="root">
-
-          {children}
-
+         {children}
         </div>
      </div>)
   }

@@ -22903,17 +22903,17 @@ var FadeExample = function (_React$Component) {
           },
           'About'
         ),
-        _react2.default.createElement(
+        this.state.show ? _react2.default.createElement(
           _Fade2.default,
           { duration: 1750, onReveal: function onReveal() {
-              (0, _timers.setTimeout)(_this2.handleClick, 17500);
+              return _this2.state.show ? (0, _timers.setTimeout)(_this2.handleClick, 17500) : null;
             }, left: true, when: this.state.show },
           _react2.default.createElement(
             'p',
             null,
             'I\'m a software developer and writer. I\'m interested in the software industry, programming best practices, web technologies, internet studies, digital trends, neuroscience, and related interests. '
           )
-        )
+        ) : null
       );
     }
   }]);
@@ -23697,18 +23697,22 @@ var Home = function (_React$Component) {
         null,
         _react2.default.createElement(
           'div',
-          null,
+          { id: 'sidebar-container' },
           _react2.default.createElement(
             'h1',
             null,
             'Nathan Anecone'
           ),
-          _react2.default.createElement(_about2.default, null)
+          _react2.default.createElement(_components.Sidebar, null)
         ),
-        _react2.default.createElement(_components.Sidebar, null),
         _react2.default.createElement(
           'div',
           { className: 'posts-container' },
+          _react2.default.createElement(
+            'p',
+            { id: 'about-me' },
+            ' I\'m a software developer and writer. I\'m interested in the software industry, programming best practices, web technologies, internet studies, digital trends, neuroscience, and related interests. '
+          ),
           _react2.default.createElement(
             'div',
             { className: 'posts' },
@@ -23857,12 +23861,14 @@ var Main = function (_React$Component) {
       var _this2 = this;
 
       $(window).on('load', function () {
+        console.log('did this shit loaded?');
         _this2.setState({ loaded: true });
       });
     }
   }, {
     key: 'render',
     value: function render() {
+      console.log(this.state.loaded);
       var _props = this.props,
           children = _props.children,
           handleClick = _props.handleClick;
@@ -24080,7 +24086,7 @@ var Sidebar = exports.Sidebar = function Sidebar() {
 
     return _react2.default.createElement(
         'div',
-        { id: 'sidebar-container' },
+        null,
         _react2.default.createElement(
             'div',
             { id: 'sidebar' },

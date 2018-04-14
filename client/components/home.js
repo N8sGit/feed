@@ -32,14 +32,15 @@ class  Home extends React.Component{
     }).reverse()
     let htmlText = posts.map(post => { return {__html: post.content}}).reverse()
     return (
-  <div>
-       <div>
-           <h1>Nathan Anecone</h1>
-          <About />
+    <div>
+      <div id="sidebar-container">
+      <h1>Nathan Anecone</h1>
+      <Sidebar />
       </div>
-    <Sidebar />
 
      <div className="posts-container">
+     <p id="about-me"> I'm a software developer and writer. I'm interested in the software industry, programming best practices, web technologies, internet studies, digital trends, neuroscience, and related interests. </p>
+
           <div className="posts">
           {posts.reverse().map(function(post, index){
             return (<div className="post" key={post.id}>
@@ -52,7 +53,8 @@ class  Home extends React.Component{
                           {categoryDisplay.length !== posts.length ? <p>{''}</p> : categoryDisplay[index].tags.map(function(category){
                                     let categoryLink = category.slice(1)
                                     return <div key={post.id}> <Link className="linktext" to={`/categoryView/${categoryLink}`}> {category} </Link> </div>
-                                    })}
+                                    })
+                          }
                                 </ul>
                         </div>
               </div>)
@@ -60,6 +62,7 @@ class  Home extends React.Component{
           })}
         </div>
     </div>
+
     <footer>
           <p>Site by Nathan Anecone </p>
     </footer>
