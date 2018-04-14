@@ -53,7 +53,8 @@ class  Home extends React.Component{
                           {categoryDisplay.length !== posts.length ? <p>{''}</p> : categoryDisplay[index].tags.map(function(category){
                                     let categoryLink = category.slice(1)
                                     return <div key={post.id}> <Link className="linktext" to={`/categoryView/${categoryLink}`}> {category} </Link> </div>
-                                    })}
+                                    })
+                          }
                                 </ul>
                         </div>
               </div>)

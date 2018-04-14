@@ -23861,12 +23861,14 @@ var Main = function (_React$Component) {
       var _this2 = this;
 
       $(window).on('load', function () {
+        console.log('did this shit loaded?');
         _this2.setState({ loaded: true });
       });
     }
   }, {
     key: 'render',
     value: function render() {
+      console.log(this.state.loaded);
       var _props = this.props,
           children = _props.children,
           handleClick = _props.handleClick;
