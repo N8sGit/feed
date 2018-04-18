@@ -26,16 +26,21 @@ class  Home extends React.Component{
 
    render(){
     const {posts, categories} = this.props
+    let sideBarCats = []
     let categoryDisplay = categories.map((item) => {
      item.tags = [...new Set(item.tags)];
+     console.log(item.tags, 'tags')
+     if (item.tags) {sideBarCats.push(item.tags)}
       return item
     }).reverse()
+    sideBarCats = [... new Set([].concat(...sideBarCats))]
+     
     let htmlText = posts.map(post => { return {__html: post.content}}).reverse()
     return (
     <div>
       <div id="sidebar-container">
       <h1>Nathan Anecone</h1>
-      <Sidebar />
+      <Sidebar sideBarCats={sideBarCats} />
       </div>
 
      <div className="posts-container">

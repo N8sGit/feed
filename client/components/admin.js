@@ -110,13 +110,13 @@ class Admin extends React.Component{
 
         return (
 <div id="admin-page">
-    <div id='admin-large'>
+    <div id="admin-large">
             <p> The currently selected post is: {this.state.title} </p>
         <form onSubmit={this.handleFormSubmit}>
               {this.createCheckboxes()}
 
               <button className="btn btn-default" type="submit" >Save</button>
-              
+
               <button
                 className="btn btn-default" type="submit" onClick={() => {
                   window.location.reload()
@@ -128,12 +128,12 @@ class Admin extends React.Component{
             <form>
                 <textarea
                     id="titleInput" className="field" onChange={this.onChangeTitle.bind(this)}
-                    value={this.state.title} rows="1" cols="100" placeholder="title" 
+                    value={this.state.title} rows="1" cols="100" placeholder="title"
                 />
 
                 <Editor
                     className="field" placeholder={'Write here'} selectedId={this.state.selectedId}
-                    title={this.state.title} text={this.state.text} 
+                    title={this.state.title} text={this.state.text}
                 />
             <div className="button-parent">
                 <button
@@ -145,7 +145,7 @@ class Admin extends React.Component{
             </form>
         </div>
     </div>
-    <div id="admin-small"> 
+    <div id="admin-small">
             <div id="titleDisplay">
         { <AdminPostBar setSidebar = {this.setSidebar.bind(this)} />}
         </div>

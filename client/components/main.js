@@ -1,8 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import { log } from 'util';
-import { loadavg } from 'os';
+
 /**
  * COMPONENT
  *  The Main component is our 'picture frame' - it displays the navbar and anything
@@ -19,21 +18,18 @@ class Main extends React.Component{
 
   componentWillMount(){
     $(window).on('load', () => {
-      console.log('did this shit loaded?')
       this.setState({loaded: true})
     })
   }
 
   componentDidMount(){
     $(window).on('load', () => {
-      console.log('did this shit loaded?')
       this.setState({loaded: true})
     })
   }
 
   render(){
-    console.log(this.state.loaded);
-    let {children, handleClick } = this.props
+    let {children } = this.props
 
     return (
       <div id="top">
