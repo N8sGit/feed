@@ -12,8 +12,6 @@ export const Sidebar = (props) => {
     })
     const {sideBarCats} = props 
     let categoriesToShow = sideBarCats.map(category => {return category.slice(1)})
-    console.log(display, 'display');
-    console.log(sideBarCats, 'sidebarCats');
   return (
 
     <div>

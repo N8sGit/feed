@@ -13,36 +13,35 @@ class Main extends React.Component{
 
   constructor(props){
     super(props)
-    this.state = {loaded: false}
-  }
-
-  componentWillMount(){
-    $(window).on('load', () => {
-      this.setState({loaded: true})
-    })
+    this.state = {loading: true}
   }
 
   componentDidMount(){
-    $(window).on('load', () => {
-      this.setState({loaded: true})
-    })
+  setTimeout(() => this.setState({ loading: false }), 1000);
+
+    // $(window).on('load', () => {
+    //   this.setState({loading: true})
+    // })
   }
 
   render(){
+    const {loading} = this.state
     let {children } = this.props
 
+    console.log(loading, 'loading');
     return (
-      <div id="top">
-          <div id="loading" style={{opacity: this.state.loaded ? 0 : 1, zIndex: this.state.loaded ? '-100' : '100'}}>
-            <i className="fa fa-spinner fa-pulse" />
-        </div>
-        <div id="root">
-         {children}
-        </div>
+      loading ?  <div id="loading" style={{opacity: !loading ? 0 : 1, zIndex: !loading ? '-100' : '100'}}>
+      <i className="fa fa-spinner fa-pulse" />
+</div> :  <div id="top">
+         <div id="root">
+            {children}
+          </div>
      </div>)
   }
 }
-
+{/* <div id="loading" style={{opacity: this.state.loading ? 0 : 1, zIndex: this.state.loading ? '-100' : '100'}}>
+            <i className="fa fa-spinner fa-pulse" />
+</div> */}
 /**
  * CONTAINER
  */

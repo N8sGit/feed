@@ -29,7 +29,6 @@ class  Home extends React.Component{
     let sideBarCats = []
     let categoryDisplay = categories.map((item) => {
      item.tags = [...new Set(item.tags)];
-     console.log(item.tags, 'tags')
      if (item.tags) {sideBarCats.push(item.tags)}
       return item
     }).reverse()

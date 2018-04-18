@@ -23834,7 +23834,6 @@ var Home = function (_React$Component) {
       var sideBarCats = [];
       var categoryDisplay = categories.map(function (item) {
         item.tags = [].concat(_toConsumableArray(new Set(item.tags)));
-        console.log(item.tags, 'tags');
         if (item.tags) {
           sideBarCats.push(item.tags);
         }
@@ -23999,42 +23998,38 @@ var Main = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
 
-    _this.state = { loaded: false };
+    _this.state = { loading: true };
     return _this;
   }
 
   _createClass(Main, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      var _this2 = this;
-
-      $(window).on('load', function () {
-        _this2.setState({ loaded: true });
-      });
-    }
-  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this3 = this;
+      var _this2 = this;
 
-      $(window).on('load', function () {
-        _this3.setState({ loaded: true });
-      });
+      setTimeout(function () {
+        return _this2.setState({ loading: false });
+      }, 1000);
+
+      // $(window).on('load', () => {
+      //   this.setState({loading: true})
+      // })
     }
   }, {
     key: 'render',
     value: function render() {
+      var loading = this.state.loading;
       var children = this.props.children;
 
 
-      return _react2.default.createElement(
+      console.log(loading, 'loading');
+      return loading ? _react2.default.createElement(
+        'div',
+        { id: 'loading', style: { opacity: !loading ? 0 : 1, zIndex: !loading ? '-100' : '100' } },
+        _react2.default.createElement('i', { className: 'fa fa-spinner fa-pulse' })
+      ) : _react2.default.createElement(
         'div',
         { id: 'top' },
-        _react2.default.createElement(
-          'div',
-          { id: 'loading', style: { opacity: this.state.loaded ? 0 : 1, zIndex: this.state.loaded ? '-100' : '100' } },
-          _react2.default.createElement('i', { className: 'fa fa-spinner fa-pulse' })
-        ),
         _react2.default.createElement(
           'div',
           { id: 'root' },
@@ -24047,14 +24042,15 @@ var Main = function (_React$Component) {
   return Main;
 }(_react2.default.Component);
 
+{} /* <div id="loading" style={{opacity: this.state.loading ? 0 : 1, zIndex: this.state.loading ? '-100' : '100'}}>
+              <i className="fa fa-spinner fa-pulse" />
+   </div> */
 /**
  * CONTAINER
  */
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-
-
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)()(Main));
 
 /***/ }),
@@ -24223,8 +24219,6 @@ var Sidebar = exports.Sidebar = function Sidebar(props) {
     var categoriesToShow = sideBarCats.map(function (category) {
         return category.slice(1);
     });
-    console.log(display, 'display');
-    console.log(sideBarCats, 'sidebarCats');
     return _react2.default.createElement(
         'div',
         null,
