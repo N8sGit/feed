@@ -1,11 +1,11 @@
 import React from 'react';
-import Fade from 'react-reveal/Fade';
+import Slide from 'react-reveal/Slide';
 import { setTimeout } from 'timers';
 
-class FadeExample extends React.Component {
+class About extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { show: false };
+    this.state = { show: true };
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick() {
@@ -13,19 +13,19 @@ class FadeExample extends React.Component {
   }
   render() {
     return (
-      <div id='about'>
+      <div>
         <div
           onClick={this.handleClick}
         >
            About
         </div>
-        {this.state.show ? <Fade duration={1750} onReveal={ () => { return this.state.show ? setTimeout(this.handleClick, 17500) : null}} left when={this.state.show}>
-          <p>I'm a software developer and writer. I'm interested in the software industry, programming best practices, web technologies, internet studies, digital trends, neuroscience, and related interests. </p>
-        </Fade> : null}
-       
+        {this.state.show ? <Slide top duration={1750}  left when={this.state.show}>
+          <p>I'm a software developer and writer. I'm interested in making cool things, the software industry, programming best practices, web technologies, the internet, digital trends, neuroscience, and related interests. </p>
+        </Slide> : null}     
       </div>
     );
   }
 }
 
-export default FadeExample;
+export default About;
+// onReveal={ () => { return this.state.show ? setTimeout(this.handleClick, 17500) : null}}

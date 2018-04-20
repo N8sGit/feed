@@ -17,34 +17,25 @@ class Main extends React.Component{
   }
 
   componentDidMount(){
-  setTimeout(() => this.setState({ loading: false }), 1000);
-
-    // $(window).on('load', () => {
-    //   this.setState({loading: true})
-    // })
+    setTimeout(() => this.setState({ loading: false }), 1000);
   }
 
   render(){
     const {loading} = this.state
     let {children } = this.props
 
-    console.log(loading, 'loading');
     return (
       loading ?  <div id="loading" style={{opacity: !loading ? 0 : 1, zIndex: !loading ? '-100' : '100'}}>
-      <i className="fa fa-spinner fa-pulse" />
-</div> :  <div id="top">
-         <div id="root">
+        <i className="fa fa-spinner fa-pulse" />
+      </div> :  
+      <div id="top">
+         
+          <div id="root">
             {children}
           </div>
      </div>)
   }
 }
-{/* <div id="loading" style={{opacity: this.state.loading ? 0 : 1, zIndex: this.state.loading ? '-100' : '100'}}>
-            <i className="fa fa-spinner fa-pulse" />
-</div> */}
-/**
- * CONTAINER
- */
 
 
 // The `withRouter` wrapper makes sure that updates are not blocked
