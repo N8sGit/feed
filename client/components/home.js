@@ -39,11 +39,11 @@ class  Home extends React.Component{
     <div>
       <div id="sidebar-container">
       <h1>Nathan Anecone</h1>
+      <About />
       <Sidebar sideBarCats={sideBarCats} />
       </div>
 
      <div className="posts-container">
-     <p id="about-me"> I'm a software developer and writer. I'm interested in the software industry, programming best practices, web technologies, internet studies, digital trends, neuroscience, and related interests. </p>
 
           <div className="posts">
           {posts.reverse().map(function(post, index){

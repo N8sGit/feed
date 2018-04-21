@@ -2390,6 +2390,10 @@ var cognitive_science = exports.cognitive_science = 'cognitive_science';
 var technical_posts = exports.technical_posts = 'technical_posts';
 var philosophy = exports.philosophy = 'philosophy';
 var software_industry = exports.software_industry = 'software_industry';
+var web_technologies = exports.web_technologies = 'web_technologies';
+var artificial_intelligence = exports.artificial_intelligence = 'artificial_intelligence';
+var app_decompositions = exports.app_decompositions = 'app_decompositions';
+var book_reviews = exports.book_reviews = 'book_reviews';
 var general = exports.general = 'general';
 
 /***/ }),
@@ -5552,6 +5556,15 @@ Object.defineProperty(exports, 'PostView', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_postView).default;
+  }
+});
+
+var _about = __webpack_require__(157);
+
+Object.defineProperty(exports, 'About', {
+  enumerable: true,
+  get: function get() {
+    return _about.About;
   }
 });
 
@@ -23000,9 +23013,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Fade = __webpack_require__(319);
+var _Slide = __webpack_require__(367);
 
-var _Fade2 = _interopRequireDefault(_Fade);
+var _Slide2 = _interopRequireDefault(_Slide);
 
 var _timers = __webpack_require__(360);
 
@@ -23014,20 +23027,20 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var FadeExample = function (_React$Component) {
-  _inherits(FadeExample, _React$Component);
+var About = function (_React$Component) {
+  _inherits(About, _React$Component);
 
-  function FadeExample(props) {
-    _classCallCheck(this, FadeExample);
+  function About(props) {
+    _classCallCheck(this, About);
 
-    var _this = _possibleConstructorReturn(this, (FadeExample.__proto__ || Object.getPrototypeOf(FadeExample)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (About.__proto__ || Object.getPrototypeOf(About)).call(this, props));
 
-    _this.state = { show: false };
+    _this.state = { show: true };
     _this.handleClick = _this.handleClick.bind(_this);
     return _this;
   }
 
-  _createClass(FadeExample, [{
+  _createClass(About, [{
     key: 'handleClick',
     value: function handleClick() {
       this.setState({ show: !this.state.show });
@@ -23035,11 +23048,9 @@ var FadeExample = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       return _react2.default.createElement(
         'div',
-        { id: 'about' },
+        null,
         _react2.default.createElement(
           'div',
           {
@@ -23048,24 +23059,23 @@ var FadeExample = function (_React$Component) {
           'About'
         ),
         this.state.show ? _react2.default.createElement(
-          _Fade2.default,
-          { duration: 1750, onReveal: function onReveal() {
-              return _this2.state.show ? (0, _timers.setTimeout)(_this2.handleClick, 17500) : null;
-            }, left: true, when: this.state.show },
+          _Slide2.default,
+          { top: true, duration: 1750, left: true, when: this.state.show },
           _react2.default.createElement(
             'p',
             null,
-            'I\'m a software developer and writer. I\'m interested in the software industry, programming best practices, web technologies, internet studies, digital trends, neuroscience, and related interests. '
+            'I\'m a software developer and writer. I\'m interested in making cool things, the software industry, programming best practices, web technologies, the internet, digital trends, neuroscience, and related interests. '
           )
         ) : null
       );
     }
   }]);
 
-  return FadeExample;
+  return About;
 }(_react2.default.Component);
 
-exports.default = FadeExample;
+exports.default = About;
+// onReveal={ () => { return this.state.show ? setTimeout(this.handleClick, 17500) : null}}
 
 /***/ }),
 /* 158 */
@@ -23855,16 +23865,12 @@ var Home = function (_React$Component) {
             null,
             'Nathan Anecone'
           ),
+          _react2.default.createElement(_about2.default, null),
           _react2.default.createElement(_components.Sidebar, { sideBarCats: sideBarCats })
         ),
         _react2.default.createElement(
           'div',
           { className: 'posts-container' },
-          _react2.default.createElement(
-            'p',
-            { id: 'about-me' },
-            ' I\'m a software developer and writer. I\'m interested in the software industry, programming best practices, web technologies, internet studies, digital trends, neuroscience, and related interests. '
-          ),
           _react2.default.createElement(
             'div',
             { className: 'posts' },
@@ -24010,10 +24016,6 @@ var Main = function (_React$Component) {
       setTimeout(function () {
         return _this2.setState({ loading: false });
       }, 1000);
-
-      // $(window).on('load', () => {
-      //   this.setState({loading: true})
-      // })
     }
   }, {
     key: 'render',
@@ -24022,7 +24024,6 @@ var Main = function (_React$Component) {
       var children = this.props.children;
 
 
-      console.log(loading, 'loading');
       return loading ? _react2.default.createElement(
         'div',
         { id: 'loading', style: { opacity: !loading ? 0 : 1, zIndex: !loading ? '-100' : '100' } },
@@ -24042,15 +24043,10 @@ var Main = function (_React$Component) {
   return Main;
 }(_react2.default.Component);
 
-{} /* <div id="loading" style={{opacity: this.state.loading ? 0 : 1, zIndex: this.state.loading ? '-100' : '100'}}>
-              <i className="fa fa-spinner fa-pulse" />
-   </div> */
-/**
- * CONTAINER
- */
-
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
+
+
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)()(Main));
 
 /***/ }),
@@ -57676,13 +57672,7 @@ function shallowEqual(objA, objB) {
 }
 
 /***/ }),
-/* 319 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-function _interopRequireDefault(o){return o&&o.__esModule?o:{default:o}}function _objectWithoutProperties(o,e){var r={};for(var t in o)e.indexOf(t)>=0||Object.prototype.hasOwnProperty.call(o,t)&&(r[t]=o[t]);return r}function make(o,e){var r=e.distance,t=e.left,p=e.right,a=e.up,l=e.down,i=e.top,u=e.bottom,n=e.big,s=e.mirror,d=e.opposite,_=(r?r.toString():0)+((t?1:0)|(p?2:0)|(i||l?4:0)|(u||a?8:0)|(s?16:0)|(d?32:0)|(o?64:0)|(n?128:0));if(lookup.hasOwnProperty(_))return lookup[_];var f=t||p||a||l||i||u,y=void 0,b=void 0;if(f){if(!s!=!(o&&d)){var v=[p,t,u,i,l,a];t=v[0],p=v[1],i=v[2],u=v[3],a=v[4],l=v[5]}var c=r||(n?"2000px":"100%");y=t?"-"+c:p?c:"0",b=l||i?"-"+c:a||u?c:"0"}return lookup[_]=(0,_globals.animation)((o?"to":"from")+" {opacity: 0;"+(f?" transform: translate3d("+y+", "+b+", 0);":"")+"}\n     "+(o?"from":"to")+" {opacity: 1;transform: none;} "),lookup[_]}function Fade(){var o=arguments.length>0&&void 0!==arguments[0]?arguments[0]:_globals.defaults,e=arguments.length>1&&void 0!==arguments[1]&&arguments[1],r=o.children,t=(o.out,o.forever),p=o.timeout,a=o.duration,l=void 0===a?_globals.defaults.duration:a,i=o.delay,u=void 0===i?_globals.defaults.delay:i,n=o.count,s=void 0===n?_globals.defaults.count:n,d=_objectWithoutProperties(o,["children","out","forever","timeout","duration","delay","count"]),_={make:make,duration:void 0===p?l:p,delay:u,forever:t,count:s,style:{animationFillMode:"both"},reverse:d.left};return e?(0,_wrap2.default)(d,_,_,r):_}Object.defineProperty(exports,"__esModule",{value:!0});var _propTypes=__webpack_require__(2),_globals=__webpack_require__(121),_wrap=__webpack_require__(321),_wrap2=_interopRequireDefault(_wrap),propTypes={out:_propTypes.bool,left:_propTypes.bool,right:_propTypes.bool,top:_propTypes.bool,bottom:_propTypes.bool,big:_propTypes.bool,mirror:_propTypes.bool,opposite:_propTypes.bool,duration:_propTypes.number,timeout:_propTypes.number,distance:_propTypes.string,delay:_propTypes.number,count:_propTypes.number,forever:_propTypes.bool},lookup={};Fade.propTypes=propTypes,exports.default=Fade,module.exports=exports.default;
-
-/***/ }),
+/* 319 */,
 /* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -62601,6 +62591,17 @@ function toArray(list, index) {
 /***/ (function(module, exports) {
 
 /* (ignored) */
+
+/***/ }),
+/* 363 */,
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+function _interopRequireDefault(o){return o&&o.__esModule?o:{default:o}}function _objectWithoutProperties(o,e){var r={};for(var t in o)e.indexOf(t)>=0||Object.prototype.hasOwnProperty.call(o,t)&&(r[t]=o[t]);return r}function make(o,e){var r=e.left,t=e.right,p=e.up,l=e.down,u=e.top,a=e.bottom,i=e.big,n=e.mirror,s=e.opposite,d=(r?1:0)|(t?2:0)|(u||l?4:0)|(a||p?8:0)|(n?16:0)|(s?32:0)|(o?64:0)|(i?128:0);if(lookup.hasOwnProperty(d))return lookup[d];var _=r||t||p||l||u||a,f=void 0,b=void 0;if(_){if(!n!=!(o&&s)){var y=[t,r,a,u,l,p];r=y[0],t=y[1],u=y[2],a=y[3],p=y[4],l=y[5]}var m=i?"2000px":"100%";f=r?"-"+m:t?m:"0",b=l||u?"-"+m:p||a?m:"0"}return lookup[d]=(0,_globals.animation)((o?"to":"from")+" {"+(_?" transform: translate3d("+f+", "+b+", 0);":"")+"}\n     "+(o?"from":"to")+" {transform: none;} "),lookup[d]}function Slide(){var o=arguments.length>0&&void 0!==arguments[0]?arguments[0]:_globals.defaults,e=o.children,r=(o.out,o.forever),t=o.timeout,p=o.duration,l=void 0===p?_globals.defaults.duration:p,u=o.delay,a=void 0===u?_globals.defaults.delay:u,i=o.count,n=void 0===i?_globals.defaults.count:i,s=_objectWithoutProperties(o,["children","out","forever","timeout","duration","delay","count"]),d={make:make,duration:void 0===t?l:t,delay:a,forever:r,count:n,style:{animationFillMode:"both"},reverse:s.left};return(0,_wrap2.default)(s,d,d,e)}Object.defineProperty(exports,"__esModule",{value:!0});var _propTypes=__webpack_require__(2),_wrap=__webpack_require__(321),_wrap2=_interopRequireDefault(_wrap),_globals=__webpack_require__(121),propTypes={out:_propTypes.bool,left:_propTypes.bool,right:_propTypes.bool,top:_propTypes.bool,bottom:_propTypes.bool,big:_propTypes.bool,mirror:_propTypes.bool,opposite:_propTypes.bool,duration:_propTypes.number,timeout:_propTypes.number,delay:_propTypes.number,count:_propTypes.number,forever:_propTypes.bool},lookup={};Slide.propTypes=propTypes,exports.default=Slide,module.exports=exports.default;
 
 /***/ })
 /******/ ]);
