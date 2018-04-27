@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
 const {Post, Category} = require('./db/models')
+const Uploader = require('s3-image-uploader');
 
 module.exports = app
 
@@ -23,8 +24,10 @@ module.exports = app
  * keys as environment variables, so that they can still be read by the
  * Node process on process.env
  */
-if (process.env.NODE_ENV !== 'production') require('../secrets')
-
+let secrets; 
+if (process.env.NODE_ENV !== 'production') {
+  secrets = require('../secrets')
+} 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) =>
@@ -152,7 +155,6 @@ app.get('/get', function(req, res){
 })
 
 app.get('/getPostById/:id', function(req, res){
-  console.log('rotue???')
   Post.findById(req.params.id)
     .then(post => {
       res.json({message: 'here is the post associated with that id', info: post})
@@ -161,7 +163,7 @@ app.get('/getPostById/:id', function(req, res){
 
 app.get('/getById/:id', function(req, res){
   let categories = []
-  Category.findAll({where:{postId: req.params.id}})
+  Category.findAll({where: {postId: req.params.id}})
     .then(function(result){
       result.forEach((value) => categories.push(value.category))
     })
@@ -169,7 +171,7 @@ app.get('/getById/:id', function(req, res){
         console.log(categories, 'categories in route ')
         res.json({message: 'categories sent', allCategories: categories})
       })
-    
+
 })
 //REFACTOR THIS AT SOME POINT, IT DOESN'T UTILIZE PROMISE CHAINING
 app.get('/getByCat/:category', function(req, res){
@@ -199,6 +201,15 @@ app.get('/getByCat/:category', function(req, res){
       })
   })
 })
+
+const uploader = new Uploader({
+  aws: {
+    key: process.env.AWS_KEY || secrets.awsAccessKey.awsKey,
+    secret: process.env.AWS_SECRET || secrets.awsAccessKey.awsSecret
+  },
+  websockets: false
+});
+
 
   // sends index.html
   app.use('*', (req, res) => {
