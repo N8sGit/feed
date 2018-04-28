@@ -64,6 +64,7 @@
     "redux-logger": "^2.8.1",
     "redux-mock-store": "^1.2.3",
     "redux-thunk": "^2.2.0",
+    "s3-image-uploader": "^1.0.7",
     "sequelize": "^4.3.1",
     "socket.io": "^2.0.3",
     "supertest": "^3.0.0",
