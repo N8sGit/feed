@@ -11,7 +11,7 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
-const {Post, Category} = require('./db/models')
+const {Post, Category, Image} = require('./db/models')
 const Uploader = require('s3-image-uploader');
 
 module.exports = app
@@ -24,10 +24,10 @@ module.exports = app
  * keys as environment variables, so that they can still be read by the
  * Node process on process.env
  */
-let secrets; 
+let secrets;
 if (process.env.NODE_ENV !== 'production') {
   secrets = require('../secrets')
-} 
+}
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) =>
@@ -201,7 +201,7 @@ app.get('/getByCat/:category', function(req, res){
       })
   })
 })
-
+//Image BACKEND
 const uploader = new Uploader({
   aws: {
     key: process.env.AWS_KEY || secrets.awsAccessKey.awsKey,
@@ -209,6 +209,38 @@ const uploader = new Uploader({
   },
   websockets: false
 });
+
+app.post('/image/', function(req, res){
+  console.log('is this a problem?')
+  Image.create(req.body).then( function(createdImage){
+      createdImage.url = req.body.url
+      createdImage.source = req.body.source
+      createdImage.postId = req.body.postId
+    return createdImage
+  })
+    .then(function(createdImage){
+      res.json({ message: 'image metadata saved', info: createdImage})
+      createdImage.save()
+      return createdImage
+  })
+  .then(function(createdImage){
+    uploader.upload({
+      fileId: createdImage.postId,
+      bucket: 'nathan-anecone',
+      source: createdImage.url,
+      name: createdImage.name
+    },
+    function(data){ // success
+      console.log('upload success:', data);
+      // execute success code
+    },
+    function(errMsg, errObject){ //error
+      console.error('unable to upload: ' + errMsg + ':', errObject);
+      // execute error code
+    });
+  })
+    .catch(err => console.error(err))
+})
 
 
   // sends index.html
