@@ -1,4 +1,5 @@
 import React from 'react'
+import hljs from 'highlight.js'
 import ReactQuill from 'react-quill'
 import axios from 'axios'
 import store from '.././store'
@@ -20,15 +21,22 @@ export default class Editor extends React.Component {
         }
     }
 
+    componentDidMount(){
+      hljs.configure({
+        languages: ['javascript', 'ruby', 'python']
+      });
+  }
+
     handleChange (html) {
-      console.log(html, 'quill thml')
-      console.log(typeof html,'typeof');
       this.setState({ editorHtml: html });
     }
 
+
     render () {
       return (
+      <div>
     <form>
+
         <div id="editor">
           <ReactQuill
             ref={(quillNode) => { this.quillNode = quillNode; }}
@@ -43,14 +51,14 @@ export default class Editor extends React.Component {
         </div>
       <div id="button-parent">
         <button
-            className="btn btn-default" id='post-button' type="button"  onClick={ () => {
+            className="btn btn-default" id="post-button" type="button"  onClick={ () => {
                store.dispatch(add(this.state.editorHtml, this.props.title))
                 }}>
                     POST
         </button>
         <button
             className="btn btn-default" id="edit-button" type="button"  onClick={ () => {
-             
+
                     axios.put(`/update/${this.props.selectedId}`, {content: this.state.editorHtml})
                 }}>
                     Update Text
@@ -58,6 +66,7 @@ export default class Editor extends React.Component {
       </div>
 
     </form>
+    </div>
        )
     }
   }
@@ -66,14 +75,19 @@ export default class Editor extends React.Component {
    * Quill modules to attach to editor
    * See https://quilljs.com/docs/modules/ for complete options
    */
+
+
   Editor.modules = {
+    syntax: {
+      highlight: text => window.hljs.highlightAuto(text).value,
+    },
     toolbar: [
       [{ header: '1'}, {header: '2'}, { font: [] }],
       [{size: []}],
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
       [{list: 'ordered'}, {list: 'bullet'},
        {indent: '-1'}, {indent: '+1'}],
-      ['link', 'image', 'video'],
+      ['link', 'image', 'code-block'],
       ['clean']
     ],
     clipboard: {
@@ -89,5 +103,5 @@ export default class Editor extends React.Component {
     'header', 'font', 'size',
     'bold', 'italic', 'underline', 'strike', 'blockquote',
     'list', 'bullet', 'indent',
-    'link', 'image', 'video'
+    'link', 'image', 'video', 'code-block', 'code'
   ]

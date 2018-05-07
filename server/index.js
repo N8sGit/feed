@@ -213,9 +213,11 @@ const uploader = new Uploader({
 app.post('/image/', function(req, res){
   console.log('is this a problem?')
   Image.create(req.body).then( function(createdImage){
+      createdImage.imageId = req.body.postId
       createdImage.url = req.body.url
       createdImage.source = req.body.source
-      createdImage.postId = req.body.postId
+      createdImage.postId = req.body.imageId
+      createdImage.caption = req.body.caption
     return createdImage
   })
     .then(function(createdImage){
@@ -225,7 +227,7 @@ app.post('/image/', function(req, res){
   })
   .then(function(createdImage){
     uploader.upload({
-      fileId: createdImage.postId,
+      fileId: createdImage.id,
       bucket: 'nathan-anecone',
       source: createdImage.url,
       name: createdImage.name
@@ -237,7 +239,8 @@ app.post('/image/', function(req, res){
     function(errMsg, errObject){ //error
       console.error('unable to upload: ' + errMsg + ':', errObject);
       // execute error code
-    });
+  });
+
   })
     .catch(err => console.error(err))
 })
