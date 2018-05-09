@@ -14,11 +14,6 @@ class About extends React.Component {
   render() {
     return (
       <div>
-        <div
-          onClick={this.handleClick}
-        >
-           About
-        </div>
         {this.state.show ? <Slide top duration={1750}  left when={this.state.show}>
           <p>I'm a software developer and writer. I'm interested in making cool things, the software industry, programming best practices, web technologies, the internet, digital trends, neuroscience, and related interests. </p>
         </Slide> : null}     

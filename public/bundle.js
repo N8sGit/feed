@@ -5371,13 +5371,6 @@ var About = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(
-          'div',
-          {
-            onClick: this.handleClick
-          },
-          'About'
-        ),
         this.state.show ? _react2.default.createElement(
           _Slide2.default,
           { top: true, duration: 1750, left: true, when: this.state.show },

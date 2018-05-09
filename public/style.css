@@ -126,6 +126,9 @@ footer p{
 } 
 
 .posts-container{
+  padding-right: 10%;
+  padding-left: 5%;
+  padding-bottom: 5%;
   width: 80%;
   float:left;
   background-color: mintcream;
@@ -292,6 +295,6 @@ padding-right: 20px;
 }
 
 .react-reveal{
-  background: lightcoral;
+  background: transparent;
   margin-right: 12%;
 }
