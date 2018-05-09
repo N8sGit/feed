@@ -11,8 +11,10 @@ class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
   }
-
+  
   render () {
+    console.log(history, 'history');
+    console.log(window.history, 'window history');
     const {isLoggedIn} = this.props
     return (
       <Router history={history}>

@@ -22099,6 +22099,8 @@ var Routes = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      console.log(_history2.default, 'history');
+      console.log(window.history, 'window history');
       var isLoggedIn = this.props.isLoggedIn;
 
       return _react2.default.createElement(
