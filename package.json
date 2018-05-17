@@ -74,6 +74,7 @@
   },
   "devDependencies": {
     "css-loader": "^0.28.11",
-    "style-loader": "^0.21.0"
+    "style-loader": "^0.21.0",
+    "webpack-livereload-plugin": "^1.2.0"
   }
 }

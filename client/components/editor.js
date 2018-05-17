@@ -52,14 +52,15 @@ export default class Editor extends React.Component {
       <div id="button-parent">
         <button
             className="btn btn-default" id="post-button" type="button"  onClick={ () => {
-               store.dispatch(add(this.state.editorHtml, this.props.title))
+              if (!this.props.title){alert('Post needs a title!')}
+              else {store.dispatch(add(this.state.editorHtml, this.props.title))}
                 }}>
                     POST
         </button>
         <button
             className="btn btn-default" id="edit-button" type="button"  onClick={ () => {
 
-                    axios.put(`/update/${this.props.selectedId}`, {content: this.state.editorHtml})
+                    axios.put(`/update/${this.props.selectedId}`, {content: this.state.editorHtml, title: this.props.title})
                 }}>
                     Update Text
         </button>

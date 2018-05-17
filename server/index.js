@@ -106,10 +106,10 @@ const createApp = () => {
   })
 
 app.put('/update/:postId', function(req, res){
-  console.log('route hit')
   Post.findById(req.params.postId)
     .then(post => {
       post.content = req.body.content
+      post.title = req.body.title
       post.save()
       return post
     })
