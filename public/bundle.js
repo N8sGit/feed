@@ -23853,6 +23853,12 @@ var Home = function (_React$Component) {
           posts = _props.posts,
           categories = _props.categories;
 
+      var postsDisplay = posts.filter(function (post, index) {
+        if (categories[index].tags.length) {
+          post.tags = categories[index].tags;
+          return post;
+        }
+      });
       var sideBarCats = [];
       var categoryDisplay = categories.map(function (item) {
         item.tags = [].concat(_toConsumableArray(new Set(item.tags)));
@@ -23886,10 +23892,10 @@ var Home = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'posts' },
-            posts.reverse().map(function (post, index) {
+            postsDisplay.reverse().map(function (post, index) {
               return _react2.default.createElement(
                 'div',
-                { className: 'post', key: post.id },
+                { className: 'post' },
                 _react2.default.createElement(
                   'div',
                   null,
@@ -23916,11 +23922,7 @@ var Home = function (_React$Component) {
                   _react2.default.createElement(
                     'ul',
                     { className: 'post-data-list' },
-                    categoryDisplay.length !== posts.length ? _react2.default.createElement(
-                      'p',
-                      null,
-                      ''
-                    ) : categoryDisplay[index].tags.map(function (category) {
+                    post.tags.map(function (category) {
                       var categoryLink = category.slice(1);
                       return _react2.default.createElement(
                         'div',

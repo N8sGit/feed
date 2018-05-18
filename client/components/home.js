@@ -26,14 +26,20 @@ class  Home extends React.Component{
 
    render(){
     const {posts, categories} = this.props
+     let postsDisplay = posts.filter((post, index) => {
+      if (categories[index].tags.length){
+        post.tags = categories[index].tags
+        return post
+      }
+    })
     let sideBarCats = []
     let categoryDisplay = categories.map((item) => {
      item.tags = [...new Set(item.tags)];
      if (item.tags) {sideBarCats.push(item.tags)}
       return item
     }).reverse()
-    sideBarCats = [... new Set([].concat(...sideBarCats))]
-     
+    sideBarCats = [... new Set([].concat(...sideBarCats))]  
+    
     let htmlText = posts.map(post => { return {__html: post.content}}).reverse()
     return (
     <div>
@@ -46,28 +52,28 @@ class  Home extends React.Component{
      <div className="posts-container">
 
           <div className="posts">
-          {posts.reverse().map(function(post, index){
+          {postsDisplay.reverse().map(function(post, index){
             return (
-          <div className="post" key={post.id}>
-              <div>
-                <Link className="title-link" to={`/postView/${post.id}`}>{<h1 className="title">{post.title}</h1>}</Link> </div>
-                <ReadMore  children = {<div className="post-text" dangerouslySetInnerHTML={htmlText[index]} />} />
+            <div className="post">
+                <div>
+                  <Link className="title-link" to={`/postView/${post.id}`}>{<h1 className="title">{post.title}</h1>}</Link> </div>
+                  <ReadMore  children = {<div className="post-text" dangerouslySetInnerHTML={htmlText[index]} />} />
 
-                <div className="post-data">
-                <p>{formatDate(post.createdAt)}</p>
-                          <ul className="post-data-list">
-                            {
-                              categoryDisplay.length !== posts.length ? <p>{''}</p> : categoryDisplay[index].tags.map(function(category){
-                                      let categoryLink = category.slice(1)
+                  <div className="post-data">
+                  <p>{formatDate(post.createdAt)}</p>
+                            <ul className="post-data-list">
+                              {
+                                post.tags.map(function(category){
+                                        let categoryLink = category.slice(1)
                                       return <div key={post.id}> <Link className="linktext" to={`/categoryView/${categoryLink}`}> {category} </Link> </div>
-                              })
-                            }
-                          </ul>
-                          
-              </div>
-          </div>)
-
-          })}
+                                })
+                              }
+                            </ul>
+                </div>
+            </div>
+            )
+          }
+        )}
         </div>
     </div>
 
