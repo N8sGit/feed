@@ -143,12 +143,13 @@ app.get('/get', function(req, res){
      .then(function(cats){
           cats.map(function(value){
             let index = packet.categoryData.findIndex(i => i.id == value.postId);
-            packet.categoryData[index].tags.push( '#' + value.category)
-            })
+           if (!packet.categoryData[index].tags.includes('#' + value.category)){
+              packet.categoryData[index].tags.push( '#' + value.category)
+            }
+          })
         })
         .then(function(){
           let posts = packet.posts;
-          categoryData = packet.categoryData
           res.json({message: 'here are all posts', info: posts, categories: categoryData })
         })
         .catch(error => console.error(error))

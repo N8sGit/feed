@@ -89,8 +89,13 @@ export default class Editor extends React.Component {
       [{list: 'ordered'}, {list: 'bullet'},
        {indent: '-1'}, {indent: '+1'}],
       ['link', 'image', 'code-block'],
-      ['clean']
+      ['clean'],
     ],
+    handlers: {
+      image: function(value){
+        console.log(value, 'image value in handler');
+      }
+    },
     clipboard: {
       // toggle to add extra line breaks when pasting HTML:
       matchVisual: false,

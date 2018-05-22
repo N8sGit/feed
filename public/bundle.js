@@ -4999,6 +4999,11 @@ Editor.modules = {
     }
   },
   toolbar: [[{ header: '1' }, { header: '2' }, { font: [] }], [{ size: [] }], ['bold', 'italic', 'underline', 'strike', 'blockquote'], [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }], ['link', 'image', 'code-block'], ['clean']],
+  handlers: {
+    image: function image(value) {
+      console.log(value, 'image value in handler');
+    }
+  },
   clipboard: {
     // toggle to add extra line breaks when pasting HTML:
     matchVisual: false
@@ -23797,15 +23802,9 @@ var _readMore2 = _interopRequireDefault(_readMore);
 
 var _reactRouterDom = __webpack_require__(22);
 
-var _checkboxConstants = __webpack_require__(23);
-
-var data = _interopRequireWildcard(_checkboxConstants);
-
 var _about = __webpack_require__(75);
 
 var _about2 = _interopRequireDefault(_about);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23816,10 +23815,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-/**
- * COMPONENT
- */
 
 var Home = function (_React$Component) {
   _inherits(Home, _React$Component);
@@ -23859,17 +23854,11 @@ var Home = function (_React$Component) {
           return post;
         }
       });
-      var sideBarCats = [];
-      var categoryDisplay = categories.map(function (item) {
-        item.tags = [].concat(_toConsumableArray(new Set(item.tags)));
-        if (item.tags) {
-          sideBarCats.push(item.tags);
-        }
-        return item;
-      }).reverse();
+      var sideBarCats = postsDisplay.map(function (value) {
+        return value.tags;
+      });
       sideBarCats = [].concat(_toConsumableArray(new Set((_ref2 = []).concat.apply(_ref2, _toConsumableArray(sideBarCats)))));
-
-      var htmlText = posts.map(function (post) {
+      var htmlText = postsDisplay.map(function (post) {
         return { __html: post.content };
       }).reverse();
       return _react2.default.createElement(
@@ -23959,11 +23948,6 @@ var Home = function (_React$Component) {
 
   return Home;
 }(_react2.default.Component);
-
-/**
- * CONTAINER
- */
-
 
 var mapState = function mapState(state) {
   return {

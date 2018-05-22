@@ -8,11 +8,7 @@ import {Sidebar} from '../components'
 import {formatDate} from '../helperFunctions'
 import ReadMore from './readMore'
 import {Link} from 'react-router-dom'
-import * as data from './checkboxConstants'
 import About from './about'
-/**
- * COMPONENT
- */
 
 class  Home extends React.Component{
 
@@ -32,15 +28,9 @@ class  Home extends React.Component{
         return post
       }
     })
-    let sideBarCats = []
-    let categoryDisplay = categories.map((item) => {
-     item.tags = [...new Set(item.tags)];
-     if (item.tags) {sideBarCats.push(item.tags)}
-      return item
-    }).reverse()
-    sideBarCats = [... new Set([].concat(...sideBarCats))]  
-    
-    let htmlText = posts.map(post => { return {__html: post.content}}).reverse()
+    let sideBarCats = postsDisplay.map(value => {return value.tags})
+    sideBarCats = [... new Set([].concat(...sideBarCats))]
+    let htmlText = postsDisplay.map(post => { return {__html: post.content}}).reverse()
     return (
     <div>
       <div id="sidebar-container">
@@ -85,9 +75,6 @@ class  Home extends React.Component{
   }
 }
 
-/**
- * CONTAINER
- */
 const mapState = (state) => {
   return {
     posts: state.post.allPosts,
