@@ -262,8 +262,10 @@ padding-right: 20px;
   top: 30%;
 }
 
-#titleInput{
-  position: absolute;
+
+#textareas > * {
+  margin: 5% 0;
+  position: relative;
   left:125px;
   margin-top: 1pc;
 }

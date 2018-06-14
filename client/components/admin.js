@@ -19,6 +19,7 @@ const initialState = {
     selectedTitle: '',
     selected: {},
     selectedCategories: [],
+    image: ''
 }
 
 class Admin extends React.Component{
@@ -105,6 +106,10 @@ class Admin extends React.Component{
         this.setState({title: event.target.value})
     }
 
+    onChangeImage = (event) => {
+        this.setState({image: event.target.value})
+    }
+
 
     render(){
 
@@ -126,14 +131,19 @@ class Admin extends React.Component{
 
         <div className ="textFields">
             <form>
+                <div id="textareas">
                 <textarea
-                    id="titleInput" className="field" onChange={this.onChangeTitle.bind(this)}
+                    className="field input" onChange={this.onChangeTitle.bind(this)}
                     value={this.state.title} rows="1" cols="100" placeholder="title"
                 />
-
+                <textarea
+                     className="field input" onChange={this.onChangeImage.bind(this)}
+                    value={this.state.image} rows="1" cols="100" placeholder="insert url for title img"
+                />
+              </div>
                 <Editor
                     className="field" placeholder={'Write here'} selectedId={this.state.selectedId}
-                    title={this.state.title} text={this.state.text}
+                    title={this.state.title} text={this.state.text} image={this.state.image}
                 />
             <div className="button-parent">
                 <button
@@ -159,14 +169,15 @@ const mapState = (state) => {
     return {
        text: state.post.text,
        title: state.post.title,
+       image: state.post.image,
        selectedCategories: state.post.allCategories
     }
   }
 
 const mapDispatch = (dispatch) => {
     return {
-        add (text, title){
-            dispatch(add(text, title))
+        add (text, title, image){
+            dispatch(add(text, title, image))
         }
       }
     }

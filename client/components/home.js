@@ -47,6 +47,7 @@ class  Home extends React.Component{
             <div className="post">
                 <div>
                   <Link className="title-link" to={`/postView/${post.id}`}>{<h1 className="title">{post.title}</h1>}</Link> </div>
+                  <img src ={post.image} />
                   <ReadMore  children = {<div className="post-text" dangerouslySetInnerHTML={htmlText[index]} />} />
 
                   <div className="post-data">

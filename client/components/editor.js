@@ -1,13 +1,14 @@
 import React from 'react'
 import hljs from 'highlight.js'
-import ReactQuill from 'react-quill'
+import ReactQuill, {Quill} from 'react-quill'
 import axios from 'axios'
 import store from '.././store'
 import {add} from '.././store/post.js'
-
+ //NEW approach: Make use of this image uplaod
 /*
  * Simple editor component that takes placeholder text as a prop
  */
+
 export default class Editor extends React.Component {
     constructor (props) {
       super(props)
@@ -28,18 +29,17 @@ export default class Editor extends React.Component {
   }
 
     handleChange (html) {
+      console.log(html, typeof html)
       this.setState({ editorHtml: html });
     }
 
-
-    render () {
+  render () {
       return (
       <div>
     <form>
 
         <div id="editor">
           <ReactQuill
-            ref={(quillNode) => { this.quillNode = quillNode; }}
             theme={this.state.theme}
             onChange={this.handleChange}
             value={this.state.editorHtml}
@@ -47,13 +47,16 @@ export default class Editor extends React.Component {
             formats={Editor.formats}
             bounds={'.app'}
             placeholder={this.props.placeholder}
+            selectedId = {this.props.selectedId}
            />
         </div>
       <div id="button-parent">
         <button
             className="btn btn-default" id="post-button" type="button"  onClick={ () => {
               if (!this.props.title){alert('Post needs a title!')}
-              else {store.dispatch(add(this.state.editorHtml, this.props.title))}
+              else {
+                store.dispatch(add(this.state.editorHtml, this.props.title, this.props.image))
+              }
                 }}>
                     POST
         </button>
@@ -82,20 +85,16 @@ export default class Editor extends React.Component {
     syntax: {
       highlight: text => window.hljs.highlightAuto(text).value,
     },
-    toolbar: [
-      [{ header: '1'}, {header: '2'}, { font: [] }],
+    toolbar: {
+      container: [[{ header: '1'}, {header: '2'}, { font: [] }],
       [{size: []}],
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
       [{list: 'ordered'}, {list: 'bullet'},
        {indent: '-1'}, {indent: '+1'}],
       ['link', 'image', 'code-block'],
-      ['clean'],
+      ['clean']
     ],
-    handlers: {
-      image: function(value){
-        console.log(value, 'image value in handler');
-      }
-    },
+  },
     clipboard: {
       // toggle to add extra line breaks when pasting HTML:
       matchVisual: false,

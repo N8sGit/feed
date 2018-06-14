@@ -212,36 +212,52 @@ const uploader = new Uploader({
 });
 
 app.post('/image/', function(req, res){
-  Image.create(req.body).then( function(createdImage){
-      createdImage.url = req.body.url
-      createdImage.source = req.body.source
-      createdImage.imageId = req.body.postId
-    return createdImage
-  })
-    .then(function(createdImage){
-      res.json({ message: 'image metadata saved', info: createdImage})
-      createdImage.save()
-      return createdImage
-  })
-  .then(function(createdImage){
-    uploader.upload({
-      fileId: createdImage.postId,
-      bucket: 'nathan-anecone',
-      source: createdImage.url,
-      name: createdImage.name
-    },
-    function(data){ // success
-      console.log('upload success:', data);
-      // execute success code
-    },
-    function(errMsg, errObject){ //error
-      console.error('unable to upload: ' + errMsg + ':', errObject);
-      // execute error code
+  let image = req.body
+  console.log(image, 'image')
+  uploader.upload({
+    fileId: image.fileId,
+    bucket: 'nathan-anecone',
+    source: image.url,
+    name: image.name
+  },
+  function(data){ // success
+    console.log('upload success:', data);
+    // execute success code
+  },
+  function(errMsg, errObject){ //error
+    console.error('unable to upload: ' + errMsg + ':', errObject);
+    // execute error code
   });
-
-  })
-    .catch(err => console.error(err))
 })
+
+// Image.create(req.body).then( function(createdImage){
+//   createdImage.url = req.body.url
+//   createdImage.imageId = req.body.imageId
+// return createdImage
+// })
+// .then(function(createdImage){
+//   res.json({ message: 'image metadata saved', info: createdImage})
+//   createdImage.save()
+//   return createdImage
+// })
+// .then(function(createdImage){
+// uploader.upload({
+//   imageId: createdImage.imageId,
+//   bucket: 'nathan-anecone',
+//   url: createdImage.url,
+//   name: createdImage.name
+// },
+// function(data){ // success
+//   console.log('upload success:', data);
+//   // execute success code
+// },
+// function(errMsg, errObject){ //error
+//   console.error('unable to upload: ' + errMsg + ':', errObject);
+//   // execute error code
+// });
+
+// })
+// .catch(err => console.error(err))
 
 
   // sends index.html
