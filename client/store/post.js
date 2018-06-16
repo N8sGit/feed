@@ -12,6 +12,7 @@ const GET_ONE_POST = 'GET_ONE_POST'
 const initialState = {
     text: '',
     title: '',
+    image: '',
     selectedCategory: '',
     allPosts: [],
     categoryPosts: [],
@@ -21,7 +22,7 @@ const initialState = {
 }
 //action creator
 
-const addPost = (post, title) => ({type: ADD_POST, text: post, title: title})
+const addPost = (post, title, image) => ({type: ADD_POST, text: post, title: title, image: image})
 export const getOnePost = (post) => ({type: GET_ONE_POST, onePost: post})
 export const getAllPosts = (posts, categories) => ({type: GET_POSTS, allPosts: posts, allCategories: categories})
 export const getCategory = category => ({type: GET_CATEGORY, selectedCategory: category })
@@ -29,11 +30,12 @@ export const getCategories = categories => ({type: GET_CATEGORIES, allCategories
 export const getCategoryPosts = (posts, categories) => ({type: GET_POSTS_BY_CAT, categoryPosts: posts, allCategories: categories})
 
 //thunk creators
-export const add = (post, title) =>
+export const add = (post, title, image) =>
     dispatch =>
-     axios.post('/post', {text: post, title: title})
+     axios.post('/post', {text: post, title: title, image: image})
       .then(res => {
-          dispatch(addPost(res.data.content, res.data.title))
+          console.log(res.data.image)
+          dispatch(addPost(res.data.content, res.data.title, res.data.image))
       })
       .catch(dispatchAddErr => console.error(dispatchAddErr))
 
@@ -53,6 +55,7 @@ export default function (state = initialState, action){
         case ADD_POST:
              newState.text = action.text;
              newState.title = action.title;
+             newState.image = action.image
              break;
         case GET_POSTS:
              newState.allCategories = action.allCategories;

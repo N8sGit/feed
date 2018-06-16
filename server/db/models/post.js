@@ -14,6 +14,10 @@ const Post = db.define('post', {
     title: {
         type: Sequelize.STRING,
         defaultValue: ''
+    },
+    image: {
+        type: Sequelize.STRING,
+        defaultValue: ''
     }
 })
 

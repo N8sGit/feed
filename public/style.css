@@ -28,6 +28,12 @@ div{
   box-sizing: border-box;
 }
 
+img{
+  margin: 15%;
+  border-radius: 8px;
+  width: 90%;
+}
+
 
 #top::before{
   background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
@@ -262,8 +268,10 @@ padding-right: 20px;
   top: 30%;
 }
 
-#titleInput{
-  position: absolute;
+
+#textareas > * {
+  margin: 5% 0;
+  position: relative;
   left:125px;
   margin-top: 1pc;
 }
