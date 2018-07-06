@@ -124,6 +124,7 @@ app.put('/update/:postId', function(req, res){
 
 
 app.get('/get', function(req, res){
+  console.log(req, 'req')
   let postIds, categoryData, packet
   Post.findAll()
   .then(function(posts){
@@ -150,6 +151,7 @@ app.get('/get', function(req, res){
         })
         .then(function(){
           let posts = packet.posts;
+          console.log(posts, 'posts')
           res.json({message: 'here are all posts', info: posts, categories: categoryData })
         })
         .catch(error => console.error(error))
