@@ -15,6 +15,7 @@ class  Home extends React.Component{
   componentDidMount = () => {
     axios.get('/get')
     .then(res => {
+      console.log(res, 'response')
         store.dispatch(getAllPosts(res.data.info, res.data.categories))
     })
     .catch(err => console.log(err))
@@ -47,7 +48,7 @@ class  Home extends React.Component{
             <div className="post">
                 <div>
                   <Link className="title-link" to={`/postView/${post.id}`}>{<h1 className="title">{post.title}</h1>}</Link> </div>
-                  <img src ={post.image} />
+                  { post.image ? <img src ={post.image} /> : ''}
                   <ReadMore  children = {<div className="post-text" dangerouslySetInnerHTML={htmlText[index]} />} />
 
                   <div className="post-data">
