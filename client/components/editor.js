@@ -29,7 +29,6 @@ export default class Editor extends React.Component {
   }
 
     handleChange (html) {
-      console.log(html, typeof html)
       this.setState({ editorHtml: html });
     }
 

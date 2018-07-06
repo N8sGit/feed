@@ -34,7 +34,6 @@ export const add = (post, title, image) =>
     dispatch =>
      axios.post('/post', {text: post, title: title, image: image})
       .then(res => {
-          console.log(res.data.image)
           dispatch(addPost(res.data.content, res.data.title, res.data.image))
       })
       .catch(dispatchAddErr => console.error(dispatchAddErr))
