@@ -23,6 +23,7 @@ class  Home extends React.Component{
 
    render(){
     const {posts, categories} = this.props
+    console.log(posts, 'posts')
      let postsDisplay = posts.filter((post, index) => {
       if (categories[index].tags.length){
         post.tags = categories[index].tags
