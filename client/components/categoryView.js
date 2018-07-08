@@ -39,7 +39,7 @@ class CategoryView extends React.Component{
                         return (
                             <div className="post" key={post.id}>
                                 <div> <Link className="title-link" to={`/postView/${post.id}`}>{<h1 className="title">{post.title}</h1>}</Link> </div>
-                                { post.image ? <img src ={post.image} /> : ''}
+                                { post.image ? <img src ={post.image} /> : null}
                                 <ReadMore className="post-text" children = {<div dangerouslySetInnerHTML={htmlText[index]} />} />
 
                                 <div className="post-data">

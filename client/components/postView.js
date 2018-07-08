@@ -24,7 +24,7 @@ class PostView extends React.Component {
         <div className="posts-container">
             <div className="post">
                     <h1 id="single-title" className="title">{post.title}</h1>
-                    { post.image ? <img src ={post.image} /> : ''}
+                    { post.image ? <img src ={post.image} /> : null}
             <div className="post-text" id="single-text" dangerouslySetInnerHTML={htmlText} />
         </div>
             <div className="post-data" id="single-date">{formatDate(post.createdAt)}</div>
