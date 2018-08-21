@@ -110,6 +110,7 @@ app.put('/update/:postId', function(req, res){
     .then(post => {
       post.content = req.body.content
       post.title = req.body.title
+      post.image = req.body.image
       post.save()
       return post
     })
@@ -137,7 +138,7 @@ app.get('/get', function(req, res){
      packet = {posts, postIds, categoryData}
     return packet
   })
-    .then(function(result){
+    .then(function(){
       return Category.findAll({where: { postId: packet.postIds}})
     })
      .then(function(cats){
