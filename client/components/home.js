@@ -11,24 +11,34 @@ import {Link} from 'react-router-dom'
 import About from './about'
 
 class  Home extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      categories: [],
+      posts: []
+    }
+  }
 
   componentDidMount = () => {
     axios.get('/get')
     .then(res => {
       console.log(res, 'response')
         store.dispatch(getAllPosts(res.data.info, res.data.categories))
+        let posts = res.data.info;
+        let categories = res.data.categories
+        posts.filter((post, index) => {
+          if (categories[index].tags.length){
+            post.tags = categories[index].tags
+            return post
+          }
+        })
+        this.setState( {categories: categories, posts: posts})
     })
     .catch(err => console.log(err))
    }
 
    render(){
-    const {posts, categories} = this.props
-     let postsDisplay = posts.filter((post, index) => {
-      if (categories[index].tags.length){
-        post.tags = categories[index].tags
-        return post
-      }
-    })
+    let postsDisplay = this.state.posts
     let sideBarCats = postsDisplay.map(value => {return value.tags})
     sideBarCats = [... new Set([].concat(...sideBarCats))]
     let htmlText = postsDisplay.map(post => { return {__html: post.content}}).reverse()

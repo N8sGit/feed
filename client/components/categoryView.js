@@ -19,6 +19,7 @@ class CategoryView extends React.Component{
     }
 
    render(){
+       console.log(this.props.categories, 'categoreis')
        let postsDisplay = this.props.posts.reverse()
        let htmlText = postsDisplay.map(post => { return {__html: post.content}})
        let categoryDisplay = this.props.categories.map((item) => {
