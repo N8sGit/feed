@@ -5868,7 +5868,7 @@ var About = function (_React$Component) {
           _react2.default.createElement(
             'p',
             null,
-            'I\'m a software developer and writer. I\'m interested in making cool things, the software industry, programming best practices, web technologies, the internet, digital trends, neuroscience, and related interests. '
+            'I\'m a software developer and writer. I\'m interested in software engineering, commentary about the software industry, programming best practices, web technologies, the internet, digital trends, neuroscience and more! '
           )
         ) : null
       );
@@ -26435,6 +26435,11 @@ var Home = function (_React$Component) {
             return post;
           }
         });
+        posts = posts.filter(function (post) {
+          if (post.tags) {
+            return post;
+          }
+        });
         _this.setState({ categories: categories, posts: posts });
       }).catch(function (err) {
         return console.log(err);
@@ -26540,7 +26545,7 @@ var Home = function (_React$Component) {
           _react2.default.createElement(
             'p',
             null,
-            'Site by Nathan Anecone '
+            'Site by me '
           )
         )
       );

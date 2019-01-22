@@ -32,17 +32,21 @@ class  Home extends React.Component{
             return post
           }
         })
+        posts = posts.filter((post) => {
+          if (post.tags){ return post }
+        })
         this.setState( {categories: categories, posts: posts})
     })
     .catch(err => console.log(err))
    }
+
 
    render(){
     let postsDisplay = this.state.posts
     let sideBarCats = postsDisplay.map(value => {return value.tags})
     sideBarCats = [... new Set([].concat(...sideBarCats))]
     let htmlText = postsDisplay.map(post => { return {__html: post.content}}).reverse()
-    return (
+        return (
     <div>
       <div id="sidebar-container">
       <h1>Nathan Anecone</h1>
@@ -53,7 +57,7 @@ class  Home extends React.Component{
      <div className="posts-container">
 
           <div className="posts">
-          {postsDisplay.reverse().map(function(post, index){
+          { postsDisplay.reverse().map(function(post, index){
             return (
             <div className="post">
                 <div>
@@ -65,7 +69,7 @@ class  Home extends React.Component{
                   <p>{formatDate(post.createdAt)}</p>
                             <ul className="post-data-list">
                               {
-                                post.tags.map(function(category){
+                                 post.tags.map(function(category){
                                         let categoryLink = category.slice(1)
                                       return <div key={post.id}> <Link className="linktext" to={`/categoryView/${categoryLink}`}> {category} </Link> </div>
                                 })
@@ -80,7 +84,7 @@ class  Home extends React.Component{
     </div>
 
     <footer>
-          <p>Site by Nathan Anecone </p>
+          <p>Site by me </p>
     </footer>
   </div>
   )
