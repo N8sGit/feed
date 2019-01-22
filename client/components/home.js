@@ -20,6 +20,7 @@ class  Home extends React.Component{
   }
 
   componentDidMount = () => {
+    console.log('did mount')
     axios.get('/get')
     .then(res => {
       console.log(res, 'response')
