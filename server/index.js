@@ -13,9 +13,9 @@ const app = express()
 const socketio = require('socket.io')
 const {Post, Category, Image} = require('./db/models')
 const Uploader = require('s3-image-uploader');
+const unirest = require('unirest');
 
 module.exports = app
-
 /**
  * In your development environment, you can keep all of your
  * app's secret API keys in a file called `secrets.js`, in your project
@@ -79,189 +79,26 @@ const createApp = () => {
      next()
   });
 
-  app.post('/post', function(req, res){
-    Post.create(req.body)
-    .then(function (created) {
-        created.content = req.body.text
-        created.title = req.body.title
-      res.json({
-        message: 'post created successfully',
-        info: created
-      });
-      created.save()
-    })
-  })
-
-  app.post('/categories', function(req, res){
-    Category.create(req.body)
-    .then(function(created){
-      created.postId = req.body.postId
-      created.category = req.body.category
-      res.json({
-        message: 'category association made',
-        info: created
-      });
-      created.save()
-    })
-  })
-
-app.put('/update/:postId', function(req, res){
-  Post.findById(req.params.postId)
-    .then(post => {
-      post.content = req.body.content
-      post.title = req.body.title
-      post.image = req.body.image
-      post.save()
-      return post
-    })
-    .then(post => {
-      res.json({post: post, message: 'post updated'})
-    })
-    .catch(error => {
-      console.log(error)
-    })
-
-})
-
-
-app.get('/get', function(req, res){
-  let postIds, categoryData, packet
-  Post.findAll()
-  .then(function(posts){
-    postIds = posts.map((value) => {return value.id.toString()})
-     categoryData = [];
-
-    for (let i = 0; i < posts.length; i++){
-      categoryData[i] = { id: posts[i].id, tags: [], title: posts[i].title, content: posts[i].content}
-    }
-
-     packet = {posts, postIds, categoryData}
-    return packet
-  })
-    .then(function(){
-      return Category.findAll({where: { postId: packet.postIds}})
-    })
-     .then(function(cats){
-          cats.map(function(value){
-            let index = packet.categoryData.findIndex(i => i.id == value.postId);
-           if (!packet.categoryData[index].tags.includes('#' + value.category)){
-              packet.categoryData[index].tags.push( '#' + value.category)
-            }
-          })
-        })
-        .then(function(){
-          let posts = packet.posts;
-          res.json({message: 'here are all posts', info: posts, categories: categoryData })
-        })
-        .catch(error => console.error(error))
-})
-
-app.get('/getPostById/:id', function(req, res){
-  Post.findById(req.params.id)
-    .then(post => {
-      res.json({message: 'here is the post associated with that id', info: post})
-    })
-})
-
-app.get('/getById/:id', function(req, res){
-  let categories = []
-  Category.findAll({where: {postId: req.params.id}})
-    .then(function(result){
-      result.forEach((value) => categories.push(value.category))
-    })
-      .then(function(){
-        console.log(categories, 'categories in route ')
-        res.json({message: 'categories sent', allCategories: categories})
-      })
-
-})
-//REFACTOR THIS AT SOME POINT, IT DOESN'T UTILIZE PROMISE CHAINING
-app.get('/getByCat/:category', function(req, res){
-  Category.findAll({where: {category: req.params.category} })
-  .then(function(association){
-    let postData = [];
-    association.map(function(item){
-      postData.push(item.postId.toString())
-    })
-    Post.findAll({where: {id: postData}})
-    .then(function(posts){
-      let data = []
-      for (let i = 0; i < posts.length; i++){
-        data[i] = { id: posts[i].id, tags: []}
+  app.post('/search', function(req, res){
+    function sanitizeInput(query){
+      if (query.includes(' ')){
+        query = query.split(' ')
+        return query.join('+')
       }
-    Category.findAll({where: {postId: postData}})
-      .then(function(result){
-        result.map(function(value){
-        let index = data.findIndex(i => Number(i.id) === Number(value.postId));
-        data[index].tags.push( '#' + value.category)
-        })
-      })
-        .then(function(){
-          res.json({message: 'these are all the posts associated with that category', info: posts, categories: data})
-        })
-          .catch(err => console.error(err))
-      })
+      else { return query }
+    }
+  let query = sanitizeInput(req.body.query)
+
+  unirest.get(`https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/WebSearchAPI?autoCorrect=true&pageNumber=1&pageSize=10&q=${query}&safeSearch=false`)
+  .header('X-RapidAPI-Key', 'f5867441f5msh5d787993b36708dp145b32jsnb7a596847a9f')
+    .end(function (result) {
+      let info = {}
+      info.title = result.body.value[0].title
+      info.url = result.body.value[0].url
+      res.json(info)
+    })
   })
-})
-//Image BACKEND
-const uploader = new Uploader({
-  aws: {
-    key: process.env.AWS_KEY || secrets.awsAccessKey.awsKey,
-    secret: process.env.AWS_SECRET || secrets.awsAccessKey.awsSecret
-  },
-  websockets: false
-});
 
-app.post('/image/', function(req, res){
-  let image = req.body
-  console.log(image, 'image')
-  uploader.upload({
-    fileId: image.fileId,
-    bucket: 'nathan-anecone',
-    source: image.url,
-    name: image.name
-  },
-  function(data){ // success
-    console.log('upload success:', data);
-    // execute success code
-  },
-  function(errMsg, errObject){ //error
-    console.error('unable to upload: ' + errMsg + ':', errObject);
-    // execute error code
-  });
-})
-
-// Image.create(req.body).then( function(createdImage){
-//   createdImage.url = req.body.url
-//   createdImage.imageId = req.body.imageId
-// return createdImage
-// })
-// .then(function(createdImage){
-//   res.json({ message: 'image metadata saved', info: createdImage})
-//   createdImage.save()
-//   return createdImage
-// })
-// .then(function(createdImage){
-// uploader.upload({
-//   imageId: createdImage.imageId,
-//   bucket: 'nathan-anecone',
-//   url: createdImage.url,
-//   name: createdImage.name
-// },
-// function(data){ // success
-//   console.log('upload success:', data);
-//   // execute success code
-// },
-// function(errMsg, errObject){ //error
-//   console.error('unable to upload: ' + errMsg + ':', errObject);
-//   // execute error code
-// });
-
-// })
-// .catch(err => console.error(err))
-
-
-  // sends index.html
   app.use('*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public/index.html'))
   })
