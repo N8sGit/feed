@@ -63,6 +63,7 @@
     "react-router-dom": "^4.1.1",
     "react-test-renderer": "^16.0.0",
     "react-truncate": "^2.3.0",
+    "react-tweet-embed": "^1.1.1",
     "redux": "^3.6.0",
     "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^2.8.1",
@@ -72,6 +73,7 @@
     "sequelize": "^4.3.1",
     "socket.io": "^2.0.3",
     "supertest": "^3.0.0",
+    "twit": "^2.2.11",
     "unirest": "^0.5.1",
     "webpack": "^2.2.1",
     "webpack-livereload-plugin": "^2.1.1"

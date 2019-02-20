@@ -13,8 +13,7 @@ const app = express()
 const socketio = require('socket.io')
 const {Post, Category, Image} = require('./db/models')
 const Uploader = require('s3-image-uploader');
-const unirest = require('unirest');
-
+const Twit = require('twit');
 module.exports = app
 /**
  * In your development environment, you can keep all of your
@@ -79,23 +78,24 @@ const createApp = () => {
      next()
   });
 
-  app.post('/search', function(req, res){
-    function sanitizeInput(query){
-      if (query.includes(' ')){
-        query = query.split(' ')
-        return query.join('+')
-      }
-      else { return query }
-    }
-  let query = sanitizeInput(req.body.query)
+  const authConfig = {
+    consumer_key: 'Q1c1Ec64P0j5Ydg9TOwJjgoyy',
+    consumer_secret: 'REUqPXb163c0HSaThu6361T6MoAw5l7EJ3uoSFK2icAux36UOJ',
+    access_token: '2948033138-n7jyijhlhSTBT6aHRCg5nIuDD9X6v4yfA8o59pJ',
+    access_token_secret: '20KnIgl5escTQQq7EkHAnqKROtRLIlGprz1j1u5je9dz3',
+    timeout_ms: 60 * 1000
+  };
+  //'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=justinbieber&count=5
+  const Twitter = new Twit(authConfig);
 
-  unirest.get(`https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/WebSearchAPI?autoCorrect=true&pageNumber=1&pageSize=10&q=${query}&safeSearch=false`)
-  .header('X-RapidAPI-Key', 'f5867441f5msh5d787993b36708dp145b32jsnb7a596847a9f')
-    .end(function (result) {
-      let info = {}
-      info.title = result.body.value[0].title
-      info.url = result.body.value[0].url
-      res.json(info)
+
+  app.post('/twitter', function(req, response){
+    let screenName = req.body.query
+     Twitter.get(`https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${screenName}&count=5`, (req, res) => {
+    // console.log(res, 'Twitter get log');
+    const data = Array.from(res);
+    const result = data.map((value) => ({ id: value.id_str}));
+    response.json(result)
     })
   })
 

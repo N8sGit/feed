@@ -23,7 +23,6 @@ class Main extends React.Component{
   render(){
     const {loading} = this.state
     let {children } = this.props
-
     return (
       loading ?  <div id="loading" style={{opacity: !loading ? 0 : 1, zIndex: !loading ? '-100' : '100'}}>
         <i className="fa fa-spinner fa-pulse" />
