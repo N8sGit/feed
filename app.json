@@ -1,0 +1,11 @@
+{
+  "name": "Search",
+  "description": "TODO: Add a short description about Search",
+  "keywords": [
+    "small",
+    "sharp",
+    "tool"
+  ],
+  "addons": [],
+  "env": {}
+}
