@@ -91,10 +91,10 @@ const createApp = () => {
 
   app.post('/twitter', function(req, response){
     let screenName = req.body.query
-     Twitter.get(`https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${screenName}&count=5`, (req, res) => {
-    // console.log(res, 'Twitter get log');
+    let count = req.body.number
+     Twitter.get(`https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${screenName}&count=${count}`, (req, res) => {
     const data = Array.from(res);
-    const result = data.map((value) => ({ id: value.id_str}));
+    const result = data.map((value) => ( value.id_str));
     response.json(result)
     })
   })
